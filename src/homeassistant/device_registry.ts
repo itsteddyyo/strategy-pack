@@ -1,4 +1,3 @@
-import type { HomeAssistant } from "custom-card-helpers";
 import type {
   EntityRegistryDisplayEntry,
   EntityRegistryEntry,
@@ -38,60 +37,3 @@ export interface DeviceRegistryEntryMutableParams {
   disabled_by?: string | null;
   labels?: string[];
 }
-
-export const devicesInArea = (devices: DeviceRegistryEntry[], areaId: string) =>
-  devices.filter((device) => device.area_id === areaId);
-
-export const updateDeviceRegistryEntry = (
-  hass: HomeAssistant,
-  deviceId: string,
-  updates: Partial<DeviceRegistryEntryMutableParams>
-) =>
-  hass.callWS<DeviceRegistryEntry>({
-    type: "config/device_registry/update",
-    device_id: deviceId,
-    ...updates,
-  });
-
-export const removeConfigEntryFromDevice = (
-  hass: HomeAssistant,
-  deviceId: string,
-  configEntryId: string
-) =>
-  hass.callWS<DeviceRegistryEntry>({
-    type: "config/device_registry/remove_config_entry",
-    device_id: deviceId,
-    config_entry_id: configEntryId,
-  });
-
-export const getDeviceEntityLookup = (
-  entities: EntityRegistryEntry[]
-): DeviceEntityLookup => {
-  const deviceEntityLookup: DeviceEntityLookup = {};
-  for (const entity of entities) {
-    if (!entity.device_id) {
-      continue;
-    }
-    if (!(entity.device_id in deviceEntityLookup)) {
-      deviceEntityLookup[entity.device_id] = [];
-    }
-    deviceEntityLookup[entity.device_id].push(entity);
-  }
-  return deviceEntityLookup;
-};
-
-export const getDeviceEntityDisplayLookup = (
-  entities: EntityRegistryDisplayEntry[]
-): DeviceEntityDisplayLookup => {
-  const deviceEntityLookup: DeviceEntityDisplayLookup = {};
-  for (const entity of entities) {
-    if (!entity.device_id) {
-      continue;
-    }
-    if (!(entity.device_id in deviceEntityLookup)) {
-      deviceEntityLookup[entity.device_id] = [];
-    }
-    deviceEntityLookup[entity.device_id].push(entity);
-  }
-  return deviceEntityLookup;
-};
