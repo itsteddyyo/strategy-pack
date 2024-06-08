@@ -6,7 +6,7 @@ import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { filterValue, hiddenFilter } from './util/filter';
 import { labelSort } from './util/helper';
-import { DashboardConfig, ViewConfig, AreaStrategyViewConfig, RowConfig, Comparator, AreaStrategyOptions } from "./util/types";
+import { DashboardConfig, ViewConfig, AreaStrategyViewConfig, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
 
 import defaultConfig from "./defaultConfig.yml";
 import { createGrid } from "./util/createGrid";
@@ -302,8 +302,5 @@ class AreaViewStrategy extends HTMLTemplateElement {
   }
 }
 
-customElements.define(
-  "ll-strategy-dashboard-area-dashboard-strategy",
-  AreaDashboardStrategy
-);
-customElements.define("ll-strategy-view-area-view-strategy", AreaViewStrategy);
+customElements.define(`${CUSTOM_ELEMENT_DASHBOARD}area-dashboard-strategy`, AreaDashboardStrategy);
+customElements.define(`${CUSTOM_ELEMENT_VIEW}area-view-strategy`, AreaViewStrategy);

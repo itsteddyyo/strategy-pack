@@ -2,7 +2,7 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers"
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { AreaStrategyCardConfig } from "./util/types";
+import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW } from "./util/types";
 import { createGrid } from "./util/createGrid";
 
 class UpdateViewStrategy extends HTMLTemplateElement {
@@ -43,18 +43,24 @@ class UpdateViewStrategy extends HTMLTemplateElement {
         return {
             panel: true,
             cards: [
-                ...(otherEntities.length > 0
-                    ? createGrid(otherEntities, updateCardConfig, "Other")
-                    : []),
-                ...(unifiEntities.length > 0
-                    ? createGrid(unifiEntities, updateCardConfig, "UniFi")
-                    : []),
-                ...(esphomeEntities.length > 0
-                    ? createGrid(esphomeEntities, updateCardConfig, "ESPHome")
-                    : []),
-            ],
+                {
+                    type: "vertical-stack",
+                    cards: [
+
+                        ...(otherEntities.length > 0
+                            ? createGrid(otherEntities, updateCardConfig, "Other")
+                            : []),
+                        ...(unifiEntities.length > 0
+                            ? createGrid(unifiEntities, updateCardConfig, "UniFi")
+                            : []),
+                        ...(esphomeEntities.length > 0
+                            ? createGrid(esphomeEntities, updateCardConfig, "ESPHome")
+                            : []),
+                    ]
+                }
+            ]
         };
     }
 }
 
-customElements.define("ll-strategy-view-update-view-strategy", UpdateViewStrategy);
+customElements.define(`${CUSTOM_ELEMENT_VIEW}update-view-strategy`, UpdateViewStrategy);

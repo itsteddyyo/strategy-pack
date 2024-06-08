@@ -2,7 +2,7 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers"
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { AreaStrategyCardConfig } from "./util/types";
+import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW } from "./util/types";
 import { createGrid } from "./util/createGrid";
 
 class BatteryViewStrategy extends HTMLTemplateElement {
@@ -61,18 +61,24 @@ class BatteryViewStrategy extends HTMLTemplateElement {
         return {
             panel: true,
             cards: [
-                ...(otherEntities.length > 0
-                    ? createGrid(otherEntities, batteryCardConfig, "Other")
-                    : []),
-                ...(mqttEntities.length > 0
-                    ? createGrid(mqttEntities, batteryCardConfig, "Zigbee")
-                    : []),
-                ...(switchbotEntities.length > 0
-                    ? createGrid(switchbotEntities, batteryCardConfig, "Switchbot")
-                    : []),
+                {
+                    type: "vertical-stack",
+                    cards: [
+
+                        ...(otherEntities.length > 0
+                            ? createGrid(otherEntities, batteryCardConfig, "Other")
+                            : []),
+                        ...(mqttEntities.length > 0
+                            ? createGrid(mqttEntities, batteryCardConfig, "Zigbee")
+                            : []),
+                        ...(switchbotEntities.length > 0
+                            ? createGrid(switchbotEntities, batteryCardConfig, "Switchbot")
+                            : []),
+                    ]
+                }
             ],
         };
     }
 }
 
-customElements.define("ll-strategy-view-battery-view-strategy", BatteryViewStrategy);
+customElements.define(`${CUSTOM_ELEMENT_VIEW}battery-view-strategy`, BatteryViewStrategy);
