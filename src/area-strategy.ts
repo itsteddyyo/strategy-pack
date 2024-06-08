@@ -14,31 +14,31 @@ import { createGrid } from "./util/createGrid";
 class AreaDashboardStrategy extends HTMLTemplateElement {
   static async generate(dashboardConfig: DashboardConfig, hass: HomeAssistant): Promise<LovelaceConfig> {
     // Query all data we need. We will make it available to views by storing it in strategy options.
-    const [areas, devices, entities] = await Promise.all([
-      hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
-      hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
+    const [entities, devices, areas] = await Promise.all([
       hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
+      hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
+      hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
     ]);
 
     const usedAreas = areas.filter((area) => {
       return (
         area.labels.filter((label) => label == "area_deactivate").length == 0
       );
-    });
+    }).sort(labelSort);
 
-    const mergedOptions = {
-      ...defaultConfig as AreaStrategyOptions,
-      ...(dashboardConfig.options || {}),
-    };
-
-    const areaViews: Array<AreaStrategyViewConfig> = usedAreas.sort(labelSort).map((area, index) => ({
+    const areaViews: Array<AreaStrategyViewConfig> = usedAreas.map((area, index) => ({
       strategy: {
         type: "custom:area-view-strategy",
-        area,
-        devices,
-        entities,
-        areas: usedAreas,
-        options: mergedOptions,
+        meta: {
+          entities,
+          devices,
+          areas,
+        },
+        options: {
+          ...defaultConfig as AreaStrategyOptions,
+          ...(dashboardConfig.options || {}),
+          area: area.area_id,
+        },
       },
       title: area.name,
       path: area.area_id,
@@ -57,14 +57,44 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
 class AreaViewStrategy extends HTMLTemplateElement {
   static async generate(viewConfig: ViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-    const { area, devices, entities, areas, options } = viewConfig;
-    const { tabs, replaceCards, topCards, areaColor } = options;
+    const { options, meta } = viewConfig;
+    const { area, tabs, replaceCards, topCards, areaColor } = options;
+
+    let entities = Array<EntityRegistryEntry>();
+    let devices = Array<DeviceRegistryEntry>();
+    let areas = Array<AreaRegistryEntry>();
+
+    if (!!meta) {
+      entities = meta.entities;
+      devices = meta.devices;
+      areas = meta.areas;
+    } else {
+      const loadedMeta = await Promise.all([
+        hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
+        hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
+        hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
+      ]);
+      entities = loadedMeta[0];
+      devices = loadedMeta[1];
+      areas = loadedMeta[2];
+    }
+
+    entities = [...entities].sort(labelSort);
+    devices = [...devices].sort(labelSort);
+    areas = [...areas].sort(labelSort);
+
+    const usedAreas = areas.filter((area) => {
+      return (
+        area.labels.filter((label) => label == "area_deactivate").length == 0
+      );
+    });
+    const currentArea = areas.find(a => a.area_id == area);
+
+    if (!currentArea) throw Error("No area defined");
 
     const areaDevices = new Set();
-
-    // Find all devices linked to this area
     for (const device of devices) {
-      if (device.area_id === area.area_id) {
+      if (device.area_id === currentArea.area_id) {
         areaDevices.add(device.id);
       }
     }
@@ -84,7 +114,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
       ],
     };
 
-    const navigationCard = areas.reduce(
+    const navigationCard = usedAreas.reduce(
       (prev, curr, index) => {
         const areaCard = {
           type: "area",
@@ -111,7 +141,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
               },
             },
             all:
-              curr.area_id == area.area_id
+              curr.area_id == currentArea.area_id
                 ? areaCard
                 : {
                   ...areaCard,
@@ -142,7 +172,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
           //in this area
           .filter((entity) => {
             return entity.area_id
-              ? entity.area_id === area.area_id
+              ? entity.area_id === currentArea.area_id
               : areaDevices.has(entity.device_id);
           })
           //entity in defined domain of row

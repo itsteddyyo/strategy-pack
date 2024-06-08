@@ -42,6 +42,7 @@ export interface TabConfig {
 }
 
 export interface AreaStrategyOptions {
+    area: string;
     tabs: Array<TabConfig>;
     areaColor: Array<string>;
     topCards?: Array<LovelaceCardConfig>;
@@ -56,11 +57,12 @@ export interface DashboardConfig {
 
 export interface ViewConfig {
     type: "custom:area-view-strategy";
-    area: AreaRegistryEntry;
-    devices: Array<DeviceRegistryEntry>;
-    entities: Array<EntityRegistryEntry>;
-    areas: Array<AreaRegistryEntry>;
     options: AreaStrategyOptions;
+    meta?: {
+        devices: Array<DeviceRegistryEntry>;
+        entities: Array<EntityRegistryEntry>;
+        areas: Array<AreaRegistryEntry>;
+    }
 }
 
 export interface AreaStrategyViewConfig extends LovelaceViewConfig {
