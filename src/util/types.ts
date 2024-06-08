@@ -1,10 +1,10 @@
 import { LovelaceCardConfig, LovelaceViewConfig } from "custom-card-helpers";
-import { EntityRegistryEntry } from "./homeassistant/entity_registry"
-import { DeviceRegistryEntry } from "./homeassistant/device_registry"
-import { AreaRegistryEntry } from "./homeassistant/area_registry"
+import { EntityRegistryEntry } from "../homeassistant/entity_registry"
+import { DeviceRegistryEntry } from "../homeassistant/device_registry"
+import { AreaRegistryEntry } from "../homeassistant/area_registry"
 
 export enum FilterType {
-    state="state", domain="domain", attribute="attribute"
+    state = "state", domain = "domain", attribute = "attribute"
 }
 
 export enum Comparator {
@@ -46,12 +46,13 @@ export interface AreaStrategyOptions {
 }
 
 export interface DashboardConfig {
-    options: AreaStrategyOptions;
-    type: "custom:area-strategy";
+    type: "custom:area-dashboard-strategy";
+    options?: AreaStrategyOptions;
+    views?: Array<LovelaceViewConfig>;
 }
 
-export interface StrategyConfig {
-    type: "custom:area-strategy";
+export interface ViewConfig {
+    type: "custom:area-view-strategy";
     area: AreaRegistryEntry;
     devices: Array<DeviceRegistryEntry>;
     entities: Array<EntityRegistryEntry>;
@@ -59,6 +60,6 @@ export interface StrategyConfig {
     options: AreaStrategyOptions;
 }
 
-export interface CreateViewConfig extends LovelaceViewConfig {
-    strategy: StrategyConfig;
+export interface AreaStrategyViewConfig extends LovelaceViewConfig {
+    strategy: ViewConfig;
 }

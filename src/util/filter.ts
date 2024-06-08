@@ -1,6 +1,10 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { EntityRegistryEntry } from "./homeassistant/entity_registry";
+import { EntityRegistryEntry } from "../homeassistant/entity_registry";
 import { Comparator, FilterType } from "./types";
+
+export const hiddenFilter = (entity: EntityRegistryEntry) => {
+    return !entity.disabled_by && !entity.hidden_by;
+}
 
 export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
     switch (comparator) {
