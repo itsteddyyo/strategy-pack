@@ -1,9 +1,9 @@
-const path = require('path')
-const { defineConfig } = require('vite')
+import path from "path"
+import { defineConfig } from 'vite';
 
 import ViteYaml from '@modyfi/vite-plugin-yaml';
 
-module.exports = defineConfig({
+export default defineConfig({
   plugins: [
     ViteYaml()
   ],

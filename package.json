@@ -2,6 +2,7 @@
   "name": "@teddyyo/area-strategy",
   "version": "0.0.1",
   "description": "A Dashboard Strategy to generate a Dashboard with Views per Area autopopulated by entities",
+  "type": "module",
   "files":["dist"],
   "main":"./dist/area-strategy.umd.js",
   "module":"./dist/area-strategy.es.js",
