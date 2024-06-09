@@ -11,12 +11,12 @@ export enum FilterType {
 }
 
 export enum Comparator {
-    equal, greater_than, is_null, is_numeric
+    equal = "equal", greater_than = "greater_than", is_null = "is_null", is_numeric = "is_numeric"
 }
 
 export interface FilterConfig {
-    type: FilterType; //TODO enum
-    comparator?: Comparator; //TODO enum is_numeric
+    type: FilterType;
+    comparator?: Comparator;
     value?: unknown;
 }
 
