@@ -7,19 +7,21 @@ export const hiddenFilter = (entity: EntityRegistryEntry) => {
 }
 
 export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
+    const a_number = parseFloat(a as string);
+    const b_number = parseFloat(b as string);
     switch (comparator) {
         case Comparator.equal:
             return a == b;
         case Comparator.greater_than:
-            if (typeof a !== 'number' || typeof b !== 'number') {
+            if (isNaN(a_number) || isNaN(b_number)) {
                 throw Error("Cannot compare. One or more values are not numeric")
             } else {
-                return a > b
+                return a_number > b_number
             }
         case Comparator.is_null:
             return !!a;
         case Comparator.is_numeric:
-            return typeof a === 'number'
+            return !isNaN(a_number);
     }
 };
 
