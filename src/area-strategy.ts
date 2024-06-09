@@ -5,7 +5,7 @@ import { DeviceRegistryEntry } from "./homeassistant/device_registry";
 import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { filterValue, hiddenFilter } from './util/filter';
-import { labelSort } from './util/helper';
+import { labelSort, notNil } from './util/helper';
 import { DashboardConfig, ViewConfig, AreaStrategyViewConfig, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
 
 import defaultConfig from "./defaultConfig.yml";
@@ -237,7 +237,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
           return null;
         }
       })
-      .filter((tab) => !!tab);
+      .filter(notNil);
 
     const mainCard = {
       type: "custom:tabbed-card",

@@ -10,3 +10,7 @@ export const labelSort = (a: { labels: Array<string> }, b: { labels: Array<strin
   const bSort = labelToNumberArray(b.labels || [])[0];
   return aSort - bSort;
 };
+
+export function notNil<T>(val: T | null | undefined): val is T {
+  return val !== null && val !== undefined;
+}
