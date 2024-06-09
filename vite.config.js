@@ -10,8 +10,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
-      name: 'area-strategy',
-      fileName: (format) => `area-strategy.${format}.js`
+      name: 'strategy-pack',
+      fileName: (format) => `strategy-pack.${format}.js`
     }
   }
 });

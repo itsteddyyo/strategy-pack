@@ -1,15 +1,15 @@
 {
-  "name": "@teddyyo/area-strategy",
+  "name": "@itsteddyyo/strategy-pack",
   "version": "0.0.1",
   "description": "A Dashboard Strategy to generate a Dashboard with Views per Area autopopulated by entities",
   "type": "module",
   "files":["dist"],
-  "main":"./dist/area-strategy.umd.js",
-  "module":"./dist/area-strategy.es.js",
+  "main":"./dist/strategy-pack.umd.js",
+  "module":"./dist/strategy-pack.es.js",
   "exports": {
     ".": {
-      "import": "./dist/area-strategy.es.js",
-      "require": "./dist/area-strategy.umd.js"
+      "import": "./dist/strategy-pack.es.js",
+      "require": "./dist/strategy-pack.umd.js"
     }
   },
   "devDependencies": {
@@ -24,12 +24,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/itsteddyyo/area-strategy.git"
+    "url": "git+https://github.com/itsteddyyo/strategy-pack.git"
   },
   "author": "Florian Saller",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/itsteddyyo/area-strategy/issues"
+    "url": "https://github.com/itsteddyyo/strategy-pack/issues"
   },
-  "homepage": "https://github.com/itsteddyyo/area-strategy#readme"
+  "homepage": "https://github.com/itsteddyyo/strategy-pack#readme"
 }
