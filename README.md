@@ -96,9 +96,9 @@ You can see the Areas have a colored overlay.
 I hope this helps with navigation at a glance but honestly i also just like the look.
 
 The currently selected Room will have no overlay to distinguish it from the others.
+
 The colors can be [configured](see TODO)
-All the details of the area card can also be [configured](see TODO)
-If you wanna hide certain areas that can also be [done](see TODO)
+All the details of the area card, the overlay color can [be configured and you can also hide certain areas if you want](./CONFIGURATION.md#configuration)
 
 ### Main
 
@@ -108,7 +108,7 @@ On the right Side you can see Entities assigned to the View-Area ("Living Room" 
 
 #### <ins>Tabs</ins>
 
-The Entities/Cards are grouped in different tabs. Those can be [configured freely](see TODO).
+The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tab)
 
 In the default configuration there are tabs for:
 
@@ -124,7 +124,7 @@ For example one row for media_players and another row for switches.
 
 ![Row](/documentation/area-strategy-main-rows.png "Row")
 
-The number of rows, their content, the heading and the cards used to display the entities are also completly [configurable](see TOOD).
+The number of rows, their content, the heading and the cards used to display the entities are also completly [configurable](./CONFIGURATION.md#contentrow)
 
 In the default configuration there are rows for:
 
@@ -152,7 +152,7 @@ I skipped lights and fans because they already are controllable with the area-ca
 
 ### Top Cards
 
-The area above the navigation is completly configurable with a slot (of sorts) ["topCards"](see TODO).
+The area above the navigation is completly configurable with a slot (of sorts) ["topCards"](./CONFIGURATION.md).
 
 ![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
 
@@ -168,4 +168,4 @@ With the topCards option you can pass any array of cards you like. Just like wit
 
 Thanks to everyone working on Home Assistant and the everyone in the community. Without your Documentation, Code and Forum Posts i could not have done this.
 
-The design is heavily inspired by [Dwains Dashboard](https://github.com/dwainscheeren/dwains-lovelace-dashboard), as that was my first dashboard because the design and auto-population really hit a nerve with me. I wanna thank Dwain for his great work. His Dashboard is more User-friendly and works without any yaml-Knowledge so it is absolutely a better fit for many Users. Give it a look!
+The design is heavily inspired by [Dwains Dashboard](https://github.com/dwainscheeren/dwains-lovelace-dashboard), as that was my first dashboard because the design and auto-population really hit a nerve with me. I wanna thank Dwain for his great work. His Dashboard is more User-friendly and works without any yaml-Knowledge so it is absolutely a better fit for many Users. Give it a try!
