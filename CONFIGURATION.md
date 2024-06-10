@@ -7,15 +7,10 @@
 | option         | description                                                                                   | type   | required | default    | example                                                                                        |
 |----------------|-----------------------------------------------------------------------------------------------|--------|----------|------------|------------------------------------------------------------------------------------------------|
 | tabs           | Tabs shown in the main area. [More](#tab)                                                            | Array  | yes      | [set](./src/defaultConfig.yml#L1) | <pre>tabs:<br>  - label: Test<br>    icon: mdi:test<br>    rows: [...]                                                |
-| areaColor      | Possible colors for overlay (at least one must be defined). [More](#area-color)                             | Array  | yes      | [set](./src/defaultConfig.yml#L232) | <pre>areaColor:<br>  - rgba(0,0,0,0.5)                                                                   |
+| areaColor      | Possible colors for overlay (at least one must be defined!). Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency. The 8 predefined colors get repeated when you have more than 8 areas so when you want more unique colors you need to add some to your configuration.                            | Array  | yes      | [set](./src/defaultConfig.yml#L232) | <pre>areaColor:<br>  - rgba(0,0,0,0.5)                                                                   |
 | areaCardConfig | The config for the area card. All options allowed expect type, area, navigation_path          | Object | no       | [set](./src/defaultConfig.yml#L225) | <pre>areaCardConfig:<br>  aspect_ratio: 1:1                                                              |
 | topCards       | Slot for cards above navigation.                                                       | Array  | no       | -          | <pre>topCards:<br>  - type: entity<br>    entities:<br>      - button.test<br>      - button.test2                                |
 | replaceCards   | You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card. | Object | no       | -          | <pre>replaceCards:<br>  button.test:<br>    type: entity<br>    entityAttribute: entities<br>    entityAttributeAsArray: true |
-
-## Area Color
-
-Array of colors defined as rgba.
-The rgb defines the color and the a defines the transparancy.
 
 ## Tab
 
