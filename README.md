@@ -65,9 +65,11 @@ It generates a Dashboard with one View per Area configured in your Home Assistan
 This is because the navigation is meant to be made with the left-sided navigation menu.
 
 ### Usage
+
 You need to create a new empty Dashboard for this Strategy Dashboard.
 
 Dashboard -> Edit Dasbhoard -> Paste
+
 ```
 type: custom:area-dashboard-strategy
 options: ...
@@ -79,7 +81,10 @@ views:
 ```
 
 ### Configuration
-[See here](./CONFIGURATION.md)
+
+[Documentation](./CONFIGURATION.md#configuration)
+
+[Default Configuration explained](./CONFIGURATION.md#default-config-explained)
 
 ### Navigation
 
@@ -152,24 +157,6 @@ The area above the navigation is completly configurable with a slot (of sorts) [
 ![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
 
 With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in yaml.
-
-### Default Config explained
-
-There Area Cards show only device_type: occupancy as alarm icon + temperature/moisture as info.
-
-There are 3 Tabs.
-
-Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
-
-![Control](/documentation/area-strategy-main-control.png "Control")
-
-Stats is for "read-only" entities like binary_sensors and sensors.
-
-![Stats](/documentation/area-strategy-main-stats.png "Stats")
-
-Camera is for Camera-Streams.
-
-![Camera](/documentation/area-strategy-main-camera.png "Camera")
 
 ## 2. Battery View Strategy
 

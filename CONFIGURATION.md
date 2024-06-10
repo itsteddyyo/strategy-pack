@@ -1,13 +1,15 @@
 # Configuration
 
+##
+
 ## Configuration Options
 
 | option         | description                                                                                   | type   | required | default    | example                                                                                        |
 |----------------|-----------------------------------------------------------------------------------------------|--------|----------|------------|------------------------------------------------------------------------------------------------|
-| tabs           | Tabs shown in the main area (link)                                                            | Array  | yes      | set (link) | <pre>tabs:<br>  - label: Test<br>    icon: mdi:test<br>    rows: [...]                                                |
-| areaColor      | Possible colors for overlay (at least one must be defined) (link)                             | Array  | yes      | set (link) | <pre>areaColor:<br>  - rgba(0,0,0,0.5)                                                                   |
-| areaCardConfig | The config for the area card. All options allowed expect type, area, navigation_path          | Object | no       | set (link) | <pre>areaCardConfig:<br>  aspect_ratio: 1:1                                                              |
-| topCards       | Slot for cards above navigation (link)                                                        | Array  | no       | -          | <pre>topCards:<br>  - type: entity<br>    entities:<br>      - button.test<br>      - button.test2                                |
+| tabs           | Tabs shown in the main area. [More](#tab)                                                            | Array  | yes      | [set](./src/defaultConfig.yml#L1) | <pre>tabs:<br>  - label: Test<br>    icon: mdi:test<br>    rows: [...]                                                |
+| areaColor      | Possible colors for overlay (at least one must be defined). [More](#area-color)                             | Array  | yes      | [set](./src/defaultConfig.yml#L232) | <pre>areaColor:<br>  - rgba(0,0,0,0.5)                                                                   |
+| areaCardConfig | The config for the area card. All options allowed expect type, area, navigation_path          | Object | no       | [set](./src/defaultConfig.yml#L225) | <pre>areaCardConfig:<br>  aspect_ratio: 1:1                                                              |
+| topCards       | Slot for cards above navigation.                                                       | Array  | no       | -          | <pre>topCards:<br>  - type: entity<br>    entities:<br>      - button.test<br>      - button.test2                                |
 | replaceCards   | You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card. | Object | no       | -          | <pre>replaceCards:<br>  button.test:<br>    type: entity<br>    entityAttribute: entities<br>    entityAttributeAsArray: true |
 
 ## Area Color
@@ -68,3 +70,27 @@ The filter object looks like this.
 | type       | <pre>Type of filter.<br>Available are:<br>- domain<br>- state<br>- attribute<br>Could be expanded in the future if needed.                                                                                                                                                                                | enum                             | yes                                   | <pre>type: state                                                                                                                                                                                                                                                                                                                                                            |
 | comparator | <pre><br>Comparator used to compare/filter.<br>Available are:<br>- equal (needs value to be set!)<br>- greater_than (needs value to be set!)<br>- is_numeric (does not need value. but needs key when attribute-type is used!)<br>- is_null (does not need value. but needs key when attribute-type is used!) | enum                             | no (default is equal)                 | <pre>comparator: is_numeric                                                                                                                                                                                                                                                                                                                                                 |
 | value      | Value to compare against. Can be in variable form. See example.                                                                                                                                                                                                                       | dependant on type and comparator | no (dependant on type and comparator) | <pre>Can be in the form of:<br><br>value: on<br>when: type is domain, state; comparator is equal, greater_than <br><br>not set<br>when: type is domain, state; comparator is is_numeric, is_null<br><br>value:<br>  key: deviceClass<br>  value: battery<br>when: type is attribute, comparator is equal, greater_than<br><br>value:<br>  key: deviceClass<br>when: type is attribute, comparator is is_numeric, is_null |
+
+# Default Config explained
+
+The default config is written as yaml. This should make it easy to make your own changes because it is written exactly as you would in your dashboard.
+
+You can find it [here](./src/defaultConfig.yml)
+
+The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture as info.
+
+![Area Card](/documentation/area-strategy-navigation-single.png "Area Card")
+
+There are 3 Tabs.
+
+Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
+
+![Control](/documentation/area-strategy-main-control.png "Control")
+
+Stats is for "read-only" entities like binary_sensors and sensors.
+
+![Stats](/documentation/area-strategy-main-stats.png "Stats")
+
+Camera is for Camera-Streams.
+
+![Camera](/documentation/area-strategy-main-camera.png "Camera")
