@@ -22,6 +22,34 @@ views:
 
 The collection currently consists of 3 Strategies, but i just started and am looking forward to adding more.
 
+## Installation
+
+### Prerequisites
+
+You need to install the following Custom Repos in HACS for the Strategy to work:
+
+- [card-mod](https://github.com/thomasloven/lovelace-card-mod)
+- [Layout Card](https://github.com/thomasloven/lovelace-layout-card)
+- [State-Switch](https://github.com/thomasloven/lovelace-state-switch)
+- [Tabbed Card](https://github.com/kinghat/tabbed-card)
+- [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom)
+
+Optionally you can install:
+
+- [Mini Graph Card](https://github.com/kalkih/mini-graph-card)
+
+It is not really needed but gets used in the default config. So if you do not want to make your own configuration you need it.
+
+Thanks to the developers of all of these. Could not be done without their incredible work!
+
+### Installation with HACS
+
+Install with HACS blabla.
+
+### Custom Installation
+
+Do shit
+
 ## 1. Area Strategy
 
 The Area Strategy is a Dashboard Strategy, meaning it does not only create a single View but multiple Views at once.
@@ -30,9 +58,32 @@ It generates a Dashboard with one View per Area configured in your Home Assistan
 
  ![Area Strategy](/documentation/area-strategy.gif "Area Strategy")
 
+ You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu (last 3 are other custom views).
+
+ ![Top Menu](/documentation/area-strategy-top-menu.png "Top Menu")
+
+This is because the navigation is meant to be made with the left-sided navigation menu.
+
+### Usage
+You need to create a new empty Dashboard for this Strategy Dashboard.
+
+Dashboard -> Edit Dasbhoard -> Paste
+```
+type: custom:area-dashboard-strategy
+options: ...
+views:
+  - any other views you want to see on your dasboard (will just be a passthrough so you can do everything like in a normal dashboard view config)
+  - can be battery-view-strategy/update-view-strategy
+  - or your own views (https://www.home-assistant.io/dashboards/views/)
+  - or even your own strategy?
+```
+
+### Configuration
+[See here](./CONFIGURATION.md)
+
 ### Navigation
 
-The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card (=card with the picture) on the left Side.
+The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card on the left Side.
 
 ![Navigation](/documentation/area-strategy-navigation.png "Navigation")
 
@@ -41,7 +92,8 @@ I hope this helps with navigation at a glance but honestly i also just like the 
 
 The currently selected Room will have no overlay to distinguish it from the others.
 The colors can be [configured](see TODO)
-The details of the area card can also be [configured](see TODO)
+All the details of the area card can also be [configured](see TODO)
+If you wanna hide certain areas that can also be [done](see TODO)
 
 ### Main
 
@@ -49,9 +101,9 @@ On the right Side you can see Entities assigned to the View-Area ("Living Room" 
 
 ![Main](/documentation/area-strategy-main.png "Main")
 
-#### Tabs
+#### <ins>Tabs</ins>
 
-The Entities/Cards are grouped in different tabs and categories. Those are [configurable also](see TODO).
+The Entities/Cards are grouped in different tabs. Those can be [configured freely](see TODO).
 
 In the default configuration there are tabs for:
 
@@ -59,7 +111,7 @@ In the default configuration there are tabs for:
 - Stats
 - Camera
 
-#### Content/Rows
+#### <ins>Content/Rows</ins>
 
 A Tab can contains as many rows of entities as you like. The rows are supposed to represent different domains and their entities.
 
@@ -76,9 +128,9 @@ Control:
 - media_player
 - cover
 - vacuum
-- switch, input_boolean
-- select, input_select
-- button, scene
+- switch and input_boolean
+- select and input_select
+- button and scene
 - number
 
 Stats:
@@ -95,84 +147,13 @@ I skipped lights and fans because they already are controllable with the area-ca
 
 ### Top Cards
 
-The area above the navigation is completly configurable with a slot (of sorts) "topCards".
+The area above the navigation is completly configurable with a slot (of sorts) ["topCards"](see TODO).
 
 ![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
 
 With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in yaml.
 
-### Configuration
-
-#### Configuration Options
-
-| option         | description                                                                                   | type   | required | default    | example                                                                                        |
-|----------------|-----------------------------------------------------------------------------------------------|--------|----------|------------|------------------------------------------------------------------------------------------------|
-| tabs           | Tabs shown in the main area (link)                                                            | Array  | yes      | set (link) | <pre>tabs:<br>  - label: Test<br>    icon: mdi:test<br>    rows: [...]                                                |
-| areaColor      | Possible colors for overlay (at least one must be defined) (link)                             | Array  | yes      | set (link) | <pre>areaColor:<br>  - rgba(0,0,0,0.5)                                                                   |
-| areaCardConfig | The config for the area card. All options allowed expect type, area, navigation_path          | Object | no       | set (link) | <pre>areaCardConfig:<br>  aspect_ratio: 1:1                                                              |
-| topCards       | Slot for cards above navigation (link)                                                        | Array  | no       | -          | <pre>topCards:<br>  - type: entity<br>    entities:<br>      - button.test<br>      - button.test2                                |
-| replaceCards   | You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card. | Object | no       | -          | <pre>replaceCards:<br>  button.test:<br>    type: entity<br>    entityAttribute: entities<br>    entityAttributeAsArray: true |
-
-#### Area Color
-
-Array of colors defined as rgba.
-The rgb defines the color and the a defines the transparancy.
-
-#### Tab
-
-The Tab show in the the main section.
-Is using the Tabbed-Card (TODO: See).
-
-```
-tabs:
-  - label: Control
-    icon: mdi:button-pointer
-    rows: [...]
-```
-
-Define as many Tabs as you want.
-The Tab will only be shown in the View per Area when it has content.
-
-Example: if the Living Room has a Tab where none of the rows would have entities (like Camera, which has only one row and can easily be empty) the whole Tab is hidden.
-
-#### Content/Row
-
-Define the Rows in the Tab.
-Every Row consists of a (optional) title and a Grid with all the cards for the entities.
-The row is defined by:
-| attribute             | description                                                                                                                                      | type          | required              | example                                                                                                                                                                         |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| domain                | Domain or Array of domains the entity must belong to.                                                                                            | string, Array | yes                   | <pre>domain: button<br>or<br>domain:<br>  - button<br>  - light                                                                                                                                      |
-| title                 | Title shown over Grid. Will not be rendered when not set.                                                                                        | string        | no                    | <pre>title: Test                                                                                                                                                                     |
-| entityAttribute       | The attribute in the card-config where the entityId will be inserted.                                                                            | string        | yes                   | <pre>entityAttribute: entity<br>with<br>entityAttributeAsArray: false<br>for:<br>entity: button.test<br><br>or<br><br>entityAttribute: entities<br>with<br>entityAttributeAsArray: true<br>for:<br>entities:<br>  - button.test |
-| entityAttribueAsArray | If the entityId should be inserted as an Array. (needed for cards that could theoretically display multiple entities)                            | boolean       | no (default is false) | <pre>see above                                                                                                                                                                       |
-| card                  | The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard! | Object        | yes                   | <pre>type: tile<br>iconColor: red                                                                                                                                                       |
-| filter                | Define include and exclude function for more fine-grained control of entities selected for row than only domain.                                 | Object        | no                    | <pre>include:<br>  - type: state<br>    comparator: equal<br>    value: on<br>exclude:<br>  - type: attribute<br>    comparator: is_numeric<br>    value: key: clickCount                                                     |
-
-##### Filter
-
-Filters can be defined for more fine-grained control which entities should be matched.
-You can use both include and exclude as keys.
-
-```
-filter:
-  include:
-    - ...
-  exclude:
-    - ...
-```
-
-Both accept the same types and syntax.
-
-The filter object looks like this.
-
-| attribute  | description                                                                                                                                                                                                                                                                           | type                             | required                              | example                                                                                                                                                                                                                                                                                                                                                                |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|---------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type       | <pre>Type of filter.<br>Available are:<br>- domain<br>- state<br>- attribute<br>Could be expanded in the future if needed.                                                                                                                                                                                | enum                             | yes                                   | <pre>type: state                                                                                                                                                                                                                                                                                                                                                            |
-| comparator | <pre><br>Comparator used to compare/filter.<br>Available are:<br>- equal (needs value to be set!)<br>- greater_than (needs value to be set!)<br>- is_numeric (does not need value. but needs key when attribute-type is used!)<br>- is_null (does not need value. but needs key when attribute-type is used!) | enum                             | no (default is equal)                 | <pre>comparator: is_numeric                                                                                                                                                                                                                                                                                                                                                 |
-| value      | Value to compare against. Can be in variable form. See example.                                                                                                                                                                                                                       | dependant on type and comparator | no (dependant on type and comparator) | <pre>Can be in the form of:<br><br>value: on<br>when: type is domain, state; comparator is equal, greater_than <br><br>not set<br>when: type is domain, state; comparator is is_numeric, is_null<br><br>value:<br>  key: deviceClass<br>  value: battery<br>when: type is attribute, comparator is equal, greater_than<br><br>value:<br>  key: deviceClass<br>when: type is attribute, comparator is is_numeric, is_null |
-
-### Default Config
+### Default Config explained
 
 There Area Cards show only device_type: occupancy as alarm icon + temperature/moisture as info.
 
@@ -190,11 +171,9 @@ Camera is for Camera-Streams.
 
 ![Camera](/documentation/area-strategy-main-camera.png "Camera")
 
-## Battery View Strategy
+## 2. Battery View Strategy
 
-## Update View Strategy
-
-## Installation
+## 3. Update View Strategy
 
 ## Issues
 
