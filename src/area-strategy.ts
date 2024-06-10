@@ -125,38 +125,47 @@ class AreaViewStrategy extends HTMLTemplateElement {
           sensor_classes: ["temperature", "moisture"],
         };
         prev.cards[0].cards.push({
-          type: "custom:state-switch",
-          entity: "mediaquery",
-          states: {
-            "(max-width: 1000px)": {
-              ...areaCard,
-              card_mod: {
-                style: `
+          type: "conditional",
+          conditions: [{
+            condition: "screen",
+            media_query: "(max-width: 1000px)"
+          }],
+          card: {
+            ...areaCard,
+            card_mod: {
+              style: `
                   hui-image {
                     opacity: 0.3;
                   }
                   div.navigate {
                     background-color: ${areaColor[index]};
                   }`,
-              },
             },
-            all:
-              curr.area_id == currentArea.area_id
-                ? areaCard
-                : {
-                  ...areaCard,
-                  card_mod: {
-                    style: `
+          },
+        });
+
+        prev.cards[0].cards.push(
+          {
+            type: "conditional",
+            conditions: [{
+              condition: "screen",
+              media_query: "(min-width: 1001px)"
+            }],
+            card: curr.area_id == currentArea.area_id
+              ? areaCard
+              : {
+                ...areaCard,
+                card_mod: {
+                  style: `
                         hui-image {
                           opacity: 0.3;
                         }
                         div.navigate {
                           background-color: ${areaColor[index]};
                         }`,
-                  },
                 },
-          },
-        });
+              },
+          })
 
         return prev;
       },
@@ -239,7 +248,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
       })
       .filter(notNil);
 
-    const mainCard = {
+    const mainCard: LovelaceCardConfig = {
       type: "custom:tabbed-card",
       styles: {
         "--mdc-tab-text-label-color-default": "var(--primary-text-color)",
@@ -248,33 +257,38 @@ class AreaViewStrategy extends HTMLTemplateElement {
       tabs: generatedTabs,
     };
 
-    const homeCard = {
-      type: "custom:state-switch",
-      entity: "mediaquery",
-      states: {
-        "(max-width: 1000px)": {
-          type: "custom:state-switch",
-          entity: "hash",
-          default: "default",
-          states: {
-            "": {
-              type: "vertical-stack",
-              cards: [
-                navigationCard,
-                {
-                  type: "custom:gap-card",
-                  height: 60,
-                },
-              ],
-            },
-            default: {
-              type: "vertical-stack",
-              cards: [
-                mainCard,
-                {
-                  type: "custom:mushroom-chips-card",
-                  card_mod: {
-                    style: `
+    const homeCard: LovelaceCardConfig = {
+      type: "vertical-stack",
+      cards: [
+        {
+          type: "conditional",
+          conditions: [{
+            condition: "screen",
+            media_query: "(max-width: 1000px)"
+          }],
+          card: {
+            type: "custom:state-switch",
+            entity: "hash",
+            default: "default",
+            states: {
+              "": {
+                type: "vertical-stack",
+                cards: [
+                  navigationCard,
+                  {
+                    type: "custom:gap-card",
+                    height: 60,
+                  },
+                ],
+              },
+              default: {
+                type: "vertical-stack",
+                cards: [
+                  mainCard,
+                  {
+                    type: "custom:mushroom-chips-card",
+                    card_mod: {
+                      style: `
                         ha-card { --chip-background: none; }
                         :host {
                           --chip-icon-size: 1em !important;
@@ -293,42 +307,53 @@ class AreaViewStrategy extends HTMLTemplateElement {
                             display: none;
                           }
                         }`,
-                  },
-                  chips: [
-                    { type: "spacer" },
-                    {
-                      type: "template",
-                      icon: "mdi:home",
-                      icon_height: "40px",
-                      tap_action: {
-                        action: "navigate",
-                        navigation_path: window.location.pathname,
-                      },
                     },
-                    { type: "spacer" },
-                  ],
-                },
-                {
-                  type: "custom:gap-card",
-                  height: 60,
-                },
-              ],
+                    chips: [
+                      { type: "spacer" },
+                      {
+                        type: "template",
+                        icon: "mdi:home",
+                        icon_height: "40px",
+                        tap_action: {
+                          action: "navigate",
+                          navigation_path: window.location.pathname,
+                        },
+                      },
+                      { type: "spacer" },
+                    ],
+                  },
+                  {
+                    type: "custom:gap-card",
+                    height: 60,
+                  },
+                ],
+              },
             },
           },
         },
-        all: {
-          type: "custom:layout-card",
-          layout_type: "custom:grid-layout",
-          layout: {
-            "grid-template-columns": "2fr 3fr",
-            "grid-template-areas": "navigation main",
+        {
+          type: "conditional",
+          conditions: [{
+            condition: "screen",
+            media_query: "(min-width: 1001px)"
+          }],
+          card: {
+            type: "custom:layout-card",
+            layout_type: "custom:grid-layout",
+            layout: {
+              "grid-template-columns": "2fr 3fr",
+              "grid-template-areas": "navigation main",
+            },
+            cards: [navigationCard, mainCard],
           },
-          cards: [navigationCard, mainCard],
         },
-      },
+      ]
     };
 
-    return homeCard as any;
+    return {
+      panel: true,
+      cards: [homeCard],
+    };
   }
 }
 
