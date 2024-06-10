@@ -5,11 +5,14 @@ This is a collection of [Home Assistant Strategies](https://developers.home-assi
 A strategy is Javascript Code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
 
 The strategies can be at dashboard level generating whole dashboards with multiple views
+
 ```
 type: custom:area-dashboard-strategy
 other_options: ...
 ```
+
 or at view level generating a single view.
+
 ```
 views:
   - strategy: custom:area-view-strategy
@@ -21,7 +24,7 @@ The collection currently consists of 3 Strategies, but i just started and am loo
 
 ## 1. Area Strategy
 
-The Area Strategy is a Dashboard Strategy, meaning it does not only create a single View but multiple Views at once. 
+The Area Strategy is a Dashboard Strategy, meaning it does not only create a single View but multiple Views at once.
 
 It generates a Dashboard with one View per Area configured in your Home Assistant. The Dashboard contains all entities assigned to that Area (either per device or entity itself).
 
@@ -29,12 +32,12 @@ It generates a Dashboard with one View per Area configured in your Home Assistan
 
 ### Navigation
 
-The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card (=card with the picture) on the left Side. 
+The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card (=card with the picture) on the left Side.
 
 ![Navigation](/documentation/area-strategy-navigation.png "Navigation")
 
 You can see the Areas have a colored overlay.
-I hope this helps with navigation at a glance but honestly i also just like the look. 
+I hope this helps with navigation at a glance but honestly i also just like the look.
 
 The currently selected Room will have no overlay to distinguish it from the others.
 The colors can be [configured](see TODO)
@@ -51,6 +54,7 @@ On the right Side you can see Entities assigned to the View-Area ("Living Room" 
 The Entities/Cards are grouped in different tabs and categories. Those are [configurable also](see TODO).
 
 In the default configuration there are tabs for:
+
 - Control
 - Stats
 - Camera
@@ -68,6 +72,7 @@ The number of rows, their content, the heading and the cards used to display the
 In the default configuration there are rows for:
 
 Control:
+
 - media_player
 - cover
 - vacuum
@@ -77,15 +82,16 @@ Control:
 - number
 
 Stats:
+
 - binary_sensor
 - sensor (non-numeric ones)
 - sensor (numeric ones)
 
 Camera:
+
 - camera
 
 I skipped lights and fans because they already are controllable with the area-card in the navigation but feel free to add them to your configuration!
-
 
 ### Top Cards
 
@@ -96,7 +102,9 @@ The area above the navigation is completly configurable with a slot (of sorts) "
 With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in yaml.
 
 ### Configuration
+
 #### Configuration Options
+
 | option         | description                                                                                   | type   | required | default    | example                                                                                        |
 |----------------|-----------------------------------------------------------------------------------------------|--------|----------|------------|------------------------------------------------------------------------------------------------|
 | tabs           | Tabs shown in the main area (link)                                                            | Array  | yes      | set (link) | <pre>tabs:<br>  - label: Test<br>    icon: mdi:test<br>    rows: [...]                                                |
@@ -104,7 +112,6 @@ With the topCards option you can pass any array of cards you like. Just like wit
 | areaCardConfig | The config for the area card. All options allowed expect type, area, navigation_path          | Object | no       | set (link) | <pre>areaCardConfig:<br>  aspect_ratio: 1:1                                                              |
 | topCards       | Slot for cards above navigation (link)                                                        | Array  | no       | -          | <pre>topCards:<br>  - type: entity<br>    entities:<br>      - button.test<br>      - button.test2                                |
 | replaceCards   | You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card. | Object | no       | -          | <pre>replaceCards:<br>  button.test:<br>    type: entity<br>    entityAttribute: entities<br>    entityAttributeAsArray: true |
-
 
 #### Area Color
 
@@ -115,13 +122,15 @@ The rgb defines the color and the a defines the transparancy.
 
 The Tab show in the the main section.
 Is using the Tabbed-Card (TODO: See).
+
 ```
 tabs:
   - label: Control
     icon: mdi:button-pointer
     rows: [...]
 ```
-Define as many Tabs as you want. 
+
+Define as many Tabs as you want.
 The Tab will only be shown in the View per Area when it has content.
 
 Example: if the Living Room has a Tab where none of the rows would have entities (like Camera, which has only one row and can easily be empty) the whole Tab is hidden.
@@ -141,8 +150,10 @@ The row is defined by:
 | filter                | Define include and exclude function for more fine-grained control of entities selected for row than only domain.                                 | Object        | no                    | <pre>include:<br>  - type: state<br>    comparator: equal<br>    value: on<br>exclude:<br>  - type: attribute<br>    comparator: is_numeric<br>    value: key: clickCount                                                     |
 
 ##### Filter
+
 Filters can be defined for more fine-grained control which entities should be matched.
 You can use both include and exclude as keys.
+
 ```
 filter:
   include:
@@ -150,6 +161,7 @@ filter:
   exclude:
     - ...
 ```
+
 Both accept the same types and syntax.
 
 The filter object looks like this.
@@ -178,11 +190,14 @@ Camera is for Camera-Streams.
 
 ![Camera](/documentation/area-strategy-main-camera.png "Camera")
 
-
 ## Battery View Strategy
+
 ## Update View Strategy
+
 ## Installation
+
 ## Issues
+
 ## More
 
 Thanks to everyone working on Home Assistant and the everyone in the community. Without your Documentation, Code and Forum Posts i could not have done this.
