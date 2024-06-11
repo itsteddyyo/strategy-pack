@@ -77,8 +77,10 @@ views:
   - any other views you want to see on your dasboard (will just be a passthrough so you can do everything like in a normal dashboard view config)
   - can be battery-view-strategy/update-view-strategy
   - or your own views (https://www.home-assistant.io/dashboards/views/)
-  - or even your own strategy?
+  - or even your own view strategy?
 ```
+
+This will create a Dashboard with multiple View for your specific Areas.
 
 ### Configuration
 
@@ -99,6 +101,7 @@ The currently selected Room will have no overlay to distinguish it from the othe
 
 The colors can be [configured](see TODO)
 All the details of the area card, the overlay color can [be configured and you can also hide certain areas if you want](./CONFIGURATION.md#configuration)
+If you want the area card to show a background image you need to [upload an image to your area.](https://www.home-assistant.io/docs/organizing/areas/#creating-an-area)
 
 ### Main
 
@@ -108,7 +111,7 @@ On the right Side you can see Entities assigned to the View-Area ("Living Room" 
 
 #### <ins>Tabs</ins>
 
-The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tab)
+The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tabs)
 
 In the default configuration there are tabs for:
 
@@ -124,7 +127,7 @@ For example one row for media_players and another row for switches.
 
 ![Row](/documentation/area-strategy-main-rows.png "Row")
 
-The number of rows, their content, the heading and the cards used to display the entities are also completly [configurable](./CONFIGURATION.md#contentrow)
+The number of rows, their content, the heading and the cards used to display the entities are also completly [configurable](./CONFIGURATION.md#contentrows)
 
 In the default configuration there are rows for:
 
