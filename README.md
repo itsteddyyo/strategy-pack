@@ -1,174 +1,159 @@
 # Strategy Pack
 
+[![Open in HACS at your Home Assistant instance.][hacsBadge]][strategyPackHacs]
+
 This is a collection of [Home Assistant Strategies](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/).
 
 A strategy is Javascript Code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
 
 The strategies can be at dashboard level generating whole dashboards with multiple views
 
-```
+```yaml
 type: custom:area-dashboard-strategy
 other_options: ...
 ```
 
-or at view level generating a single view.
+or at view level generating a single view in an already existing dashboard.
 
-```
+```yaml
 views:
   - strategy: custom:area-view-strategy
     other_options: ...
   - other views you want...
 ```
 
-The collection currently consists of 3 Strategies, but i just started and am looking forward to adding more.
+The collection currently consists of 3 Strategies, but i just started and am looking forward to adding more if theres demand.
+
+## 1. Area Dashboard Strategy
+
+Fully configurabe Dashboard with View per Area and auto-populating entities ordered in Grids.
+
+[Click for more Information](./documentation/AREA.md)
+
+ ![Area Strategy](/documentation/area-strategy.gif "Area Strategy")
+
+## 2. Battery View Strategy
+
+View Strategy with one page for all battery entities.
+
+ ![Update View Strategy](/documentation/update-view-strategy.png "Update View Strategy")
+
+>[!NOTE]
+>At the moment there is no configuration possible, but i have it on my list.
+
+## 3. Update View Strategy
+
+View Strategy with one page for all update entities.
+
+ ![Battery View Strategy](/documentation/battery-view-strategy.png "Battery View Strategy")
+
+>[!NOTE]
+>At the moment there is no configuration possible, but i have it on my list.
 
 ## Installation
 
 ### Prerequisites
 
-You need to install the following Custom Repos in HACS for the Strategy to work:
+You need to install the following Frontend Components from HACS for the Strategy to work:
 
-- [card-mod](https://github.com/thomasloven/lovelace-card-mod)
-- [Layout Card](https://github.com/thomasloven/lovelace-layout-card)
-- [State-Switch](https://github.com/thomasloven/lovelace-state-switch)
-- [Tabbed Card](https://github.com/kinghat/tabbed-card)
-- [Mushroom Cards](https://github.com/piitaya/lovelace-mushroom)
+- [card-mod][cardMod]
+
+  [![Open in HACS at your Home Assistant instance.][hacsBadge]][cardModHacs]
+
+- [Layout Card][layoutCard]
+
+  [![Open in HACS at your Home Assistant instance.][hacsBadge]][layoutCardHacs]
+
+- [State-Switch][stateSwitch]
+
+  [![Open in HACS at your Home Assistant instance.][hacsBadge]][stateSwitchHacs]
+
+- [Tabbed Card][tabbedCard]
+
+  [![Open in HACS at your Home Assistant instance.][hacsBadge]][tabbedCardHacs]
+
+- [Mushroom Cards][mushroomCards]
+
+  [![Open in HACS at your Home Assistant instance.][hacsBadge]][mushroomCardsHacs]
 
 Optionally you can install:
 
-- [Mini Graph Card](https://github.com/kalkih/mini-graph-card)
+- [Mini Graph Card][miniGraphCard]
 
-It is not really needed but gets used in the default config. So if you do not want to make your own configuration you need it.
+  [![Open in HACS at your Home Assistant instance.][hacsBadge]][miniGraphCardHacs]
+
+It is not really needed for the strategy to run but gets used in the default config for the Area-Dashboard/View-Strategy and is used in the Battery-View-Strategy.
 
 Thanks to the developers of all of these. Could not be done without their incredible work!
 
-### Installation with HACS
+### HACS
 
-Install with HACS blabla.
+Click the badge below.
 
-### Custom Installation
+[![Open in HACS at your Home Assistant instance.][hacsBadge]][strategyPackHacs]
 
-Do shit
+or ...
 
-## 1. Area Strategy
+1. Open HACS in Home Assistant.
+2. Go to the "Frontend" section.
+3. Click the button with the `+` icon.
+4. Search for "Strategy Pack" and install.
 
-The Area Strategy is a Dashboard Strategy, meaning it does not only create a single View but multiple Views at once.
+### Manual
 
-It generates a Dashboard with one View per Area configured in your Home Assistant. The Dashboard contains all entities assigned to that Area (either per device or entity itself).
+1. Download `strategy-pack.es.js` file from the [`dist`](./dist/) directory.
 
- ![Area Strategy](/documentation/area-strategy.gif "Area Strategy")
+2. Save this file into your `config/www` folder on your Home Assistant instance.
 
- You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu (last 3 are other custom views).
+3. Add a reference to `strategy-pack.es.js` in Dashboard. There are two ways to do that:
 
- ![Top Menu](/documentation/area-strategy-top-menu.png "Top Menu")
+>[!NOTE]
+>If you do not see the Resources menu, you will need to enable _Advanced Mode_ in your _User Profile_.
 
-This is because the navigation is meant to be made with the left-sided navigation menu.
+   1. **Using UI:** Click the badge...
 
-### Usage
+      [![Open your Home Assistant instance and show your dashboard resources.][resourcesBadge]][resourcesUrl]
 
-You need to create a new empty Dashboard for this Strategy Dashboard.
+      or...
 
-Dashboard -> Edit Dasbhoard -> Paste
+      - Go to _Settings_ → _Dashboards_ → _More Options icon_ → _Resources_ → _Add Resource_ → Set _Url_
+        to `/local/strategy-pack.es.js` → Set _Resource type_ to `JavaScript Module`.
 
-```
-type: custom:area-dashboard-strategy
-options: ...
-views:
-  - any other views you want to see on your dasboard (will just be a passthrough so you can do everything like in a normal dashboard view config)
-  - can be battery-view-strategy/update-view-strategy
-  - or your own views (https://www.home-assistant.io/dashboards/views/)
-  - or even your own view strategy?
-```
+   2. **Using YAML:** Add the following code to the `lovelace` section.
 
-This will create a Dashboard with multiple View for your specific Areas.
+      ```yaml
+      resources:
+        - url: /local/strategy-pack.es.js
+          type: module
+      ```
 
-### Configuration
-
-[Documentation](./CONFIGURATION.md#configuration)
-
-[Default Configuration explained](./CONFIGURATION.md#default-config-explained)
-
-### Navigation
-
-The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card on the left Side.
-
-![Navigation](/documentation/area-strategy-navigation.png "Navigation")
-
-You can see the Areas have a colored overlay.
-I hope this helps with navigation at a glance but honestly i also just like the look.
-
-The currently selected Room will have no overlay to distinguish it from the others.
-
-The colors can be [configured](see TODO)
-All the details of the area card, the overlay color can [be configured and you can also hide certain areas if you want](./CONFIGURATION.md#configuration)
-If you want the area card to show a background image you need to [upload an image to your area.](https://www.home-assistant.io/docs/organizing/areas/#creating-an-area)
-
-### Main
-
-On the right Side you can see Entities assigned to the View-Area ("Living Room" in this case).
-
-![Main](/documentation/area-strategy-main.png "Main")
-
-#### <ins>Tabs</ins>
-
-The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tabs)
-
-In the default configuration there are tabs for:
-
-- Control
-- Stats
-- Camera
-
-#### <ins>Content/Rows</ins>
-
-A Tab can contains as many rows of entities as you like. The rows are supposed to represent different domains and their entities.
-
-For example one row for media_players and another row for switches.
-
-![Row](/documentation/area-strategy-main-rows.png "Row")
-
-The number of rows, their content, the heading and the cards used to display the entities are also completly [configurable](./CONFIGURATION.md#contentrows)
-
-In the default configuration there are rows for:
-
-Control:
-
-- media_player
-- cover
-- vacuum
-- switch and input_boolean
-- select and input_select
-- button and scene
-- number
-
-Stats:
-
-- binary_sensor
-- sensor (non-numeric ones)
-- sensor (numeric ones)
-
-Camera:
-
-- camera
-
-I skipped lights and fans because they already are controllable with the area-card in the navigation but feel free to add them to your configuration!
-
-### Top Cards
-
-The area above the navigation is completly configurable with a slot (of sorts) ["topCards"](./CONFIGURATION.md).
-
-![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
-
-With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in yaml.
-
-## 2. Battery View Strategy
-
-## 3. Update View Strategy
-
-## Issues
-
-## More
+## Credits
 
 Thanks to everyone working on Home Assistant and the everyone in the community. Without your Documentation, Code and Forum Posts i could not have done this.
 
-The design is heavily inspired by [Dwains Dashboard](https://github.com/dwainscheeren/dwains-lovelace-dashboard), as that was my first dashboard because the design and auto-population really hit a nerve with me. I wanna thank Dwain for his great work. His Dashboard is more User-friendly and works without any yaml-Knowledge so it is absolutely a better fit for many Users. Give it a try!
+The design is heavily inspired by [Dwains Dashboard][dwainsDashboard], as that the first more advanced dashboard i used because the design and auto-population really hit a nerve with me. I wanna thank Dwain for his great work. His Dashboard is more User-friendly and works without any yaml-Knowledge so it is absolutely a better fit for many Users. Give it a try!
+
+Also have a look at [Mushroom Strategy][mushroomStrategy], which has a very similar concept to the Area Strategy. I must admit i also shamelessly copied their installation instructions.
+
+<!-- Badge References -->
+[hacsBadge]: https://my.home-assistant.io/badges/hacs_repository.svg
+[resourcesBadge]: https://my.home-assistant.io/badges/lovelace_resources.svg
+[resourcesUrl]: https://my.home-assistant.io/redirect/lovelace_resources
+[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=frontend
+<!-- Installation References -->
+[cardMod]: https://github.com/thomasloven/lovelace-card-mod
+[layoutCard]: https://github.com/thomasloven/lovelace-layout-card
+[stateSwitch]: https://github.com/thomasloven/lovelace-state-switch
+[tabbedCard]: https://github.com/kinghat/tabbed-card
+[mushroomCards]: https://github.com/piitaya/lovelace-mushroom
+[miniGraphCard]: https://github.com/kalkih/mini-graph-card
+
+[cardModHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-card-mod&category=frontend
+[layoutCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-layout-card&category=frontend
+[stateSwitchHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-state-switch&category=frontend
+[tabbedCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kinghat&repository=tabbed-card&category=frontend
+[mushroomCardsHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom&category=frontend
+[miniGraphCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kalkih&repository=mini-graph-card&category=frontend
+<!-- Credit References -->
+[dwainsDashboard]: https://github.com/dwainscheeren/dwains-lovelace-dashboard
+[mushRoomStrategy]: https://github.com/AalianKhan/mushroom-strategy

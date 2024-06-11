@@ -2,21 +2,102 @@
 
 ## Configuration Options
 
-| option         | description                                                                                   | type   | required | default    | example                                                                                        |
-|----------------|-----------------------------------------------------------------------------------------------|--------|----------|------------|------------------------------------------------------------------------------------------------|
-| tabs           | Tabs shown in the main area. [More](#tabs)                                                            | Array  | yes      | [set](./src/defaultConfig.yml#L1) | <pre>tabs:<br>  - label: Test<br>    icon: mdi:test<br>    rows: [...]                                                |
-| areaColor      | Possible colors for overlay (at least one must be defined!). Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency. The 8 predefined colors get repeated when you have more than 8 areas so when you want more unique colors you need to add some to your configuration.                            | Array  | yes      | [set](./src/defaultConfig.yml#L232) | <pre>areaColor:<br>  - rgba(0,0,0,0.5)                                                                   |
-| areaCardConfig | The config for the area card. All options allowed expect type, area, navigation_path          | Object | no       | [set](./src/defaultConfig.yml#L225) | <pre>areaCardConfig:<br>  aspect_ratio: 1:1                                                              |
-| topCards       | Slot for cards above navigation.                                                       | Array  | no       | -          | <pre>topCards:<br>  - type: entity<br>    entities:<br>      - button.test<br>      - button.test2                                |
-| replaceCards   | You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card. | Object | no       | -          | <pre>replaceCards:<br>  button.test:<br>    type: entity<br>    entityAttribute: entities<br>    entityAttributeAsArray: true |
+<table>
+  <thead>
+    <tr>
+      <th>option</th>
+      <th>description</th>
+      <th>type</th>
+      <th>required</th>
+      <th>default</th>
+      <th>example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>tabs</td>
+      <td>Tabs shown in the main area. <a href="#tabs">More</a></td>
+      <td>Array</td>
+      <td>yes</td>
+      <td><a href="/src/defaultConfig.yml#L1">set</a></td>
+      <td>
+        <pre>
+tabs:
+  - label: Test
+    icon: mdi:test
+    rows: [...]
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>areaColor</td>
+      <td>Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the
+        a-channel defines transparency. The colors get repeated when you have more areas than colors. Leave empty for no
+        overlay.</td>
+      <td>Array</td>
+      <td>yes</td>
+      <td><a href="/src/defaultConfig.yml#L232">set</a></td>
+      <td>
+        <pre>
+areaColor:
+  - rgba(0,0,0,0.5)
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>areaCardConfig</td>
+      <td>The config for the area card. All options allowed expect type, area, navigation_path</td>
+      <td>Object</td>
+      <td>no</td>
+      <td><a href="/src/defaultConfig.yml#L225">set</a></td>
+      <td>
+        <pre>
+areaCardConfig:
+  aspect_ratio: 1:1
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>topCards</td>
+      <td>Slot for cards above navigation.</td>
+      <td>Array</td>
+      <td>no</td>
+      <td>-</td>
+      <td>
+        <pre>
+topCards:
+  - type: entity
+    entities:
+      - button.test
+      - button.test2
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>replaceCards</td>
+      <td>You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card.</td>
+      <td>Object</td>
+      <td>no</td>
+      <td>-</td>
+      <td>
+        <pre>
+replaceCards:
+  button.test:
+    type: entity
+    entities:
+      - $entity
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 So a valid dashboard with configration could look like this:
 
-```
+```yaml
 type: custom:area-dashboard-strategy
 options:
   areaColor:
-    - rgba(1,1,1,0.4)
   areaCardConfig:
     aspect_ratio: 2:1
     sensor_classes:
@@ -35,9 +116,9 @@ options:
           include:
             - type: state
               value: off
-          entityAttribute: entity
           card:
             type: tile
+            entity: $entity
   replaceCards:
     update.home_assistant_core_update:
       card:
@@ -55,7 +136,7 @@ More on the default configuration [here](#default-config-explained)
 The Tab show in the the main section.
 Is using the Tabbed-Card (TODO: See).
 
-```
+```yaml
 tabs:
   - label: Control
     icon: mdi:button-pointer
@@ -80,21 +161,85 @@ Example: if the Living Room has a Tab where none of the rows would have entities
 Define the Rows in the Tab.
 Every Row consists of a (optional) title and a Grid with all the cards for the entities.
 The row is defined by:
-| attribute             | description                                                                                                                                      | type          | required              | example                                                                                                                                                                         |
-|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| domain                | Domain or Array of domains the entity must belong to.                                                                                            | string, Array | yes                   | <pre>domain: button<br>or<br>domain:<br>  - button<br>  - light                                                                                                                                      |
-| title                 | Title shown over Grid. Will not be rendered when not set.                                                                                        | string        | no                    | <pre>title: Test                                                                                                                                                                     |
-| entityAttribute       | The attribute in the card-config where the entityId will be inserted.                                                                            | string        | yes                   | <pre>entityAttribute: entity<br>with<br>entityAttributeAsArray: false<br>for:<br>entity: button.test<br><br>or<br><br>entityAttribute: entities<br>with<br>entityAttributeAsArray: true<br>for:<br>entities:<br>  - button.test |
-| entityAttribueAsArray | If the entityId should be inserted as an Array. (needed for cards that could theoretically display multiple entities)                            | boolean       | no (default is false) | <pre>see above                                                                                                                                                                       |
-| card                  | The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard! | Object        | yes                   | <pre>type: tile<br>iconColor: red                                                                                                                                                       |
-| filter                | Define include and exclude function for more fine-grained control of entities selected for row than only domain. [More](#filter)                                 | Object        | no                    | <pre>include:<br>  - type: state<br>    comparator: equal<br>    value: on<br>exclude:<br>  - type: attribute<br>    comparator: is_numeric<br>    value: key: clickCount                                                     |
+
+<table>
+  <thead>
+    <tr>
+      <th>attribute</th>
+      <th>description</th>
+      <th>type</th>
+      <th>required</th>
+      <th>example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>domain</td>
+      <td>Domain or Array of domains the entity must belong to.</td>
+      <td>string, Array</td>
+      <td>yes</td>
+      <td>
+        <pre>
+domain: button
+or
+domain:
+  - button
+  - light
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>title</td>
+      <td>Title shown over Grid. Will not be rendered when not set.</td>
+      <td>string</td>
+      <td>no</td>
+      <td>
+        <pre>
+title: Test
+        </pre>
+      </td>
+    </tr>
+    <td>card</td>
+    <td>The cardConfig of the card that should be rendered for every entity in the grid. You can insert the entityId of the entity with the $entity variable. You can use all cards you would normally use in your dashboard!</td>
+    <td>Object</td>
+    <td>yes</td>
+    <td>
+      <pre>
+card:
+  type: tile
+  entity: $entity
+  iconColor: red
+      </pre>
+    </td>
+    </tr>
+    <tr>
+      <td>filter</td>
+      <td>Define include and exclude function for more fine-grained control of entities selected for row than only
+        domain. <a href="#filter">More</a></td>
+      <td>Object</td>
+      <td>no</td>
+      <td>
+        <pre>
+include:
+  - type :state
+    comparator: equal
+    value: on
+exclude:
+  - type: attribute
+    comparator: is_numeric
+    value: key: clickCount
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ### Filter
 
 Filters can be defined for more fine-grained control which entities should be matched.
 You can use both include and exclude as keys.
 
-```
+```yaml
 filter:
   include:
     - ...
@@ -106,11 +251,77 @@ Both accept the same types and syntax.
 
 The filter object looks like this.
 
-| attribute  | description                                                                                                                                                                                                                                                                           | type                             | required                              | example                                                                                                                                                                                                                                                                                                                                                                |
-|------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|---------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| type       | <pre>Type of filter.<br>Available are:<br>- domain<br>- state<br>- attribute<br>Could be expanded in the future if needed.                                                                                                                                                                                | enum                             | yes                                   | <pre>type: state                                                                                                                                                                                                                                                                                                                                                            |
-| comparator | <pre><br>Comparator used to compare/filter.<br>Available are:<br>- equal (needs value to be set!)<br>- greater_than (needs value to be set!)<br>- is_numeric (does not need value. but needs key when attribute-type is used!)<br>- is_null (does not need value. but needs key when attribute-type is used!) | enum                             | no (default is equal)                 | <pre>comparator: is_numeric                                                                                                                                                                                                                                                                                                                                                 |
-| value      | Value to compare against. Can be in variable form. See example.                                                                                                                                                                                                                       | dependant on type and comparator | no (dependant on type and comparator) | <pre>Can be in the form of:<br><br>value: on<br>when: type is domain, state; comparator is equal, greater_than <br><br>not set<br>when: type is domain, state; comparator is is_numeric, is_null<br><br>value:<br>  key: deviceClass<br>  value: battery<br>when: type is attribute, comparator is equal, greater_than<br><br>value:<br>  key: deviceClass<br>when: type is attribute, comparator is is_numeric, is_null |
+<table>
+  <thead>
+    <tr>
+      <th>attribute</th>
+      <th>description</th>
+      <th>type</th>
+      <th>required</th>
+      <th>example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>type</td>
+      <td>Type of filter.
+        Available are:
+        - domain
+        - state
+        - attribute
+        Could be expanded in the future if needed.</td>
+      <td>enum</td>
+      <td>yes</td>
+      <td>
+        <pre>
+type: state
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>comparator</td>
+      <td>Comparator used to compare/filter.
+        Available are:
+        - equal (needs value to be set!)
+        - greater_than (needs value to be set!)
+        - is_numeric (does not need value. but needs key when attribute-type is used!)
+        - is_null (does not need value. but needs key when attribute-type is used!)</td>
+      <td>enum</td>
+      <td>no (default is equal)</td>
+      <td>
+        <pre>
+comparator: is_numeric
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>value</td>
+      <td>Value to compare against. Can be in variable form. See example.</td>
+      <td>dependant on type and comparator</td>
+      <td>no (dependant on type and comparator)</td>
+      <td>
+        <pre>
+Can be in the form of:
+
+value: on
+when: type is domain, state; comparator is equal, greater_than
+
+not set
+when: type is domain, state; comparator is is_numeric, is_null
+
+value:
+  key: deviceClass
+  value: battery
+when: type is attribute, comparator is equal, greater_than
+
+value:
+  key: deviceClass
+when: type is attribute, comparator is is_numeric, is_null
+        </pre>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 # Default Config explained
 
