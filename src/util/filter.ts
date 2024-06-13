@@ -12,11 +12,23 @@ export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
     switch (comparator) {
         case Comparator.equal:
             return a == b;
+        case Comparator.in:
+            if (Array.isArray(b)) {
+                return b.includes(a);
+            } else {
+                throw Error("Cannot compare. Value must be array.")
+            }
         case Comparator.greater_than:
             if (isNaN(a_number) || isNaN(b_number)) {
                 throw Error("Cannot compare. One or more values are not numeric")
             } else {
                 return a_number > b_number
+            }
+        case Comparator.lower_than:
+            if (isNaN(a_number) || isNaN(b_number)) {
+                throw Error("Cannot compare. One or more values are not numeric")
+            } else {
+                return a_number < b_number
             }
         case Comparator.is_null:
             return !!a;
@@ -26,13 +38,29 @@ export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
 };
 
 export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass: HomeAssistant, value: unknown, comparator: Comparator) => boolean> = {
-    state: (entity, hass, value, comparator) => {
-        const state = hass.states[entity.entity_id]?.state;
-        return compare(comparator, state, value);
+    entity: (entity, hass, value, comparator) => {
+        const entityId = entity.entity_id
+        return compare(comparator, entityId, value);
     },
     domain: (entity, hass, value, comparator) => {
         const domain = entity.entity_id.split(".")[0];
         return compare(comparator, domain, value);
+    },
+    device: (entity, hass, value, comparator) => {
+        const deviceId = entity.device_id;
+        return compare(comparator, deviceId, value);
+    },
+    integration: (entity, hass, value, comparator) => {
+        const integration = entity.platform;
+        return compare(comparator, integration, value);
+    },
+    label: (entity, hass, value, comparator) => {
+        const labels = entity.labels;
+        return labels.map(label => compare(comparator, label, value)).indexOf(true) > 0;
+    },
+    state: (entity, hass, value, comparator) => {
+        const state = hass.states[entity.entity_id]?.state;
+        return compare(comparator, state, value);
     },
     attribute: (entity, hass, value, comparator) => {
         const attributes = hass.states[entity.entity_id]?.attributes;

@@ -266,10 +266,13 @@ The filter object looks like this.
       <td>type</td>
       <td>Type of filter.
         Available are:
+        - entity
         - domain
+        - device
+        - integration
+        - label
         - state
-        - attribute
-        Could be expanded in the future if needed.</td>
+        - attribute</td>
       <td>enum</td>
       <td>yes</td>
       <td>
@@ -283,7 +286,9 @@ type: state
       <td>Comparator used to compare/filter.
         Available are:
         - equal (needs value to be set!)
+        - in (needs value to be set!)
         - greater_than (needs value to be set!)
+        - lower_than (needs value to be set!)
         - is_numeric (does not need value. but needs key when attribute-type is used!)
         - is_null (does not need value. but needs key when attribute-type is used!)</td>
       <td>enum</td>
