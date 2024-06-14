@@ -148,9 +148,58 @@ More on the default configuration [here](#default-config-explained)
 
 ## Tabs
 
-The Tab show in the the main section.
-Is using the Tabbed-Card (TODO: See).
+The tabs shown in the the main section.
 
+<table>
+  <thead>
+    <tr>
+      <th>attribute</th>
+      <th>description</th>
+      <th>type</th>
+      <th>required</th>
+      <th>example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>title</td>
+      <td>Tab title</td>
+      <td>string</td>
+      <td>yes</td>
+      <td>
+        <pre>
+title: Test
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>icon</td>
+      <td>Tab icon</td>
+      <td>string</td>
+      <td>yes</td>
+      <td>
+        <pre>
+icon: mdi:test
+        </pre>
+      </td>
+    </tr>
+    <td>rows</td>
+    <td>The grid rows definition of the tab. <a href="#contentrows">More</a></td>
+    <td>Object</td>
+    <td>yes</td>
+    <td>
+      <pre>
+card:
+  type: tile
+  entity: $entity
+  iconColor: red
+      </pre>
+    </td>
+    </tr>
+  </tbody>
+</table>
+
+Complete example:
 ```yaml
 tabs:
   - label: Control
@@ -163,8 +212,6 @@ tabs:
     icon: mdi:test
     rows: [...]
 ```
-
-More on [rows](#contentrows)
 
 Define as many Tabs as you want.
 The Tab will only be shown in the View per Area when it has content.
@@ -248,6 +295,18 @@ exclude:
     </tr>
   </tbody>
 </table>
+
+Complete example:
+```yaml
+rows:
+  - domain: light
+    title: Lights
+    card:
+      type: tile
+      entity: $entity
+    filter: ...
+```
+
 
 ### Filter
 

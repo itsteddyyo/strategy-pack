@@ -63,13 +63,13 @@ All the details of the area card, the overlay color and even a blacklist of area
 
 ### Main
 
-On the right Side you can see Entities assigned to the View-Area (the living room in this case).
+On the right Side you can see Entities assigned to the Area in this View.
 
 ![Main](/documentation/area-strategy-main.png "Main")
 
 #### <ins>Tabs</ins>
 
-The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tabs)
+The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tabs).
 
 In the default configuration there are tabs for:
 

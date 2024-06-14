@@ -88,7 +88,13 @@ views:
 
 ### Prerequisites
 
-You need to install the following Frontend Components from HACS for the Strategy to work:
+Strategy Pack (not yet but can be added as custom repository) and dependencies are available in [HACS][hacsUrl] (Home Assistant Community Store).  
+Install HACS if you don't have it already.
+For assistance, you can follow the [HACS Installation Guide][hacsInstallationUrl].
+
+You need to install the following HACS integrations before you can use this strategy.  
+Open the links below and follow the installation instructions or use the badges to open the HACS repository at your Home
+Assistant instance directly.
 
 - [card-mod][cardMod]
 
@@ -172,9 +178,13 @@ Also have a look at [Mushroom Strategy][mushroomStrategy], which has a very simi
 <!-- Badge References -->
 [hacsBadge]: https://my.home-assistant.io/badges/hacs_repository.svg
 [resourcesBadge]: https://my.home-assistant.io/badges/lovelace_resources.svg
+<!-- URL References -->
+[hacsUrl]: https://hacs.xyz
+[hacsInstallationUrl]: https://hacs.xyz/docs/setup/prerequisites
 [resourcesUrl]: https://my.home-assistant.io/redirect/lovelace_resources
-[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=frontend
 <!-- Installation References -->
+[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=frontend
+
 [cardMod]: https://github.com/thomasloven/lovelace-card-mod
 [layoutCard]: https://github.com/thomasloven/lovelace-layout-card
 [stateSwitch]: https://github.com/thomasloven/lovelace-state-switch
