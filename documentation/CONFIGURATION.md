@@ -30,7 +30,7 @@ tabs:
       </td>
     </tr>
     <tr>
-      <td>areaColor</td>
+      <td>areaColors</td>
       <td>Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the
         a-channel defines transparency. The colors get repeated when you have more areas than colors. Leave empty for no
         overlay.</td>
@@ -39,7 +39,7 @@ tabs:
       <td><a href="/src/defaultConfig.yml#L232">set</a></td>
       <td>
         <pre>
-areaColor:
+areaColors:
   - rgba(0,0,0,0.5)
         </pre>
       </td>

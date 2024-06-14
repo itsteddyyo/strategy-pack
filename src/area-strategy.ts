@@ -132,7 +132,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     opacity: 0.3;
                   }
                   div.navigate {
-                    background-color: ${areaColor[index]};
+                    background-color: ${areaColors[index]};
                   }`,
             },
           },
@@ -155,7 +155,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                           opacity: 0.3;
                         }
                         div.navigate {
-                          background-color: ${areaColor[index]};
+                          background-color: ${areaColors[index]};
                         }`,
                 },
               },

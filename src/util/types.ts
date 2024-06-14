@@ -53,7 +53,7 @@ export interface TabConfig {
 export interface AreaStrategyOptions {
     area: string;
     tabs: Array<TabConfig>;
-    areaColor: Array<string>;
+    areaColors: Array<string>;
     areaCardConfig: Exclude<LovelaceCardConfig, "type">;
     areaBlacklist?: Array<string>;
     topCards?: Array<LovelaceCardConfig>;
