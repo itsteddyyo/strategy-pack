@@ -21,9 +21,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
     ]);
 
     const usedAreas = areas.filter((area) => {
-      return (
-        area.labels.filter((label) => label == "area_deactivate").length == 0
-      );
+      return !dashboardConfig.options?.areaBlacklist || dashboardConfig.options.areaBlacklist.indexOf(area.area_id);
     }).sort(labelSort);
 
     const areaViews: Array<AreaStrategyViewConfig> = usedAreas.map((area, index) => ({
@@ -58,7 +56,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 class AreaViewStrategy extends HTMLTemplateElement {
   static async generate(viewConfig: ViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
     const { options, meta } = viewConfig;
-    const { area, tabs, replaceCards, topCards, areaColor, areaCardConfig } = options;
+    const { area, tabs, replaceCards, topCards, areaColor, areaCardConfig, areaBlacklist } = options;
 
     let entities = Array<EntityRegistryEntry>();
     let devices = Array<DeviceRegistryEntry>();
@@ -84,9 +82,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
     areas = [...areas].sort(labelSort);
 
     const usedAreas = areas.filter((area) => {
-      return (
-        area.labels.filter((label) => label == "area_deactivate").length == 0
-      );
+      return !areaBlacklist || areaBlacklist.indexOf(area.area_id);
     });
     const currentArea = areas.find(a => a.area_id == area);
 

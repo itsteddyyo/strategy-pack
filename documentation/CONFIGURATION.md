@@ -58,6 +58,21 @@ areaCardConfig:
       </td>
     </tr>
     <tr>
+      <td>areaBlacklist</td>
+      <td>Which areas should be ignored?</td>
+      <td>Array</td>
+      <td>no</td>
+      <td>-</td>
+      <td>
+        <pre>
+areaBlacklist:
+  - living_room
+  - bathroom
+        </pre>
+      </td>
+    </tr>
+    <tr>
+    <tr>
       <td>topCards</td>
       <td>Slot for cards above navigation.</td>
       <td>Array</td>
