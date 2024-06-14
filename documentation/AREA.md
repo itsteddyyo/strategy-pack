@@ -1,12 +1,12 @@
 # Area Strategy
 
-The Area Strategy is a Dashboard Strategy, meaning it does not only create a single View but multiple Views at once.
+The Area Strategy is a Dashboard Strategy, meaning it does not only create a single view but multiple views at once.
 
 It generates a Dashboard with one View per Area configured in your Home Assistant. The Dashboard contains all entities assigned to that Area (either via device or entity itself).
 
  ![Area Strategy](/documentation/area-strategy.gif "Area Strategy")
 
- You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu (last 3 are other custom views).
+ You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu (last three are other custom views).
 
  ![Top Menu](/documentation/area-strategy-top-menu.png "Top Menu")
 
@@ -16,7 +16,7 @@ This is because the navigation is meant to be made with the left-sided navigatio
 
 You need to create a new empty Dashboard for this Strategy Dashboard.
 
-Dashboard -> Edit Dashboard -> Paste the following
+Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Paste the following
 
 ```yaml
 strategy:
@@ -25,7 +25,7 @@ strategy:
 
 This will create a Dashboard with multiple View for your specific Areas.
 
-If you want to personalize and configure this auto-generated Dashboard take a look at [the configuration documentation](#configuration).
+If you want to personalize and configure this auto-generated Dashboard, take a look at [the configuration documentation](#configuration).
 
 ## Configuration
 
@@ -40,7 +40,7 @@ Modifications are possible to:
 
 There is a sensible default configuration, which is the one i myself use.
 So you can start out without configuring anything and have a nice dashboard.
-And if you find something you don`t like just start configuring!
+And if you find something you don’t like, just start configuring!
 
 [Default Configuration explained](./CONFIGURATION.md#default-config-explained)
 
@@ -53,7 +53,7 @@ The Area Cards are forming a navigation menu. You can navigate the Views with a 
 ![Navigation](/documentation/area-strategy-navigation.png "Navigation")
 
 You can see the Areas have a colored overlay.
-I hope this helps with navigation at a glance but honestly i also just like the look.
+I hope this helps with navigation at a glance, but honestly i also just like the look.
 
 The currently selected Room will have no overlay to distinguish it from the others.
 
@@ -118,4 +118,4 @@ The area above the navigation is completly configurable with a slot (of sorts) [
 
 ![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
 
-With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in yaml.
+With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in YAML.

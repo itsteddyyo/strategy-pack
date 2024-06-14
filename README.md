@@ -4,9 +4,9 @@
 
 This is a collection of [Home Assistant Strategies](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/).
 
-A strategy is Javascript Code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
+A strategy is Javascript code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
 
-The strategies can be at dashboard level generating whole dashboards with multiple views
+The strategies can be at the dashboard level, generating whole dashboards with multiple views:
 
 ```yaml
 strategy:
@@ -15,7 +15,7 @@ strategy:
 homeassistant_dashboard_options: ...
 ```
 
-or at view level generating a single view in an already existing dashboard.
+or at the view level, generating a single view in an already existing dashboard.
 
 ```yaml
 views:
@@ -26,12 +26,12 @@ views:
   - other views you want...
 ```
 
-The collection currently consists of 3 Strategies (with Area Dashboard Strategy being the main one), but i just started and am looking forward to adding more if theres demand.
+The collection currently consists of 3 Strategies (with Area Dashboard Strategy being the main one), but I just started and am looking forward to adding more if there's demand.
 
 >[!NOTE]
->If you want to sort anything in the strategies you can use "Label Sort".<br>
+>If you want to sort anything in the strategies, you can use "Label Sort".<br>
 >It works currently on areas (=sort of navigation areas and views overall) and entities (=sort in the grid).<br>
->Just create Labels with the exact name as below (Sort:1,Sort:2,... as many as you want) and assign them.<br>
+>Just create Labels with the exact name as below (Sort:1, Sort:2, ... as many as you want) and assign them.<br>
 >![Label Sort](/documentation/area-strategy-label-sort.png "Label Sort")
 
 ## 1. Area Dashboard Strategy
@@ -56,7 +56,7 @@ View Strategy with one page for all battery entities.
 
 You add this to already existing dashboards as an extra view.
 
-Dashboard -> Edit Dashboard -> Add the following
+Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Add the following
 
 ```yaml
 ... (existing dashboard)
@@ -88,7 +88,7 @@ views:
 ```
 
 >[!NOTE]
->At the moment there is no configuration possible, but i have it on my list.
+>At the moment there is no configuration possible, but I have it on my list.
 
 ## Installation
 
@@ -128,7 +128,7 @@ Optionally you can install:
 
   [![Open in HACS at your Home Assistant instance.][hacsBadge]][miniGraphCardHacs]
 
-It is not really needed for the strategy to run but gets used in the default config for the Area-Dashboard/View-Strategy and is used in the Battery-View-Strategy.
+It is not really needed for the strategy to run but is used in the default config for the Area-Dashboard/View-Strategy and in the Battery-View-Strategy.
 
 Thanks to the developers of all of these. Could not be done without their incredible work!
 
@@ -175,7 +175,7 @@ or ...
 
 ## Credits
 
-Thanks to everyone working on Home Assistant and the everyone in the community. Without your Documentation, Code and Forum Posts i wouldn`t have even thought about this.
+Thanks to everyone working on Home Assistant and the everyone in the community. Without your documentation, code, and forum posts, I wouldn't have even thought about this.
 
 The design is heavily inspired by [Dwains Dashboard][dwainsDashboard], as that the first more advanced dashboard i used because the design and auto-population really hit a nerve with me. I wanna thank Dwain for his great work. His Dashboard is more User-friendly and works without any yaml-Knowledge so it is absolutely a better fit for many Users. Give it a try!
 
