@@ -48,7 +48,7 @@ areaColor:
       <td>areaCardConfig</td>
       <td>The config for the area card. All options allowed expect type, area, navigation_path</td>
       <td>Object</td>
-      <td>no</td>
+      <td>yes</td>
       <td><a href="/src/defaultConfig.yml#L225">set</a></td>
       <td>
         <pre>
