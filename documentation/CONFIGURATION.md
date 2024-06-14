@@ -104,6 +104,20 @@ replaceCards:
         </pre>
       </td>
     </tr>
+    <tr>
+      <td>extraViews</td>
+      <td>You can pass any extra views you want on the dashboard.</td>
+      <td>Array</td>
+      <td>no</td>
+      <td>-</td>
+      <td>
+        <pre>
+extraViews:
+  - strategy:
+      type: custom:battery-view-strategy
+        </pre>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -140,6 +154,9 @@ config:
       card:
         type: picture
         image: https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F12466824-d58f-4bd3-939d-cbdd8514c9a2.jpg?crop=3358%2C1889%2C305%2C577&resize=1200
+  extraViews:
+    - strategy:
+        type: custom:update-view-strategy
 
 ```
 
@@ -205,6 +222,7 @@ card:
 </table>
 
 Complete example:
+
 ```yaml
 tabs:
   - label: Control
@@ -302,6 +320,7 @@ exclude:
 </table>
 
 Complete example:
+
 ```yaml
 rows:
   - domain: light
@@ -311,7 +330,6 @@ rows:
       entity: $entity
     filter: ...
 ```
-
 
 ### Filter
 

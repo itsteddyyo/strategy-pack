@@ -6,14 +6,13 @@ import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { filterValue, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
-import { DashboardConfig, ViewConfig, AreaStrategyViewConfig, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
+import { DashboardConfig, ViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
 
 import defaultConfig from "./defaultConfig.yml";
 import { createGrid } from "./util/createGrid";
 
 class AreaDashboardStrategy extends HTMLTemplateElement {
   static async generate(dashboardConfig: DashboardConfig, hass: HomeAssistant): Promise<LovelaceConfig> {
-    // Query all data we need. We will make it available to views by storing it in strategy options.
     const [entities, devices, areas] = await Promise.all([
       hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
       hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
@@ -21,10 +20,10 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
     ]);
 
     const usedAreas = areas.filter((area) => {
-      return !dashboardConfig.config?.areaBlacklist || dashboardConfig.config.areaBlacklist.indexOf(area.area_id);
+      return !dashboardConfig.config?.areaBlacklist || dashboardConfig.config.areaBlacklist.indexOf(area.area_id) == -1;
     }).sort(labelSort);
 
-    const areaViews: Array<AreaStrategyViewConfig> = usedAreas.map((area, index) => ({
+    const areaViews: Array<HomeAssistantConfigAreaStrategyView> = usedAreas.map((area, index) => ({
       strategy: {
         type: "custom:area-view-strategy",
         meta: {
@@ -48,7 +47,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
     // Each view is based on a strategy so we delay rendering until it's opened
     return {
-      views: [...areaViews, ...(dashboardConfig.views || [])],
+      views: [...areaViews, ...(dashboardConfig.config?.extraViews || [])],
     };
   }
 }
@@ -82,7 +81,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
     areas = [...areas].sort(labelSort);
 
     const usedAreas = areas.filter((area) => {
-      return !areaBlacklist || areaBlacklist.indexOf(area.area_id);
+      return !areaBlacklist || areaBlacklist.indexOf(area.area_id) == -1;
     });
     const currentArea = areas.find(a => a.area_id == area);
 
