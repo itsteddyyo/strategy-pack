@@ -22,7 +22,13 @@ views:
   - other views you want...
 ```
 
-The collection currently consists of 3 Strategies, but i just started and am looking forward to adding more if theres demand.
+The collection currently consists of 3 Strategies (with Area Dashboard Strategy being the main one), but i just started and am looking forward to adding more if theres demand.
+
+>[!NOTE]
+>If you want to sort anything in the strategies you can use "Label Sort".<br>
+>It works currently on areas (=sort of navigation areas and views overall) and entities (=sort in the grid).<br>
+>Just create Labels with the exact name as below (Sort:1,Sort:2,... as many as you want) and assign them.<br>
+>![Label Sort](/documentation/area-strategy-label-sort.png "Label Sort")
 
 ## 1. Area Dashboard Strategy
 
@@ -32,11 +38,27 @@ Fully configurabe Dashboard with View per Area and auto-populating entities orde
 
  ![Area Strategy](/documentation/area-strategy.gif "Area Strategy")
 
+ The dashboard was designed to be fully responsive! You can absolutely use this also on tablets or phones!
+
+ ![Area Strategy Responsive](/documentation/area-strategy-responsive.gif "Area Strategy Responsive")
+
 ## 2. Battery View Strategy
 
 View Strategy with one page for all battery entities.
 
- ![Update View Strategy](/documentation/update-view-strategy.png "Update View Strategy")
+ ![Battery View Strategy](/documentation/battery-view-strategy.png "Battery View Strategy")
+
+### Usage
+
+You add this to already existing dashboards as an extra view.
+
+Dashboard -> Edit Dashboard -> Add the following
+
+```yaml
+... (existing dashboard)
+views:
+  - type: custom:battery-view-strategy
+```
 
 >[!NOTE]
 >At the moment there is no configuration possible, but i have it on my list.
@@ -45,7 +67,19 @@ View Strategy with one page for all battery entities.
 
 View Strategy with one page for all update entities.
 
- ![Battery View Strategy](/documentation/battery-view-strategy.png "Battery View Strategy")
+ ![Update View Strategy](/documentation/update-view-strategy.png "Update View Strategy")
+
+### Usage
+
+You add this to already existing dashboards as an extra view.
+
+Dashboard -> Edit Dashboard -> Add the following
+
+```yaml
+... (existing dashboard)
+views:
+  - type: custom:update-view-strategy
+```
 
 >[!NOTE]
 >At the moment there is no configuration possible, but i have it on my list.
@@ -129,7 +163,7 @@ or ...
 
 ## Credits
 
-Thanks to everyone working on Home Assistant and the everyone in the community. Without your Documentation, Code and Forum Posts i could not have done this.
+Thanks to everyone working on Home Assistant and the everyone in the community. Without your Documentation, Code and Forum Posts i wouldn`t have even thought about this.
 
 The design is heavily inspired by [Dwains Dashboard][dwainsDashboard], as that the first more advanced dashboard i used because the design and auto-population really hit a nerve with me. I wanna thank Dwain for his great work. His Dashboard is more User-friendly and works without any yaml-Knowledge so it is absolutely a better fit for many Users. Give it a try!
 

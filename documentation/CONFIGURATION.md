@@ -289,8 +289,8 @@ type: state
         - in (needs value to be set!)
         - greater_than (needs value to be set!)
         - lower_than (needs value to be set!)
-        - is_numeric (does not need value. but needs key when attribute-type is used!)
-        - is_null (does not need value. but needs key when attribute-type is used!)</td>
+        - is_numeric (does not need value. when type: attribute you need to specifiy key!)
+        - is_null (does not need value. when type: attribute you need to specifiy key!)</td>
       <td>enum</td>
       <td>no (default is equal)</td>
       <td>
@@ -306,22 +306,56 @@ comparator: is_numeric
       <td>no (dependant on type and comparator)</td>
       <td>
         <pre>
-Can be in the form of:
-
-value: on
-when: type is domain, state; comparator is equal, greater_than
-
-not set
-when: type is domain, state; comparator is is_numeric, is_null
-
-value:
-  key: deviceClass
-  value: battery
-when: type is attribute, comparator is equal, greater_than
-
-value:
-  key: deviceClass
-when: type is attribute, comparator is is_numeric, is_null
+include:
+  - type: entity
+    value: media_player.test
+  - type: device
+    comparator: in
+    value:
+      - e7130bc20010fd2399f89f1d39666146
+      - b52d046e38fff9d5ca2bdb54304f4695
+  - type: domain
+    value: media_player
+  - type: integration
+    value: mqtt
+  - type: label
+    comparator: in
+    value:
+      - sort_1
+      - sort_2
+      - sort_3
+  - type: state
+    value: 5
+  - type: state
+    comparator: greater_than
+    value: 2
+  - type: state
+    comparator: is_numeric
+  - type: state
+    comparator: is_null
+  - type: state
+    value: 5
+  - type: attribute
+    comparator: greater_than
+    value:
+      key: uptime
+      value: 2
+  - type: attribute
+    comparator: is_numeric
+    value:
+      key: uptime
+  - type: attribute
+    comparator: is_null
+    value:
+      key: uptime
+  - type: attribute
+    comparator: in
+    value:
+      key: uptime
+      value:
+        - 1
+        - 2
+        - 3
         </pre>
       </td>
     </tr>

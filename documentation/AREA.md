@@ -30,6 +30,7 @@ If you want to personalize and configure this auto-generated Dashboard take a lo
 
 This Strategy is completely configurable.
 Modifications are possible to:
+
 - the left-sided navigation menu (modifications to the area-card)
 - the tabs in the main area (number of tabs, their names, icons, etc.)
 - the content of the tabs (number of grids, header, cards in the grids, etc.)
@@ -117,4 +118,3 @@ The area above the navigation is completly configurable with a slot (of sorts) [
 ![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
 
 With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in yaml.
-
