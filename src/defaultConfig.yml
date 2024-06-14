@@ -222,6 +222,13 @@ tabs:
             action: none
           hold_action:
             action: more-info
+areaCardConfig:
+  aspect_ratio: 35:15
+  alert_classes: 
+    - occupancy
+  sensor_classes:
+    - temperature
+    - moisture
 areaColor:
   - rgba(42,72,100,0.3)
   - rgba(234,162,33,0.3)

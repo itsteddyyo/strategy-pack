@@ -56,6 +56,7 @@ export interface AreaStrategyOptions {
     area: string;
     tabs: Array<TabConfig>;
     areaColor: Array<string>;
+    areaCardConfig: Exclude<LovelaceCardConfig, "type">;
     topCards?: Array<LovelaceCardConfig>;
     replaceCards?: Record<string, AreaStrategyCardConfig>;
 }

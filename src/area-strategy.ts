@@ -58,7 +58,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 class AreaViewStrategy extends HTMLTemplateElement {
   static async generate(viewConfig: ViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
     const { options, meta } = viewConfig;
-    const { area, tabs, replaceCards, topCards, areaColor } = options;
+    const { area, tabs, replaceCards, topCards, areaColor, areaCardConfig } = options;
 
     let entities = Array<EntityRegistryEntry>();
     let devices = Array<DeviceRegistryEntry>();
@@ -117,12 +117,10 @@ class AreaViewStrategy extends HTMLTemplateElement {
     const navigationCard = usedAreas.reduce(
       (prev, curr, index) => {
         const areaCard = {
+          ...areaCardConfig,
           type: "area",
-          aspect_ratio: "35:15",
           area: curr.area_id,
           navigation_path: `${curr.area_id}#main`,
-          alert_classes: ["occupancy"],
-          sensor_classes: ["temperature", "moisture"],
         };
         prev.cards[0].cards.push({
           type: "conditional",
