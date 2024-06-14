@@ -4,9 +4,9 @@ tabs:
     rows:
       - domain: media_player
         title: Media
-        entityAttribute: entity
         card:
           type: custom:mushroom-media-player-card
+          entity: $entity
           use_media_artwork: true
           show_volume_level: true
           use_media_info: false
@@ -23,9 +23,9 @@ tabs:
             action: more-info
       - domain: cover
         title: Cover
-        entityAttribute: entity
         card:
           type: tile
+          entity: $entity
           features:
             - type: cover-open-close
           tap_action:
@@ -36,9 +36,9 @@ tabs:
             action: more-info
       - domain: vacuum
         title: Vacuum
-        entityAttribute: entity
         card:
           type: tile
+          entity: $entity
           features:
             - type: vacuum-commands
               commands:
@@ -54,9 +54,9 @@ tabs:
           - switch
           - input_boolean
         title: Switch
-        entityAttribute: entity
         card:
           type: tile
+          entity: $entity
           hide_state: true
           color: amber
           tap_action:
@@ -69,9 +69,9 @@ tabs:
           - select
           - input_select
         title: Select
-        entityAttribute: entity
         card:
           type: tile
+          entity: $entity
           hide_state: true
           color: primary
           features:
@@ -86,9 +86,9 @@ tabs:
           - button
           - scene
         title: Button
-        entityAttribute: entity
         card:
           type: tile
+          entity: $entity
           hide_state: true
           color: primary
           tap_action:
@@ -99,9 +99,9 @@ tabs:
             action: more-info
       - domain: number
         title: Number
-        entityAttribute: entity
         card:
           type: tile
+          entity: $entity
           hide_state: true
           features:
             - type: numeric-input
@@ -117,7 +117,6 @@ tabs:
     rows:
       - domain: binary_sensor
         title: Alert
-        entityAttribute: entity
         filter:
           exclude:
             - type: attribute
@@ -130,6 +129,7 @@ tabs:
                 value: occupancy
         card:
           type: tile
+          entity: $entity
           hide_state: true
           color: primary
           tap_action:
@@ -140,7 +140,6 @@ tabs:
             action: more-info
       - domain: sensor
         title: Sensor
-        entityAttribute: entity
         filter:
           exclude:
             - type: attribute
@@ -151,6 +150,7 @@ tabs:
               comparator: is_numeric
         card:
           type: tile
+          entity: $entity
           color: primary
           tap_action:
             action: more-info
@@ -160,8 +160,6 @@ tabs:
             action: more-info
       - domain: sensor
         title: Graphs
-        entityAttribute: entities
-        entityAttributeAsList: true
         filter:
           exclude:
             - type: attribute
@@ -173,6 +171,8 @@ tabs:
               comparator: is_numeric
         card:
           type: custom:mini-graph-card
+          entities: 
+            - $entity
           align_header: left
           align_icon: left
           align_state: center
@@ -213,9 +213,9 @@ tabs:
     icon: mdi:camera
     rows:
       - domain: camera
-        entityAttribute: entity
         card:
           type: picture-entity
+          entity: $entity
           tap_action:
             action: more-info
           icon_tap_action:

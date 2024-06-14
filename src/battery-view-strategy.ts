@@ -12,10 +12,9 @@ class BatteryViewStrategy extends HTMLTemplateElement {
         ]);
 
         const batteryCardConfig: AreaStrategyCardConfig = {
-            entityAttribute: "entities",
-            entityAttributeAsList: true,
             card: {
                 type: "custom:mini-graph-card",
+                entities: ["$entity"],
                 align_header: "left",
                 align_icon: "left",
                 align_state: "center",

@@ -32,8 +32,6 @@ export interface FilterConfig {
 }
 
 export interface AreaStrategyCardConfig {
-    entityAttribute: string;
-    entityAttributeAsList: boolean
     card: LovelaceCardConfig;
 }
 

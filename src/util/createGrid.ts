@@ -7,27 +7,20 @@ export const createGrid = (entities: Array<EntityRegistryEntry>, cardConfig: Are
     const gridCards: Array<LovelaceCardConfig> = [];
 
     entities.forEach(entity => {
-        const entityCardConfig = {
-            card: (replaceCards || {})[entity.entity_id]?.card || cardConfig.card,
-            entityAttribute:
-                (replaceCards || {})[entity.entity_id]?.entityAttribute ||
-                cardConfig.entityAttribute,
-            entityAttributeAsList:
-                (replaceCards || {})[entity.entity_id]?.entityAttributeAsList ||
-                cardConfig.entityAttributeAsList,
-        };
-        const resolvedCard = {
-            ...entityCardConfig.card,
-            ...Object.fromEntries([
-                [
-                    entityCardConfig.entityAttribute,
-                    !!entityCardConfig.entityAttributeAsList
-                        ? [entity.entity_id]
-                        : entity.entity_id,
-                ],
-            ]),
-        }
-        gridCards.push(resolvedCard);
+        const card = (replaceCards || {})[entity.entity_id]?.card || cardConfig.card;
+        const resolvedCard = Object.entries(card)
+            .filter(([key, val]) => {
+                const stringVal = JSON.stringify(val);
+                return stringVal.includes("$entity");
+            })
+            .map(([key, val]) => {
+                const stringVal = JSON.stringify(val);
+                return [key, JSON.parse(stringVal.replace("$entity", entity.entity_id))]
+            });
+        gridCards.push({
+            ...card,
+            ...Object.fromEntries(resolvedCard)
+        });
     })
     if (gridCards.length > 0) {
         if (title) {

@@ -12,10 +12,9 @@ class UpdateViewStrategy extends HTMLTemplateElement {
         ]);
 
         const updateCardConfig: AreaStrategyCardConfig = {
-            entityAttribute: "entity",
-            entityAttributeAsList: false,
             card: {
                 type: "tile",
+                entity: "$entity",
                 hide_state: true,
                 features: [
                     { type: "update-actions", backup: "ask" }
