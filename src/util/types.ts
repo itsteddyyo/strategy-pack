@@ -7,21 +7,21 @@ export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-"
 export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-"
 
 export enum FilterType {
-    entity = "entity", 
-    domain = "domain", 
-    device = "device", 
-    integration = "integration", 
-    label = "label", 
-    state = "state", 
+    entity = "entity",
+    domain = "domain",
+    device = "device",
+    integration = "integration",
+    label = "label",
+    state = "state",
     attribute = "attribute"
 }
 
 export enum Comparator {
-    equal = "equal", 
-    in = "in", 
-    greater_than = "greater_than", 
-    lower_than = "lower_than", 
-    is_null = "is_null", 
+    equal = "equal",
+    in = "in",
+    greater_than = "greater_than",
+    lower_than = "lower_than",
+    is_null = "is_null",
     is_numeric = "is_numeric"
 }
 
