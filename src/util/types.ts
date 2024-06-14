@@ -51,24 +51,23 @@ export interface TabConfig {
 }
 
 export interface AreaStrategyOptions {
-    area: string;
     tabs: Array<TabConfig>;
     areaColors: Array<string>;
     areaCardConfig: Exclude<LovelaceCardConfig, "type">;
     areaBlacklist?: Array<string>;
     topCards?: Array<LovelaceCardConfig>;
     replaceCards?: Record<string, AreaStrategyCardConfig>;
+    extraViews?: Array<LovelaceViewConfig>;
 }
 
 export interface DashboardConfig {
     type: "custom:area-dashboard-strategy";
-    options?: AreaStrategyOptions;
-    views?: Array<LovelaceViewConfig>;
+    config?: AreaStrategyOptions;
 }
 
 export interface ViewConfig {
     type: "custom:area-view-strategy";
-    options: AreaStrategyOptions;
+    config: AreaStrategyOptions & { area: string; };
     meta?: {
         devices: Array<DeviceRegistryEntry>;
         entities: Array<EntityRegistryEntry>;
@@ -76,6 +75,6 @@ export interface ViewConfig {
     }
 }
 
-export interface AreaStrategyViewConfig extends LovelaceViewConfig {
+export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
     strategy: ViewConfig;
 }

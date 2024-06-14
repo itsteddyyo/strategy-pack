@@ -9,16 +9,20 @@ A strategy is Javascript Code that gets executed to create Dashboards and Views 
 The strategies can be at dashboard level generating whole dashboards with multiple views
 
 ```yaml
-type: custom:area-dashboard-strategy
-other_options: ...
+strategy:
+  type: custom:example-dashboard-strategy
+  options_and_config_for_this_dashboard: ...
+homeassistant_dashboard_options: ...
 ```
 
 or at view level generating a single view in an already existing dashboard.
 
 ```yaml
 views:
-  - strategy: custom:area-view-strategy
-    other_options: ...
+  - strategy: 
+      type: custom:example-view-strategy
+      options_and_config_for_this_view: ...
+    homeassistant_view_options: ...
   - other views you want...
 ```
 
@@ -57,7 +61,8 @@ Dashboard -> Edit Dashboard -> Add the following
 ```yaml
 ... (existing dashboard)
 views:
-  - type: custom:battery-view-strategy
+  - strategy:
+      type: custom:battery-view-strategy
 ```
 
 >[!NOTE]
@@ -78,7 +83,8 @@ Dashboard -> Edit Dashboard -> Add the following
 ```yaml
 ... (existing dashboard)
 views:
-  - type: custom:update-view-strategy
+  - strategy:
+      type: custom:update-view-strategy
 ```
 
 >[!NOTE]

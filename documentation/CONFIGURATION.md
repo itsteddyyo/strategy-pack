@@ -111,36 +111,41 @@ So a valid dashboard with configration could look like this:
 
 ```yaml
 type: custom:area-dashboard-strategy
-options:
-  areaColor:
+config:
+  areaBlacklist:
+    - tv
+  areaColors: []
   areaCardConfig:
-    aspect_ratio: 2:1
+    aspect_ratio: '1:1'
     sensor_classes:
       - temperature
   topCards:
     - type: picture
-      image: https://i.scdn.co/image/ab67616100005174d432d36ca35d0b7a6bf82cef
-    - type: tile
-      entity: update.home_assistant_core_update
+      image: https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F12466824-d58f-4bd3-939d-cbdd8514c9a2.jpg?crop=3358%2C1889%2C305%2C577&resize=1200
   tabs:
     - label: Updates
       icon: mdi:package-up
       rows:
         - title: Updates
           domain: update
-          include:
-            - type: state
-              value: off
+          filter:
+            include:
+              - type: state
+                value: 'off'
           card:
             type: tile
             entity: $entity
   replaceCards:
-    update.home_assistant_core_update:
+    update.occupancy_sensor_living_room_firmware:
       card:
-        - type: picture
-          image: https://i.scdn.co/image/ab67616100005174d432d36ca35d0b7a6bf82cef
+        type: picture
+        image: https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F12466824-d58f-4bd3-939d-cbdd8514c9a2.jpg?crop=3358%2C1889%2C305%2C577&resize=1200
 
 ```
+
+This would result in this spectacular dashboard.
+
+![Custom](/documentation/area-strategy-with-custom-options.png "Custom")
 
 I used all available options in this example. You don`t need to do this!
 

@@ -19,7 +19,8 @@ You need to create a new empty Dashboard for this Strategy Dashboard.
 Dashboard -> Edit Dashboard -> Paste the following
 
 ```yaml
-type: custom:area-dashboard-strategy
+strategy:
+  type: custom:area-dashboard-strategy
 ```
 
 This will create a Dashboard with multiple View for your specific Areas.
