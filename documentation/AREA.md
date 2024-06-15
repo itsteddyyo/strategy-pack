@@ -46,11 +46,11 @@ And if you find something you don’t like, just start configuring!
 
 ## UI explained
 
-### Navigation
+![UI Explained](/documentation/area-strategy-ui-explained.png "UI Explained")
+
+### 1. Navigation
 
 The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card on the left Side.
-
-![Navigation](/documentation/area-strategy-navigation.png "Navigation")
 
 You can see the Areas have a colored overlay.
 I hope this helps with navigation at a glance, but honestly i also just like the look.
@@ -62,60 +62,24 @@ All the details of the area card, the overlay color and even a blacklist of area
 >[!NOTE]
 >If you want the area card to show a background image you need to [upload an image to your area.](https://www.home-assistant.io/docs/organizing/areas/#creating-an-area)
 
-### Main
+### 2. Tabs
 
-On the right Side you can see Entities assigned to the Area in this View.
+The Entities/Cards are grouped in different tabs.
 
-![Main](/documentation/area-strategy-main.png "Main")
+They should be used to add another logical layer to dashboard apart from the rows and make the dashboard less cluttered.
 
-#### <ins>Tabs</ins>
+Those can be [configured freely](./CONFIGURATION.md#tabs).
 
-The Entities/Cards are grouped in different tabs. Those can be [configured freely](./CONFIGURATION.md#tabs).
-
-In the default configuration there are tabs for:
-
-- Control
-- Stats
-- Camera
-
-#### <ins>Content/Rows</ins>
+### 3. Content/Rows
 
 A Tab can contains as many rows of entities as you like. The rows are supposed to represent different domains and their entities.
 
 For example one row for media_players and another row for switches.
 
-![Row](/documentation/area-strategy-main-rows.png "Row")
-
 The number of rows, their content, the heading and the cards used to display the entities are also completly [configurable](./CONFIGURATION.md#contentrows)
 
-In the default configuration there are rows for:
+### 4. Top
 
-Control:
+The area above the navigation is completly configurable with a slot (of sorts) ["topCards"](./CONFIGURATION.md#topCards).
 
-- media_player
-- cover
-- vacuum
-- switch and input_boolean
-- select and input_select
-- button and scene
-- number
-
-Stats:
-
-- binary_sensor
-- sensor (non-numeric ones)
-- sensor (numeric ones)
-
-Camera:
-
-- camera
-
-I skipped lights and fans because they already are controllable with the area-card in the navigation but feel free to add them to your configuration!
-
-### Top Cards
-
-The area above the navigation is completly configurable with a slot (of sorts) ["topCards"](./CONFIGURATION.md).
-
-![TopCards](/documentation/area-strategy-top-cards.png "TopCards")
-
-With the topCards option you can pass any array of cards you like. Just like with a normal lovelace dashboard config in YAML.
+That means nothing is displayed there in the default configuration as this is individual.

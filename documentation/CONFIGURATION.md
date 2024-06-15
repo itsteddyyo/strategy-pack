@@ -74,7 +74,7 @@ areaBlacklist:
     <tr>
     <tr>
       <td>topCards</td>
-      <td>Slot for cards above navigation.</td>
+      <td>Slot for cards above navigation. <a href="#topCards">More</a></td>
       <td>Array</td>
       <td>no</td>
       <td>-</td>
@@ -465,20 +465,42 @@ The default config is written as yaml. This should make it easy to make your own
 
 You can find it [here](./src/defaultConfig.yml)
 
-The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture as info.
+The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
 
-![Area Card](/documentation/area-strategy-navigation-single.png "Area Card")
+![Area Card](/documentation/area-strategy-navigation.png "Area Card")
 
 There are 3 Tabs.
 
-Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
+1. Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
 
 ![Control](/documentation/area-strategy-main-control.png "Control")
 
-Stats is for "read-only" entities like binary_sensors and sensors.
+There are Rows for:
+
+- media_player
+- cover
+- vacuum
+- switch and input_boolean
+- select and input_select
+- button and scene
+- number
+
+I skipped lights and fans because they already are controllable with the area-card in the navigation but feel free to add them to your configuration!
+
+2. Stats is for "read-only" entities like binary_sensors and sensors.
 
 ![Stats](/documentation/area-strategy-main-stats.png "Stats")
 
-Camera is for Camera-Streams.
+There are Rows for:
+
+- binary_sensor
+- sensor (non-numeric ones)
+- sensor (numeric ones)
+
+3. Camera is for Camera-Streams.
 
 ![Camera](/documentation/area-strategy-main-camera.png "Camera")
+
+There are Rows for:
+
+- camera
