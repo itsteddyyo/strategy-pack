@@ -94,7 +94,10 @@ views:
 
 ### Prerequisites
 
-Strategy Pack (not yet but can be added as custom repository) and dependencies are available in [HACS][hacsUrl] (Home Assistant Community Store).  
+>[!NOTE]
+>Till the PR to add this to HACS default is merged you need to add it as a custom repository. HACS - Custom Repositores (in kebap menu) - Add https://github.com/itsteddyyo/strategy-pack
+
+Strategy Pack and dependencies are available in [HACS][hacsUrl] (Home Assistant Community Store).  
 Install HACS if you don't have it already.
 For assistance, you can follow the [HACS Installation Guide][hacsInstallationUrl].
 
