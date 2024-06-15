@@ -78,7 +78,7 @@ View Strategy with one page for all update entities.
 
 You add this to already existing dashboards as an extra view.
 
-Dashboard -> Edit Dashboard -> Add the following
+Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Add the following
 
 ```yaml
 ... (existing dashboard)
@@ -189,7 +189,7 @@ Also have a look at [Mushroom Strategy][mushroomStrategy], which has a very simi
 [hacsInstallationUrl]: https://hacs.xyz/docs/setup/prerequisites
 [resourcesUrl]: https://my.home-assistant.io/redirect/lovelace_resources
 <!-- Installation References -->
-[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=frontend
+[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=lovelace
 
 [cardMod]: https://github.com/thomasloven/lovelace-card-mod
 [layoutCard]: https://github.com/thomasloven/lovelace-layout-card
@@ -198,12 +198,12 @@ Also have a look at [Mushroom Strategy][mushroomStrategy], which has a very simi
 [mushroomCards]: https://github.com/piitaya/lovelace-mushroom
 [miniGraphCard]: https://github.com/kalkih/mini-graph-card
 
-[cardModHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-card-mod&category=frontend
-[layoutCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-layout-card&category=frontend
-[stateSwitchHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-state-switch&category=frontend
-[tabbedCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kinghat&repository=tabbed-card&category=frontend
-[mushroomCardsHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom&category=frontend
-[miniGraphCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kalkih&repository=mini-graph-card&category=frontend
+[cardModHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-card-mod&category=lovelace
+[layoutCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-layout-card&category=lovelace
+[stateSwitchHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-state-switch&category=lovelace
+[tabbedCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kinghat&repository=tabbed-card&category=lovelace
+[mushroomCardsHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom&category=lovelace
+[miniGraphCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kalkih&repository=mini-graph-card&category=lovelace
 <!-- Credit References -->
 [dwainsDashboard]: https://github.com/dwainscheeren/dwains-lovelace-dashboard
 [mushRoomStrategy]: https://github.com/AalianKhan/mushroom-strategy
