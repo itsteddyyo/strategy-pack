@@ -82,3 +82,27 @@ or ...
         - url: /local/strategy-pack.es.js
           type: module
       ```
+
+<!-- Badge References -->
+[hacsBadge]: https://my.home-assistant.io/badges/hacs_repository.svg
+<!-- URL References -->
+[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=lovelace
+[resourcesBadge]: https://my.home-assistant.io/badges/lovelace_resources.svg
+<!-- URL References -->
+[hacsUrl]: https://hacs.xyz
+[hacsInstallationUrl]: https://hacs.xyz/docs/setup/prerequisites
+[resourcesUrl]: https://my.home-assistant.io/redirect/lovelace_resources
+
+[cardMod]: https://github.com/thomasloven/lovelace-card-mod
+[layoutCard]: https://github.com/thomasloven/lovelace-layout-card
+[stateSwitch]: https://github.com/thomasloven/lovelace-state-switch
+[tabbedCard]: https://github.com/kinghat/tabbed-card
+[mushroomCards]: https://github.com/piitaya/lovelace-mushroom
+[miniGraphCard]: https://github.com/kalkih/mini-graph-card
+
+[cardModHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-card-mod&category=lovelace
+[layoutCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-layout-card&category=lovelace
+[stateSwitchHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-state-switch&category=lovelace
+[tabbedCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kinghat&repository=tabbed-card&category=lovelace
+[mushroomCardsHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom&category=lovelace
+[miniGraphCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kalkih&repository=mini-graph-card&category=lovelace

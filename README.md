@@ -46,7 +46,7 @@ Fully configurabe Dashboard with View per Area and auto-populating entities orde
 
 The Dashboard contains all entities assigned to that Area (either via device or entity itself).
 
- You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu (last three are other custom views).
+ You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu.
 
  ![Top Menu](/documentation/area-strategy-top-menu.png "Top Menu")
 
@@ -65,9 +65,7 @@ strategy:
   type: custom:area-dashboard-strategy
 ```
 
-This will create a Dashboard with multiple View for your specific Areas.
-
-If you want to personalize and configure this auto-generated Dashboard, take a look at [the configuration documentation](#configuration).
+This will create a Dashboard with multiple Views for your specific Areas.
 
 ### Configuration
 
@@ -132,7 +130,7 @@ views:
 
 ## Installation
 
-[Installation Instructions here](./documentation/installation.md)
+[Installation Instructions here](./documentation/INSTALLATION.md)
 
 ## Credits
 
@@ -144,27 +142,8 @@ Also have a look at [Mushroom Strategy][mushroomStrategy], which has a very simi
 
 <!-- Badge References -->
 [hacsBadge]: https://my.home-assistant.io/badges/hacs_repository.svg
-[resourcesBadge]: https://my.home-assistant.io/badges/lovelace_resources.svg
 <!-- URL References -->
-[hacsUrl]: https://hacs.xyz
-[hacsInstallationUrl]: https://hacs.xyz/docs/setup/prerequisites
-[resourcesUrl]: https://my.home-assistant.io/redirect/lovelace_resources
-<!-- Installation References -->
 [strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=lovelace
-
-[cardMod]: https://github.com/thomasloven/lovelace-card-mod
-[layoutCard]: https://github.com/thomasloven/lovelace-layout-card
-[stateSwitch]: https://github.com/thomasloven/lovelace-state-switch
-[tabbedCard]: https://github.com/kinghat/tabbed-card
-[mushroomCards]: https://github.com/piitaya/lovelace-mushroom
-[miniGraphCard]: https://github.com/kalkih/mini-graph-card
-
-[cardModHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-card-mod&category=lovelace
-[layoutCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-layout-card&category=lovelace
-[stateSwitchHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-state-switch&category=lovelace
-[tabbedCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kinghat&repository=tabbed-card&category=lovelace
-[mushroomCardsHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom&category=lovelace
-[miniGraphCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kalkih&repository=mini-graph-card&category=lovelace
 <!-- Credit References -->
 [dwainsDashboard]: https://github.com/dwainscheeren/dwains-lovelace-dashboard
 [mushRoomStrategy]: https://github.com/AalianKhan/mushroom-strategy
