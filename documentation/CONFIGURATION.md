@@ -361,15 +361,19 @@ The filter object looks like this.
   <tbody>
     <tr>
       <td>type</td>
-      <td>Type of filter.
-        Available are:
-        - entity
-        - domain
-        - device
-        - integration
-        - label
-        - state
-        - attribute</td>
+      <td>
+        <pre>
+Type of filter.
+Available are:
+- entity
+- domain
+- device
+- integration
+- label
+- state
+- attribute
+        </pre>
+      </td>
       <td>enum</td>
       <td>yes</td>
       <td>
@@ -380,14 +384,18 @@ type: state
     </tr>
     <tr>
       <td>comparator</td>
-      <td>Comparator used to compare/filter.
-        Available are:
-        - equal (needs value to be set!)
-        - in (needs value to be set!)
-        - greater_than (needs value to be set!)
-        - lower_than (needs value to be set!)
-        - is_numeric (does not need value. when type: attribute you need to specifiy key!)
-        - is_null (does not need value. when type: attribute you need to specifiy key!)</td>
+      <td>
+        <pre>
+Comparator used to compare/filter.
+Available are:
+- equal (needs value to be set!)
+- in (needs value to be set!)
+- greater_than (needs value to be set!)
+- lower_than (needs value to be set!)
+- is_numeric (does not need value. when type: attribute you need to specifiy key!)
+- is_null (does not need value. when type: attribute you need to specifiy key!)
+        </pre>
+      </td>
       <td>enum</td>
       <td>no (default is equal)</td>
       <td>
@@ -403,49 +411,51 @@ comparator: is_numeric
       <td>no (dependant on type and comparator)</td>
       <td>
         <pre>
+
 include:
-  - type: entity
+
+- type: entity
     value: media_player.test
-  - type: device
+- type: device
     comparator: in
     value:
-      - e7130bc20010fd2399f89f1d39666146
-      - b52d046e38fff9d5ca2bdb54304f4695
-  - type: domain
+  - e7130bc20010fd2399f89f1d39666146
+  - b52d046e38fff9d5ca2bdb54304f4695
+- type: domain
     value: media_player
-  - type: integration
+- type: integration
     value: mqtt
-  - type: label
+- type: label
     comparator: in
     value:
-      - sort_1
-      - sort_2
-      - sort_3
-  - type: state
+  - sort_1
+  - sort_2
+  - sort_3
+- type: state
     value: 5
-  - type: state
+- type: state
     comparator: greater_than
     value: 2
-  - type: state
+- type: state
     comparator: is_numeric
-  - type: state
+- type: state
     comparator: is_null
-  - type: state
+- type: state
     value: 5
-  - type: attribute
+- type: attribute
     comparator: greater_than
     value:
       key: uptime
       value: 2
-  - type: attribute
+- type: attribute
     comparator: is_numeric
     value:
       key: uptime
-  - type: attribute
+- type: attribute
     comparator: is_null
     value:
       key: uptime
-  - type: attribute
+- type: attribute
     comparator: in
     value:
       key: uptime
@@ -456,7 +466,9 @@ include:
         </pre>
       </td>
     </tr>
+
   </tbody>
+
 </table>
 
 # Default Config explained
