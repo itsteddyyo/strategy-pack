@@ -42,7 +42,7 @@ Fully configurabe Dashboard with View per Area and auto-populating entities orde
  
  The dashboard was designed to be fully responsive! You can absolutely use this also on tablets or phones!
 
- ![Area Strategy Responsive](/documentation/area-strategy-responsive.gif "Area Strategy Responsive")
+ ![Area Strategy Responsive](/documentation/area-strategy-responsive-new.gif "Area Strategy Responsive")
 
 The Dashboard contains all entities assigned to that Area (either via device or entity itself).
 
