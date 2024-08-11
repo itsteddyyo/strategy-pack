@@ -1,4 +1,4 @@
-const B = "ll-strategy-dashboard-", A = "ll-strategy-view-";
+const B = "ll-strategy-dashboard-", N = "ll-strategy-view-";
 var h = /* @__PURE__ */ ((a) => (a.equal = "equal", a.in = "in", a.greater_than = "greater_than", a.lower_than = "lower_than", a.is_null = "is_null", a.is_numeric = "is_numeric", a))(h || {});
 const T = (a) => !a.disabled_by && !a.hidden_by, w = (a, r, t) => {
   const i = parseFloat(r), e = parseFloat(t);
@@ -52,7 +52,7 @@ const T = (a) => !a.disabled_by && !a.hidden_by, w = (a, r, t) => {
       return w(i, e[t.key], t.value);
     throw Error("value is not defined correctly");
   }
-}, N = (a, r) => {
+}, A = (a, r) => {
   const t = (o) => {
     const c = o.filter((l) => l.startsWith("sort_")).map((l) => l.replace("sort_", ""));
     return c.push(1 / 0), c;
@@ -68,6 +68,28 @@ const H = {
       label: "Control",
       icon: "mdi:button-pointer",
       rows: [
+        {
+          domain: "alarm_control_panel",
+          title: "Alarm",
+          card: {
+            type: "tile",
+            entity: "$entity",
+            features: [{
+              type: "alarm-modes",
+              modes: [
+                "armed_home",
+                "armed_away",
+                "armed_night",
+                "armed_vacation",
+                "armed_custom_bypass",
+                "disarmed"
+              ]
+            }],
+            tap_action: { action: "more-info" },
+            icon_tap_action: { action: "none" },
+            hold_action: { action: "more-info" }
+          }
+        },
         {
           domain: "media_player",
           title: "Media",
@@ -333,8 +355,8 @@ const H = {
   return a.forEach((c) => {
     var n;
     const l = ((n = (i || {})[c.entity_id]) == null ? void 0 : n.card) || r.card, d = Object.entries(l).filter(([u, y]) => JSON.stringify(y).includes("$entity")).map(([u, y]) => {
-      const p = JSON.stringify(y);
-      return [u, JSON.parse(p.replace("$entity", c.entity_id))];
+      const m = JSON.stringify(y);
+      return [u, JSON.parse(m.replace("$entity", c.entity_id))];
     });
     o.push({
       ...l,
@@ -369,7 +391,7 @@ class D extends HTMLTemplateElement {
       views: [...o.filter((n) => {
         var u;
         return !((u = r.config) != null && u.areaBlacklist) || r.config.areaBlacklist.indexOf(n.area_id) == -1;
-      }).sort(N).map((n, u) => ({
+      }).sort(A).map((n, u) => ({
         strategy: {
           type: "custom:area-view-strategy",
           meta: {
@@ -396,21 +418,20 @@ class D extends HTMLTemplateElement {
 class I extends HTMLTemplateElement {
   static async generate(r, t) {
     const { config: i, meta: e } = r, { area: o, tabs: c, replaceCards: l, topCards: d, areaColors: n, areaCardConfig: u, areaBlacklist: y } = i;
-    let p = Array(), E = Array(), O = Array();
+    let m = Array(), E = Array(), O = Array();
     if (e)
-      p = e.entities, E = e.devices, O = e.areas;
+      m = e.entities, E = e.devices, O = e.areas;
     else {
       const s = await Promise.all([
         t.callWS({ type: "config/entity_registry/list" }),
         t.callWS({ type: "config/device_registry/list" }),
         t.callWS({ type: "config/area_registry/list" })
       ]);
-      p = s[0], E = s[1], O = s[2];
+      m = s[0], E = s[1], O = s[2];
     }
-    p = [...p].sort(N), E = [...E].sort(N), O = [...O].sort(N);
+    m = [...m].sort(A), E = [...E].sort(A), O = [...O].sort(A);
     const M = O.filter((s) => !y || y.indexOf(s.area_id) == -1), k = O.find((s) => s.area_id == o);
-    if (!k)
-      throw Error("No area defined");
+    if (!k) throw Error("No area defined");
     const L = /* @__PURE__ */ new Set();
     for (const s of E)
       s.area_id === k.area_id && L.add(s.id);
@@ -428,7 +449,7 @@ class I extends HTMLTemplateElement {
         }
       ]
     }, S = M.reduce(
-      (s, _, m) => {
+      (s, _, p) => {
         const f = {
           ...u,
           type: "area",
@@ -449,7 +470,7 @@ class I extends HTMLTemplateElement {
                     opacity: 0.3;
                   }
                   div.navigate {
-                    background-color: ${n[m]};
+                    background-color: ${n[p]};
                   }`
             }
           }
@@ -468,7 +489,7 @@ class I extends HTMLTemplateElement {
                           opacity: 0.3;
                         }
                         div.navigate {
-                          background-color: ${n[m]};
+                          background-color: ${n[p]};
                         }`
               }
             }
@@ -478,19 +499,19 @@ class I extends HTMLTemplateElement {
       R
     );
     S.cards = [...d || [], ...S.cards];
-    const W = (s) => s.reduce((_, m) => {
-      let f = p.filter(T).filter((g) => g.area_id ? g.area_id === k.area_id : L.has(g.device_id)).filter((g) => {
+    const W = (s) => s.reduce((_, p) => {
+      let f = m.filter(T).filter((g) => g.area_id ? g.area_id === k.area_id : L.has(g.device_id)).filter((g) => {
         const $ = g.entity_id.split(".")[0];
-        return Array.isArray(m.domain) ? m.domain.filter((b) => b == $).length > 0 : m.domain == $;
+        return Array.isArray(p.domain) ? p.domain.filter((b) => b == $).length > 0 : p.domain == $;
       });
-      m.filter && (f = f.filter((g) => {
+      p.filter && (f = f.filter((g) => {
         var b;
-        return (((b = m.filter) == null ? void 0 : b.include) || []).reduce((C, v) => C && q[v.type](g, t, v.value, v.comparator || h.equal), !0);
+        return (((b = p.filter) == null ? void 0 : b.include) || []).reduce((C, v) => C && q[v.type](g, t, v.value, v.comparator || h.equal), !0);
       }), f = f.filter((g) => {
         var b;
-        return (((b = m.filter) == null ? void 0 : b.exclude) || []).reduce((C, v) => C && !q[v.type](g, t, v.value, v.comparator || h.equal), !0);
+        return (((b = p.filter) == null ? void 0 : b.exclude) || []).reduce((C, v) => C && !q[v.type](g, t, v.value, v.comparator || h.equal), !0);
       }));
-      const P = x(f, m, m.title, l);
+      const P = x(f, p, p.title, l);
       return _.push(...P), _;
     }, Array()), z = c.map((s) => {
       const _ = W(s.rows);
@@ -611,7 +632,7 @@ class I extends HTMLTemplateElement {
   }
 }
 customElements.define(`${B}area-dashboard-strategy`, D);
-customElements.define(`${A}area-view-strategy`, I);
+customElements.define(`${N}area-view-strategy`, I);
 class U extends HTMLTemplateElement {
   static async generate(r, t) {
     const [i] = await Promise.all([
@@ -641,8 +662,8 @@ class U extends HTMLTemplateElement {
         }
       }
     }, o = i.filter(T).filter((n) => {
-      var y, p;
-      return n.entity_id.split(".")[0] == "sensor" && ((p = (y = t.states[n.entity_id]) == null ? void 0 : y.attributes) == null ? void 0 : p.device_class) == "battery";
+      var y, m;
+      return n.entity_id.split(".")[0] == "sensor" && ((m = (y = t.states[n.entity_id]) == null ? void 0 : y.attributes) == null ? void 0 : m.device_class) == "battery";
     }), c = o.filter((n) => !["mqtt", "switchbot"].includes(n.platform)), l = o.filter((n) => ["mqtt"].includes(n.platform)), d = o.filter((n) => ["switchbot"].includes(n.platform));
     return {
       panel: !0,
@@ -659,7 +680,7 @@ class U extends HTMLTemplateElement {
     };
   }
 }
-customElements.define(`${A}battery-view-strategy`, U);
+customElements.define(`${N}battery-view-strategy`, U);
 class j extends HTMLTemplateElement {
   static async generate(r, t) {
     const [i] = await Promise.all([
@@ -692,4 +713,4 @@ class j extends HTMLTemplateElement {
     };
   }
 }
-customElements.define(`${A}update-view-strategy`, j);
+customElements.define(`${N}update-view-strategy`, j);
