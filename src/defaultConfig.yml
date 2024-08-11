@@ -2,6 +2,26 @@ tabs:
   - label: Control
     icon: mdi:button-pointer
     rows:
+      - domain: alarm_control_panel
+        title: Alarm
+        card:
+          type: tile
+          entity: $entity
+          features:
+            - type: alarm-modes
+              modes:
+                - armed_home
+                - armed_away
+                - armed_night
+                - armed_vacation
+                - armed_custom_bypass
+                - disarmed
+          tap_action:
+            action: more-info
+          icon_tap_action:
+            action: none
+          hold_action:
+            action: more-info
       - domain: media_player
         title: Media
         card:
