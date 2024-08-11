@@ -15,9 +15,9 @@
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.0",
     "custom-card-helpers": "^1.9.0",
-    "home-assistant-js-websocket": "^9.3.0",
-    "typescript": "^5.4.5",
-    "vite": "^5.2.13"
+    "home-assistant-js-websocket": "^9.4.0",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
   },
   "scripts": {
     "build": "tsc --noEmit && vite build"
