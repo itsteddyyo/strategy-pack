@@ -101,6 +101,9 @@ Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Add the 
 views:
   - strategy:
       type: custom:battery-view-strategy
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
 ```
 
 >[!NOTE]
@@ -123,6 +126,9 @@ Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Add the 
 views:
   - strategy:
       type: custom:update-view-strategy
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
 ```
 
 >[!NOTE]
