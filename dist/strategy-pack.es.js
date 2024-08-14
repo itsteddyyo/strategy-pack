@@ -63,7 +63,7 @@ function U(e) {
   return e != null;
 }
 const R = {
-  minColumnWidth: 150,
+  minColumnWidth: 200,
   tabs: [
     {
       label: "Control",
@@ -635,7 +635,7 @@ class J extends HTMLTemplateElement {
 }
 customElements.define(`${I}area-dashboard-strategy`, j);
 customElements.define(`${L}area-view-strategy`, J);
-const z = { minColumnWidth: 200 };
+const z = { minColumnWidth: 300 };
 class G extends HTMLTemplateElement {
   static async generate(n, t) {
     const { config: a } = n, i = { ...z, ...a }, { minColumnWidth: r, replaceCards: s } = i, [m] = await Promise.all([
