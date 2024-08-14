@@ -50,12 +50,12 @@ export interface TabConfig {
     rows: Array<RowConfig>;
 }
 
-export interface GridStategyOptions {
+export interface UniversalStrategyOptions {
     minColumnWidth: number;
     replaceCards?: Record<string, AreaStrategyCardConfig>;
 }
 
-export interface AreaStrategyOptions extends GridStategyOptions {
+export interface AreaStrategyOptions extends UniversalStrategyOptions {
     tabs: Array<TabConfig>;
     areaColors: Array<string>;
     areaCardConfig: Exclude<LovelaceCardConfig, "type">;
@@ -69,7 +69,7 @@ export interface ManualConfigObject<T extends string, C> {
     config?: C;
 }
 
-export interface GridViewConfig<T extends string> extends ManualConfigObject<T, GridStategyOptions> { };
+export interface GridViewConfig<T extends string, C extends UniversalStrategyOptions> extends ManualConfigObject<T, C> { };
 
 export interface AreaDashboardConfig extends ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions> { }
 

@@ -2,15 +2,26 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers"
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW, GridStategyOptions, GridViewConfig } from "./util/types";
+import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW, GridViewConfig, UniversalStrategyOptions } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
+interface BatteryViewOptions extends UniversalStrategyOptions {
+    platforms: Array<{ platform: string; title: string; }>;
+}
+
 class BatteryViewStrategy extends HTMLTemplateElement {
-    static async generate(viewConfig: GridViewConfig<"custom:battery-view-strategy">, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-        const { config: preMergedConfig } = viewConfig;
-        const config = { ...defaultConfig as GridStategyOptions, ...preMergedConfig };
-        const { minColumnWidth, replaceCards } = config;
+    static async generate(viewConfig: GridViewConfig<"custom:battery-view-strategy", BatteryViewOptions>, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+        const { config: userConfig } = viewConfig;
+        const config = {
+            platforms: [
+                { platform: "mqtt", title: "Zigbee" },
+                { platform: "switchbot", title: "Switchbot" }
+            ],
+            ...defaultConfig as UniversalStrategyOptions,
+            ...userConfig
+        };
+        const { minColumnWidth, replaceCards, platforms } = config;
 
         const [entities] = await Promise.all([
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
@@ -50,37 +61,22 @@ class BatteryViewStrategy extends HTMLTemplateElement {
             );
         });
 
-        const otherEntities = batteryEntities.filter((entity) => {
-            return !["mqtt", "switchbot"].includes(entity.platform);
-        })
+        const otherFilter = (entity: EntityRegistryEntry) => {
+            return !platforms.map(platform => platform.platform).includes(entity.platform);
+        }
 
-        const mqttEntities = batteryEntities.filter((entity) => {
-            return ["mqtt"].includes(entity.platform);
-        })
+        const stackCards = createGrid(batteryEntities.filter(otherFilter), batteryCardConfig, minColumnWidth, "Other", replaceCards);
+        platforms.forEach(platform => {
+            const filter = (entity: EntityRegistryEntry) => {
+                return entity.platform === platform.platform;
+            }
 
-        const switchbotEntities = batteryEntities.filter((entity) => {
-            return ["switchbot"].includes(entity.platform);
+            stackCards.push(...createGrid(batteryEntities.filter(filter), batteryCardConfig, minColumnWidth, platform.title, replaceCards));
         })
 
         return {
             panel: true,
-            cards: [
-                {
-                    type: "vertical-stack",
-                    cards: [
-
-                        ...(otherEntities.length > 0
-                            ? createGrid(otherEntities, batteryCardConfig, minColumnWidth, "Other", replaceCards)
-                            : []),
-                        ...(mqttEntities.length > 0
-                            ? createGrid(mqttEntities, batteryCardConfig, minColumnWidth, "Zigbee", replaceCards)
-                            : []),
-                        ...(switchbotEntities.length > 0
-                            ? createGrid(switchbotEntities, batteryCardConfig, minColumnWidth, "Switchbot", replaceCards)
-                            : []),
-                    ]
-                }
-            ],
+            cards: stackCards
         };
     }
 }
