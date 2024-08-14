@@ -8,7 +8,7 @@ import { filterValue, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
 import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
 
-import defaultConfig from "./defaultConfig.yml";
+import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
 
 class AreaDashboardStrategy extends HTMLTemplateElement {
@@ -54,7 +54,8 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
 class AreaViewStrategy extends HTMLTemplateElement {
   static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-    const { config, meta } = viewConfig;
+    const { config: preMergedConfig, meta } = viewConfig;
+    const config = { ...defaultConfig, ...preMergedConfig };
     const { area, tabs, minColumnWidth, replaceCards, topCards, areaColors, areaCardConfig, areaBlacklist } = config;
 
     let entities = Array<EntityRegistryEntry>();

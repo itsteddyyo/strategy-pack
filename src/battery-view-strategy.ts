@@ -4,10 +4,12 @@ import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
 import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW, GridViewConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
+import defaultConfig from "./config/gridDefaultConfig.yml";
 
 class BatteryViewStrategy extends HTMLTemplateElement {
     static async generate(viewConfig: GridViewConfig<"custom:battery-view-strategy">, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-        const { config } = viewConfig;
+        const { config: preMergedConfig } = viewConfig;
+        const config = { ...defaultConfig, ...preMergedConfig };
         const { minColumnWidth, replaceCards } = config;
 
         const [entities] = await Promise.all([
