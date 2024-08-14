@@ -55,11 +55,6 @@ export interface GridStategyOptions {
     replaceCards?: Record<string, AreaStrategyCardConfig>;
 }
 
-export interface GridViewConfig<T extends string> {
-    type: T;
-    config: GridStategyOptions;
-}
-
 export interface AreaStrategyOptions extends GridStategyOptions {
     tabs: Array<TabConfig>;
     areaColors: Array<string>;
@@ -69,14 +64,16 @@ export interface AreaStrategyOptions extends GridStategyOptions {
     extraViews?: Array<LovelaceViewConfig>;
 }
 
-export interface AreaDashboardConfig {
-    type: "custom:area-dashboard-strategy";
-    config?: AreaStrategyOptions;
+export interface ManualConfigObject<T extends string, C> {
+    type: T;
+    config?: C;
 }
 
-export interface AreaViewConfig {
-    type: "custom:area-view-strategy";
-    config: AreaStrategyOptions & { area: string; };
+export interface GridViewConfig<T extends string> extends ManualConfigObject<T, GridStategyOptions> { };
+
+export interface AreaDashboardConfig extends ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions> { }
+
+export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string; }> {
     meta?: {
         devices: Array<DeviceRegistryEntry>;
         entities: Array<EntityRegistryEntry>;

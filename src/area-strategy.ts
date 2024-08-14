@@ -55,7 +55,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 class AreaViewStrategy extends HTMLTemplateElement {
   static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
     const { config: preMergedConfig, meta } = viewConfig;
-    const config = { ...defaultConfig, ...preMergedConfig };
+    const config = { ...defaultConfig as AreaStrategyOptions, ...preMergedConfig };
     const { area, tabs, minColumnWidth, replaceCards, topCards, areaColors, areaCardConfig, areaBlacklist } = config;
 
     let entities = Array<EntityRegistryEntry>();
