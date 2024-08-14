@@ -1,68 +1,69 @@
-const B = "ll-strategy-dashboard-", N = "ll-strategy-view-";
-var h = /* @__PURE__ */ ((a) => (a.equal = "equal", a.in = "in", a.greater_than = "greater_than", a.lower_than = "lower_than", a.is_null = "is_null", a.is_numeric = "is_numeric", a))(h || {});
-const T = (a) => !a.disabled_by && !a.hidden_by, w = (a, r, t) => {
-  const i = parseFloat(r), e = parseFloat(t);
-  switch (a) {
-    case h.equal:
-      return r == t;
-    case h.in:
+const F = "ll-strategy-dashboard-", T = "ll-strategy-view-";
+var v = /* @__PURE__ */ ((e) => (e.equal = "equal", e.in = "in", e.greater_than = "greater_than", e.lower_than = "lower_than", e.is_null = "is_null", e.is_numeric = "is_numeric", e))(v || {});
+const L = (e) => !e.disabled_by && !e.hidden_by, O = (e, n, t) => {
+  const i = parseFloat(n), a = parseFloat(t);
+  switch (e) {
+    case v.equal:
+      return n == t;
+    case v.in:
       if (Array.isArray(t))
-        return t.includes(r);
+        return t.includes(n);
       throw Error("Cannot compare. Value must be array.");
-    case h.greater_than:
-      if (isNaN(i) || isNaN(e))
+    case v.greater_than:
+      if (isNaN(i) || isNaN(a))
         throw Error("Cannot compare. One or more values are not numeric");
-      return i > e;
-    case h.lower_than:
-      if (isNaN(i) || isNaN(e))
+      return i > a;
+    case v.lower_than:
+      if (isNaN(i) || isNaN(a))
         throw Error("Cannot compare. One or more values are not numeric");
-      return i < e;
-    case h.is_null:
-      return !!r;
-    case h.is_numeric:
+      return i < a;
+    case v.is_null:
+      return !!n;
+    case v.is_numeric:
       return !isNaN(i);
   }
-}, q = {
-  entity: (a, r, t, i) => {
-    const e = a.entity_id;
-    return w(i, e, t);
+}, W = {
+  entity: (e, n, t, i) => {
+    const a = e.entity_id;
+    return O(i, a, t);
   },
-  domain: (a, r, t, i) => {
-    const e = a.entity_id.split(".")[0];
-    return w(i, e, t);
+  domain: (e, n, t, i) => {
+    const a = e.entity_id.split(".")[0];
+    return O(i, a, t);
   },
-  device: (a, r, t, i) => {
-    const e = a.device_id;
-    return w(i, e, t);
+  device: (e, n, t, i) => {
+    const a = e.device_id;
+    return O(i, a, t);
   },
-  integration: (a, r, t, i) => {
-    const e = a.platform;
-    return w(i, e, t);
+  integration: (e, n, t, i) => {
+    const a = e.platform;
+    return O(i, a, t);
   },
-  label: (a, r, t, i) => a.labels.map((o) => w(i, o, t)).indexOf(!0) > 0,
-  state: (a, r, t, i) => {
+  label: (e, n, t, i) => e.labels.map((o) => O(i, o, t)).indexOf(!0) > 0,
+  state: (e, n, t, i) => {
     var o;
-    const e = (o = r.states[a.entity_id]) == null ? void 0 : o.state;
-    return w(i, e, t);
+    const a = (o = n.states[e.entity_id]) == null ? void 0 : o.state;
+    return O(i, a, t);
   },
-  attribute: (a, r, t, i) => {
-    var c;
-    const e = (c = r.states[a.entity_id]) == null ? void 0 : c.attributes;
-    if (((l) => !!t && typeof t == "object" && t.hasOwnProperty("key") && t.hasOwnProperty("value"))())
-      return w(i, e[t.key], t.value);
+  attribute: (e, n, t, i) => {
+    var l;
+    const a = (l = n.states[e.entity_id]) == null ? void 0 : l.attributes;
+    if (((c) => !!t && typeof t == "object" && t.hasOwnProperty("key") && t.hasOwnProperty("value"))())
+      return O(i, a[t.key], t.value);
     throw Error("value is not defined correctly");
   }
-}, A = (a, r) => {
+}, N = (e, n) => {
   const t = (o) => {
-    const c = o.filter((l) => l.startsWith("sort_")).map((l) => l.replace("sort_", ""));
-    return c.push(1 / 0), c;
-  }, i = t(a.labels || [])[0], e = t(r.labels || [])[0];
-  return i - e;
+    const l = o.filter((c) => c.startsWith("sort_")).map((c) => c.replace("sort_", ""));
+    return l.push(1 / 0), l;
+  }, i = t(e.labels || [])[0], a = t(n.labels || [])[0];
+  return i - a;
 };
-function F(a) {
-  return a != null;
+function H(e) {
+  return e != null;
 }
-const H = {
+const D = {
+  minColumnWidth: 150,
   tabs: [
     {
       label: "Control",
@@ -350,91 +351,92 @@ const H = {
     "rgba(76,159,171,0.3)",
     "rgba(147,72,26,0.3)"
   ]
-}, x = (a, r, t, i) => {
-  const e = [], o = [];
-  return a.forEach((c) => {
-    var n;
-    const l = ((n = (i || {})[c.entity_id]) == null ? void 0 : n.card) || r.card, d = Object.entries(l).filter(([u, y]) => JSON.stringify(y).includes("$entity")).map(([u, y]) => {
-      const m = JSON.stringify(y);
-      return [u, JSON.parse(m.replace("$entity", c.entity_id))];
+}, E = (e, n, t, i, a) => {
+  const o = [], l = [];
+  return e.forEach((c) => {
+    var d;
+    const u = ((d = (a || {})[c.entity_id]) == null ? void 0 : d.card) || n.card, m = Object.entries(u).filter(([_, r]) => JSON.stringify(r).includes("$entity")).map(([_, r]) => {
+      const p = JSON.stringify(r);
+      return [_, JSON.parse(p.replace("$entity", c.entity_id))];
     });
-    o.push({
-      ...l,
-      ...Object.fromEntries(d)
+    l.push({
+      ...u,
+      ...Object.fromEntries(m)
     });
-  }), o.length > 0 && (t && e.push({
+  }), l.length > 0 && (i && o.push({
     type: "custom:mushroom-title-card",
-    title: t,
+    title: i,
     subtitle_tap_action: {
       action: "none"
     }
-  }), e.push({
+  }), o.push({
     type: "custom:layout-card",
     layout_type: "custom:grid-layout",
     layout: {
       "grid-template-rows": "auto",
-      "grid-template-columns": "repeat(auto-fit, minmax(150px, 1fr))",
+      "grid-template-columns": `repeat(auto-fit, minmax(${t}px, 1fr))`,
       padding: "0px 10px"
     },
-    cards: o
-  })), e;
+    cards: l
+  })), o;
 };
-class D extends HTMLTemplateElement {
-  static async generate(r, t) {
-    var d;
-    const [i, e, o] = await Promise.all([
+class I extends HTMLTemplateElement {
+  static async generate(n, t) {
+    var u;
+    const [i, a, o] = await Promise.all([
       t.callWS({ type: "config/entity_registry/list" }),
       t.callWS({ type: "config/device_registry/list" }),
       t.callWS({ type: "config/area_registry/list" })
     ]);
     return {
-      views: [...o.filter((n) => {
-        var u;
-        return !((u = r.config) != null && u.areaBlacklist) || r.config.areaBlacklist.indexOf(n.area_id) == -1;
-      }).sort(A).map((n, u) => ({
+      views: [...o.filter((m) => {
+        var d;
+        return !((d = n.config) != null && d.areaBlacklist) || n.config.areaBlacklist.indexOf(m.area_id) == -1;
+      }).sort(N).map((m, d) => ({
         strategy: {
           type: "custom:area-view-strategy",
           meta: {
             entities: i,
-            devices: e,
+            devices: a,
             areas: o
           },
           config: {
-            ...H,
-            ...r.config || {},
-            area: n.area_id
+            ...D,
+            ...n.config || {},
+            area: m.area_id
           }
         },
-        title: n.name,
-        path: n.area_id,
+        title: m.name,
+        path: m.area_id,
         icon: "mdi:home",
         type: "panel",
         subview: !1,
-        visible: u == 0
-      })), ...((d = r.config) == null ? void 0 : d.extraViews) || []]
+        visible: d == 0
+      })), ...((u = n.config) == null ? void 0 : u.extraViews) || []]
     };
   }
 }
-class I extends HTMLTemplateElement {
-  static async generate(r, t) {
-    const { config: i, meta: e } = r, { area: o, tabs: c, replaceCards: l, topCards: d, areaColors: n, areaCardConfig: u, areaBlacklist: y } = i;
-    let m = Array(), E = Array(), O = Array();
-    if (e)
-      m = e.entities, E = e.devices, O = e.areas;
+class U extends HTMLTemplateElement {
+  static async generate(n, t) {
+    const { config: i, meta: a } = n, { area: o, tabs: l, minColumnWidth: c, replaceCards: u, topCards: m, areaColors: d, areaCardConfig: _, areaBlacklist: r } = i;
+    let p = Array(), w = Array(), f = Array();
+    if (a)
+      p = a.entities, w = a.devices, f = a.areas;
     else {
       const s = await Promise.all([
         t.callWS({ type: "config/entity_registry/list" }),
         t.callWS({ type: "config/device_registry/list" }),
         t.callWS({ type: "config/area_registry/list" })
       ]);
-      m = s[0], E = s[1], O = s[2];
+      p = s[0], w = s[1], f = s[2];
     }
-    m = [...m].sort(A), E = [...E].sort(A), O = [...O].sort(A);
-    const M = O.filter((s) => !y || y.indexOf(s.area_id) == -1), k = O.find((s) => s.area_id == o);
-    if (!k) throw Error("No area defined");
-    const L = /* @__PURE__ */ new Set();
-    for (const s of E)
-      s.area_id === k.area_id && L.add(s.id);
+    p = [...p].sort(N), w = [...w].sort(N), f = [...f].sort(N);
+    const M = f.filter((s) => !r || r.indexOf(s.area_id) == -1), S = f.find((s) => s.area_id == o);
+    if (!S)
+      throw Error("No area defined");
+    const V = /* @__PURE__ */ new Set();
+    for (const s of w)
+      s.area_id === S.area_id && V.add(s.id);
     const R = {
       type: "vertical-stack",
       cards: [
@@ -448,13 +450,13 @@ class I extends HTMLTemplateElement {
           cards: []
         }
       ]
-    }, S = M.reduce(
-      (s, _, p) => {
-        const f = {
-          ...u,
+    }, $ = M.reduce(
+      (s, g, y) => {
+        const h = {
+          ..._,
           type: "area",
-          area: _.area_id,
-          navigation_path: `${_.area_id}#main`
+          area: g.area_id,
+          navigation_path: `${g.area_id}#main`
         };
         return s.cards[0].cards.push({
           type: "conditional",
@@ -463,14 +465,14 @@ class I extends HTMLTemplateElement {
             media_query: "(max-width: 1000px)"
           }],
           card: {
-            ...f,
+            ...h,
             card_mod: {
               style: `
                   hui-image {
                     opacity: 0.3;
                   }
                   div.navigate {
-                    background-color: ${n[p]};
+                    background-color: ${d[y]};
                   }`
             }
           }
@@ -481,15 +483,15 @@ class I extends HTMLTemplateElement {
               condition: "screen",
               media_query: "(min-width: 1001px)"
             }],
-            card: _.area_id == k.area_id ? f : {
-              ...f,
+            card: g.area_id == S.area_id ? h : {
+              ...h,
               card_mod: {
                 style: `
                         hui-image {
                           opacity: 0.3;
                         }
                         div.navigate {
-                          background-color: ${n[p]};
+                          background-color: ${d[y]};
                         }`
               }
             }
@@ -498,24 +500,24 @@ class I extends HTMLTemplateElement {
       },
       R
     );
-    S.cards = [...d || [], ...S.cards];
-    const W = (s) => s.reduce((_, p) => {
-      let f = m.filter(T).filter((g) => g.area_id ? g.area_id === k.area_id : L.has(g.device_id)).filter((g) => {
-        const $ = g.entity_id.split(".")[0];
-        return Array.isArray(p.domain) ? p.domain.filter((b) => b == $).length > 0 : p.domain == $;
+    $.cards = [...m || [], ...$.cards];
+    const z = (s) => s.reduce((g, y) => {
+      let h = p.filter(L).filter((b) => b.area_id ? b.area_id === S.area_id : V.has(b.device_id)).filter((b) => {
+        const A = b.entity_id.split(".")[0];
+        return Array.isArray(y.domain) ? y.domain.filter((x) => x == A).length > 0 : y.domain == A;
       });
-      p.filter && (f = f.filter((g) => {
-        var b;
-        return (((b = p.filter) == null ? void 0 : b.include) || []).reduce((C, v) => C && q[v.type](g, t, v.value, v.comparator || h.equal), !0);
-      }), f = f.filter((g) => {
-        var b;
-        return (((b = p.filter) == null ? void 0 : b.exclude) || []).reduce((C, v) => C && !q[v.type](g, t, v.value, v.comparator || h.equal), !0);
+      y.filter && (h = h.filter((b) => {
+        var x;
+        return (((x = y.filter) == null ? void 0 : x.include) || []).reduce((k, C) => k && W[C.type](b, t, C.value, C.comparator || v.equal), !0);
+      }), h = h.filter((b) => {
+        var x;
+        return (((x = y.filter) == null ? void 0 : x.exclude) || []).reduce((k, C) => k && !W[C.type](b, t, C.value, C.comparator || v.equal), !0);
       }));
-      const P = x(f, p, p.title, l);
-      return _.push(...P), _;
-    }, Array()), z = c.map((s) => {
-      const _ = W(s.rows);
-      return _.length > 0 ? {
+      const B = E(h, y, c, y.title, u);
+      return g.push(...B), g;
+    }, Array()), P = l.map((s) => {
+      const g = z(s.rows);
+      return g.length > 0 ? {
         attributes: {
           label: s.label,
           icon: s.icon,
@@ -523,16 +525,16 @@ class I extends HTMLTemplateElement {
         },
         card: {
           type: "vertical-stack",
-          cards: _
+          cards: g
         }
       } : null;
-    }).filter(F), V = {
+    }).filter(H), q = {
       type: "custom:tabbed-card",
       styles: {
         "--mdc-tab-text-label-color-default": "var(--primary-text-color)",
         "--mdc-tab-color-default": "var(--primary-text-color)"
       },
-      tabs: z
+      tabs: P
     };
     return {
       panel: !0,
@@ -553,7 +555,7 @@ class I extends HTMLTemplateElement {
                 "": {
                   type: "vertical-stack",
                   cards: [
-                    S,
+                    $,
                     {
                       type: "custom:gap-card",
                       height: 60
@@ -563,7 +565,7 @@ class I extends HTMLTemplateElement {
                 default: {
                   type: "vertical-stack",
                   cards: [
-                    V,
+                    q,
                     {
                       type: "custom:mushroom-chips-card",
                       card_mod: {
@@ -623,7 +625,7 @@ class I extends HTMLTemplateElement {
                 "grid-template-columns": "2fr 3fr",
                 "grid-template-areas": "navigation main"
               },
-              cards: [S, V]
+              cards: [$, q]
             }
           }
         ]
@@ -631,13 +633,13 @@ class I extends HTMLTemplateElement {
     };
   }
 }
-customElements.define(`${B}area-dashboard-strategy`, D);
-customElements.define(`${N}area-view-strategy`, I);
-class U extends HTMLTemplateElement {
-  static async generate(r, t) {
-    const [i] = await Promise.all([
+customElements.define(`${F}area-dashboard-strategy`, I);
+customElements.define(`${T}area-view-strategy`, U);
+class j extends HTMLTemplateElement {
+  static async generate(n, t) {
+    const { config: i } = n, { minColumnWidth: a, replaceCards: o } = i, [l] = await Promise.all([
       t.callWS({ type: "config/entity_registry/list" })
-    ]), e = {
+    ]), c = {
       card: {
         type: "custom:mini-graph-card",
         entities: ["$entity"],
@@ -661,31 +663,31 @@ class U extends HTMLTemplateElement {
               }`
         }
       }
-    }, o = i.filter(T).filter((n) => {
-      var y, m;
-      return n.entity_id.split(".")[0] == "sensor" && ((m = (y = t.states[n.entity_id]) == null ? void 0 : y.attributes) == null ? void 0 : m.device_class) == "battery";
-    }), c = o.filter((n) => !["mqtt", "switchbot"].includes(n.platform)), l = o.filter((n) => ["mqtt"].includes(n.platform)), d = o.filter((n) => ["switchbot"].includes(n.platform));
+    }, u = l.filter(L).filter((r) => {
+      var w, f;
+      return r.entity_id.split(".")[0] == "sensor" && ((f = (w = t.states[r.entity_id]) == null ? void 0 : w.attributes) == null ? void 0 : f.device_class) == "battery";
+    }), m = u.filter((r) => !["mqtt", "switchbot"].includes(r.platform)), d = u.filter((r) => ["mqtt"].includes(r.platform)), _ = u.filter((r) => ["switchbot"].includes(r.platform));
     return {
       panel: !0,
       cards: [
         {
           type: "vertical-stack",
           cards: [
-            ...c.length > 0 ? x(c, e, "Other") : [],
-            ...l.length > 0 ? x(l, e, "Zigbee") : [],
-            ...d.length > 0 ? x(d, e, "Switchbot") : []
+            ...m.length > 0 ? E(m, c, a, "Other", o) : [],
+            ...d.length > 0 ? E(d, c, a, "Zigbee", o) : [],
+            ..._.length > 0 ? E(_, c, a, "Switchbot", o) : []
           ]
         }
       ]
     };
   }
 }
-customElements.define(`${N}battery-view-strategy`, U);
-class j extends HTMLTemplateElement {
-  static async generate(r, t) {
-    const [i] = await Promise.all([
+customElements.define(`${T}battery-view-strategy`, j);
+class J extends HTMLTemplateElement {
+  static async generate(n, t) {
+    const { config: i } = n, { minColumnWidth: a, replaceCards: o } = i, [l] = await Promise.all([
       t.callWS({ type: "config/entity_registry/list" })
-    ]), e = {
+    ]), c = {
       card: {
         type: "tile",
         entity: "$entity",
@@ -694,23 +696,23 @@ class j extends HTMLTemplateElement {
           { type: "update-actions", backup: "ask" }
         ]
       }
-    }, o = i.filter(T).filter((n) => {
-      const u = n.entity_id.split(".")[0];
-      return !n.disabled_by && !n.hidden_by && u == "update";
-    }), c = o.filter((n) => !["unifi", "esphome"].includes(n.platform)), l = o.filter((n) => ["unifi"].includes(n.platform)), d = o.filter((n) => ["esphome"].includes(n.platform));
+    }, u = l.filter(L).filter((r) => {
+      const p = r.entity_id.split(".")[0];
+      return !r.disabled_by && !r.hidden_by && p == "update";
+    }), m = u.filter((r) => !["unifi", "esphome"].includes(r.platform)), d = u.filter((r) => ["unifi"].includes(r.platform)), _ = u.filter((r) => ["esphome"].includes(r.platform));
     return {
       panel: !0,
       cards: [
         {
           type: "vertical-stack",
           cards: [
-            ...c.length > 0 ? x(c, e, "Other") : [],
-            ...l.length > 0 ? x(l, e, "UniFi") : [],
-            ...d.length > 0 ? x(d, e, "ESPHome") : []
+            ...m.length > 0 ? E(m, c, a, "Other", o) : [],
+            ...d.length > 0 ? E(d, c, a, "UniFi", o) : [],
+            ..._.length > 0 ? E(_, c, a, "ESPHome", o) : []
           ]
         }
       ]
     };
   }
 }
-customElements.define(`${N}update-view-strategy`, j);
+customElements.define(`${T}update-view-strategy`, J);
