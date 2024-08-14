@@ -41,7 +41,7 @@ class UpdateViewStrategy extends HTMLTemplateElement {
 
         const updateEntities = entities.filter(hiddenFilter).filter((entity) => {
             const domain = entity.entity_id.split(".")[0];
-            return !entity.disabled_by && !entity.hidden_by && domain == "update";
+            return domain == "update";
         });
 
 

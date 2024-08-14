@@ -76,7 +76,12 @@ class BatteryViewStrategy extends HTMLTemplateElement {
 
         return {
             panel: true,
-            cards: stackCards
+            cards: [
+                {
+                    type: "vertical-stack",
+                    cards: stackCards
+                }
+            ]
         };
     }
 }
