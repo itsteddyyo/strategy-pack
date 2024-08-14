@@ -6,13 +6,13 @@ import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { filterValue, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
-import { DashboardConfig, ViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
+import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
 
 import defaultConfig from "./defaultConfig.yml";
 import { createGrid } from "./util/createGrid";
 
 class AreaDashboardStrategy extends HTMLTemplateElement {
-  static async generate(dashboardConfig: DashboardConfig, hass: HomeAssistant): Promise<LovelaceConfig> {
+  static async generate(dashboardConfig: AreaDashboardConfig, hass: HomeAssistant): Promise<LovelaceConfig> {
     const [entities, devices, areas] = await Promise.all([
       hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
       hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
@@ -53,9 +53,9 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 }
 
 class AreaViewStrategy extends HTMLTemplateElement {
-  static async generate(viewConfig: ViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+  static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
     const { config, meta } = viewConfig;
-    const { area, tabs, replaceCards, topCards, areaColors, areaCardConfig, areaBlacklist } = config;
+    const { area, tabs, minColumnWidth, replaceCards, topCards, areaColors, areaCardConfig, areaBlacklist } = config;
 
     let entities = Array<EntityRegistryEntry>();
     let devices = Array<DeviceRegistryEntry>();
@@ -214,7 +214,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
           })
         }
 
-        const gridCards = createGrid(usedEntities, curr, curr.title, replaceCards);
+        const gridCards = createGrid(usedEntities, curr, minColumnWidth, curr.title, replaceCards);
         prev.push(...gridCards);
 
         return prev;

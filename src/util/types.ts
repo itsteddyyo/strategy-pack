@@ -50,22 +50,31 @@ export interface TabConfig {
     rows: Array<RowConfig>;
 }
 
-export interface AreaStrategyOptions {
+export interface GridStategyOptions {
+    minColumnWidth: number;
+    replaceCards?: Record<string, AreaStrategyCardConfig>;
+}
+
+export interface GridViewConfig<T extends string> {
+    type: T;
+    config: GridStategyOptions;
+}
+
+export interface AreaStrategyOptions extends GridStategyOptions {
     tabs: Array<TabConfig>;
     areaColors: Array<string>;
     areaCardConfig: Exclude<LovelaceCardConfig, "type">;
     areaBlacklist?: Array<string>;
     topCards?: Array<LovelaceCardConfig>;
-    replaceCards?: Record<string, AreaStrategyCardConfig>;
     extraViews?: Array<LovelaceViewConfig>;
 }
 
-export interface DashboardConfig {
+export interface AreaDashboardConfig {
     type: "custom:area-dashboard-strategy";
     config?: AreaStrategyOptions;
 }
 
-export interface ViewConfig {
+export interface AreaViewConfig {
     type: "custom:area-view-strategy";
     config: AreaStrategyOptions & { area: string; };
     meta?: {
@@ -76,5 +85,5 @@ export interface ViewConfig {
 }
 
 export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
-    strategy: ViewConfig;
+    strategy: AreaViewConfig;
 }

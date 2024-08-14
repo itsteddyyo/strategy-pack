@@ -2,11 +2,14 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers"
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW } from "./util/types";
+import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW, GridViewConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
 
 class UpdateViewStrategy extends HTMLTemplateElement {
-    static async generate(_viewConfig: any, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+    static async generate(viewConfig: GridViewConfig<"custom:update-view-strategy">, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+        const { config } = viewConfig;
+        const { minColumnWidth, replaceCards } = config;
+
         const [entities] = await Promise.all([
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
         ]);
@@ -47,13 +50,13 @@ class UpdateViewStrategy extends HTMLTemplateElement {
                     cards: [
 
                         ...(otherEntities.length > 0
-                            ? createGrid(otherEntities, updateCardConfig, "Other")
+                            ? createGrid(otherEntities, updateCardConfig, minColumnWidth, "Other", replaceCards)
                             : []),
                         ...(unifiEntities.length > 0
-                            ? createGrid(unifiEntities, updateCardConfig, "UniFi")
+                            ? createGrid(unifiEntities, updateCardConfig, minColumnWidth, "UniFi", replaceCards)
                             : []),
                         ...(esphomeEntities.length > 0
-                            ? createGrid(esphomeEntities, updateCardConfig, "ESPHome")
+                            ? createGrid(esphomeEntities, updateCardConfig, minColumnWidth, "ESPHome", replaceCards)
                             : []),
                     ]
                 }

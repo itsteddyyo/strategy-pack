@@ -2,11 +2,14 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers"
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW } from "./util/types";
+import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW, GridViewConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
 
 class BatteryViewStrategy extends HTMLTemplateElement {
-    static async generate(_viewConfig: any, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+    static async generate(viewConfig: GridViewConfig<"custom:battery-view-strategy">, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+        const { config } = viewConfig;
+        const { minColumnWidth, replaceCards } = config;
+
         const [entities] = await Promise.all([
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
         ]);
@@ -65,13 +68,13 @@ class BatteryViewStrategy extends HTMLTemplateElement {
                     cards: [
 
                         ...(otherEntities.length > 0
-                            ? createGrid(otherEntities, batteryCardConfig, "Other")
+                            ? createGrid(otherEntities, batteryCardConfig, minColumnWidth, "Other", replaceCards)
                             : []),
                         ...(mqttEntities.length > 0
-                            ? createGrid(mqttEntities, batteryCardConfig, "Zigbee")
+                            ? createGrid(mqttEntities, batteryCardConfig, minColumnWidth, "Zigbee", replaceCards)
                             : []),
                         ...(switchbotEntities.length > 0
-                            ? createGrid(switchbotEntities, batteryCardConfig, "Switchbot")
+                            ? createGrid(switchbotEntities, batteryCardConfig, minColumnWidth, "Switchbot", replaceCards)
                             : []),
                     ]
                 }

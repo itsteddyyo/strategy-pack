@@ -2,7 +2,7 @@ import { LovelaceCardConfig } from "custom-card-helpers";
 import { EntityRegistryEntry } from "../homeassistant/entity_registry";
 import { AreaStrategyCardConfig } from "./types";
 
-export const createGrid = (entities: Array<EntityRegistryEntry>, cardConfig: AreaStrategyCardConfig, title?: string, replaceCards?: Record<string, AreaStrategyCardConfig>): Array<LovelaceCardConfig> => {
+export const createGrid = (entities: Array<EntityRegistryEntry>, cardConfig: AreaStrategyCardConfig, minColumnWidth: number, title?: string, replaceCards?: Record<string, AreaStrategyCardConfig>): Array<LovelaceCardConfig> => {
     const returnCards: Array<LovelaceCardConfig> = [];
     const gridCards: Array<LovelaceCardConfig> = [];
 
@@ -37,7 +37,7 @@ export const createGrid = (entities: Array<EntityRegistryEntry>, cardConfig: Are
             layout_type: "custom:grid-layout",
             layout: {
                 "grid-template-rows": "auto",
-                "grid-template-columns": "repeat(auto-fit, minmax(150px, 1fr))",
+                "grid-template-columns": `repeat(auto-fit, minmax(${minColumnWidth}px, 1fr))`,
                 padding: "0px 10px",
             },
             cards: gridCards,

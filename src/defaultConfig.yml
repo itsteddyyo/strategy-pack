@@ -1,3 +1,4 @@
+minColumnWidth: 150
 tabs:
   - label: Control
     icon: mdi:button-pointer
