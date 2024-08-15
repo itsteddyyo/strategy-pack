@@ -486,7 +486,7 @@ include:
 
 The default config is written as yaml. This should make it easy to make your own changes because it is written exactly as you would in your dashboard.
 
-You can find it [here](./src/config/areaDefaultConfig)
+You can find it [here](/src/config/areaDefaultConfig.yml)
 
 The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
 
