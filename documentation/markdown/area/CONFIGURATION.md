@@ -162,7 +162,7 @@ config:
 
 This would result in this spectacular dashboard.
 
-![Custom](/documentation/assets/area-strategy-with-custom-options.png "Custom")
+![Custom](/documentation/assets/area/area-strategy-with-custom-options.png "Custom")
 
 I used all available options in this example. You don`t need to do this!
 
@@ -477,13 +477,13 @@ You can find it [here](./src/defaultConfig.yml)
 
 The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
 
-![Area Card](/documentation/assets/area-strategy-navigation.png "Area Card")
+![Area Card](/documentation/assets/area/area-strategy-navigation.png "Area Card")
 
 There are 3 Tabs.
 
 1. Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
 
-![Control](/documentation/assets/area-strategy-main-control.png "Control")
+![Control](/documentation/assets/area/area-strategy-main-control.png "Control")
 
 There are Rows for:
 
@@ -500,7 +500,7 @@ I skipped lights and fans because they already are controllable with the area-ca
 
 2. Stats is for "read-only" entities like binary_sensors and sensors.
 
-![Stats](/documentation/assets/area-strategy-main-stats.png "Stats")
+![Stats](/documentation/assets/area/area-strategy-main-stats.png "Stats")
 
 There are Rows for:
 
@@ -510,7 +510,7 @@ There are Rows for:
 
 3. Camera is for Camera-Streams.
 
-![Camera](/documentation/assets/area-strategy-main-camera.png "Camera")
+![Camera](/documentation/assets/area/area-strategy-main-camera.png "Camera")
 
 There are Rows for:
 

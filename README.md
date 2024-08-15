@@ -32,31 +32,31 @@ The collection currently consists of 3 Strategies (with Area Dashboard Strategy 
 >If you want to sort anything in the strategies, you can use "Label Sort".<br>
 >It works currently on areas (=sort of navigation areas and views overall) and entities (=sort in the grid).<br>
 >Just create Labels with the exact name as below (Sort:1, Sort:2, ... as many as you want) and assign them.<br>
->![Label Sort](/documentation/assets/area-strategy-label-sort.png "Label Sort")
+>![Label Sort](/documentation/assets/area/area-strategy-label-sort.png "Label Sort")
 
 ## Installation
 
-[Installation Instructions here](./documentation/INSTALLATION.md)
+[Installation Instructions here](./documentation/markdown/INSTALLATION.md)
 
 ## 1. Area Dashboard Strategy
 
 Fully configurabe Dashboard with View per Area and auto-populating entities ordered in Grids.
 
- ![Area Strategy](/documentation/area-strategy.gif "Area Strategy")
+ ![Area Strategy](/documentation/assets/area/area-strategy.gif "Area Strategy")
  
  The dashboard was designed to be fully responsive! You can absolutely use this also on tablets or phones!
 
- ![Area Strategy Responsive](/documentation/area-strategy-responsive-new.gif "Area Strategy Responsive")
+ ![Area Strategy Responsive](/documentation/assets/area/area-strategy-responsive-new.gif "Area Strategy Responsive")
 
 The Dashboard contains all entities assigned to that Area (either via device or entity itself).
 
  You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu.
 
- ![Top Menu](/documentation/assets/area-strategy-top-menu.png "Top Menu")
+ ![Top Menu](/documentation/assets/area/area-strategy-top-menu.png "Top Menu")
 
 This is because the navigation is meant to be made with the left-sided navigation menu.
 
-[More on the Design: UI explained](./documentation/UI.md)
+[More on the Design: UI explained](./documentation/markdown/area/UI.md)
 
 ### Usage
 
@@ -86,13 +86,13 @@ There is a sensible default configuration, which is the one i myself use.
 So you can start out without configuring anything and have a nice dashboard.
 And if you find something you don’t like, just start configuring!
 
-[Default Configuration explained](./documentation/CONFIGURATION.md#default-config-explained)
+[Default Configuration explained](./documentation/markdown/area/CONFIGURATION.md#default-config-explained)
 
 ## 2. Battery View Strategy
 
 View Strategy with one page for all battery entities.
 
- ![Battery View Strategy](/documentation/assets/battery-view-strategy.png "Battery View Strategy")
+ ![Battery View Strategy](/documentation/assets/battery/battery-view-strategy.png "Battery View Strategy")
 
 ### Usage
 
@@ -117,7 +117,7 @@ views:
 
 View Strategy with one page for all update entities.
 
- ![Update View Strategy](/documentation/assets/update-view-strategy.png "Update View Strategy")
+ ![Update View Strategy](/documentation/assets/update/update-view-strategy.png "Update View Strategy")
 
 ### Usage
 
