@@ -40,6 +40,13 @@ platforms:
     title: Switchbot
         </pre>
       </td>
+      <td>
+        <pre>
+platforms:
+  - platform: mqtt
+    title: Everything MQTT
+        </pre>
+      </td>
     </tr>
     <tr>
       <td>replaceCards</td>
