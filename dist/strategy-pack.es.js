@@ -690,12 +690,13 @@ class G extends HTMLTemplateElement {
   }
 }
 customElements.define(`${L}battery-view-strategy`, G);
-class X extends HTMLTemplateElement {
+class Z extends HTMLTemplateElement {
   static async generate(n, t) {
     const { config: a } = n, i = {
       platforms: [
         { platform: "unifi", title: "UniFi" },
-        { platform: "esphome", title: "ESPHome" }
+        { platform: "esphome", title: "ESPHome" },
+        { platform: "mqtt", title: "Zigbee" }
       ],
       ...z,
       ...a
@@ -725,4 +726,4 @@ class X extends HTMLTemplateElement {
     };
   }
 }
-customElements.define(`${L}update-view-strategy`, X);
+customElements.define(`${L}update-view-strategy`, Z);
