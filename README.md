@@ -11,8 +11,10 @@ The strategies can be at the dashboard level, generating whole dashboards with m
 ```yaml
 strategy:
   type: custom:example-dashboard-strategy
-  options_and_config_for_this_dashboard: ...
-homeassistant_dashboard_options: ...
+  #The Config for this dashboard dependant on the view; nothing to do with HA Config
+  config: config for this dashboard
+#The Home Assistant View Options like:
+##Currently i think there are none for dashboards
 ```
 
 or at the view level, generating a single view in an already existing dashboard.
@@ -21,8 +23,14 @@ or at the view level, generating a single view in an already existing dashboard.
 views:
   - strategy: 
       type: custom:example-view-strategy
-      options_and_config_for_this_view: ...
-    homeassistant_view_options: ...
+      #The Config for this view dependant on the view; nothing to do with HA Config
+      config: config for this view
+    #The Home Assistant View Options like:
+    ##icon: mdi-example
+    ##path: example
+    ##title: Example
+    ##visible:
+    ##  - user_you_want
   - other views you want...
 ```
 
@@ -80,7 +88,17 @@ Modifications are possible to:
 - the tabs in the main area (number of tabs, their names, icons, etc.)
 - the content of the tabs (number of grids, header, cards in the grids, etc.)
 
-[All Configration Options here](./documentation/CONFIGURATION.md#configuration)
+Configuration works like this:
+
+```yaml
+strategy:
+  type: custom:area-dashboard-strategy
+  config:
+    #Your Config here like:
+    tabs: ...
+```
+
+[All Configration Options here](./documentation/markdown/area/CONFIGURATION.md#configuration)
 
 There is a sensible default configuration, which is the one i myself use.
 So you can start out without configuring anything and have a nice dashboard.
@@ -110,8 +128,25 @@ views:
     path: yourpath
 ```
 
->[!NOTE]
->At the moment there is no configuration possible, but i have it on my list.
+This Strategy is completely configurable.
+Modifications are possible to:
+
+- the rows/grids in the view (number of grids, header, etc.)
+
+Configuration works like this:
+
+```yaml
+  - strategy:
+      type: custom:battery-view-strategy
+      config:
+        #Your Config here like:
+        platforms: ...
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
+```
+
+[All Configration Options here](./documentation/markdown/battery/CONFIGURATION.md#configuration)
 
 ## 3. Update View Strategy
 
@@ -135,8 +170,25 @@ views:
     path: yourpath
 ```
 
->[!NOTE]
->At the moment there is no configuration possible, but I have it on my list.
+This Strategy is completely configurable.
+Modifications are possible to:
+
+- the rows/grids in the view (number of grids, header, etc.)
+
+Configuration works like this:
+
+```yaml
+  - strategy:
+      type: custom:update-view-strategy
+      config:
+        #Your Config here like:
+        platforms: ...
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
+```
+
+[All Configration Options here](./documentation/markdown/update/CONFIGURATION.md#configuration)
 
 ## Credits
 
