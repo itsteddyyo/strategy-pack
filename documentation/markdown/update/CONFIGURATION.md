@@ -15,6 +15,18 @@
   </thead>
   <tbody>
     <tr>
+      <td>minColumnWidth</td>
+      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
+      <td>number</td>
+      <td>yes</td>
+      <td><a href="/src/config/gridDefaultConfig.yml#L1">set</a></td>
+      <td>
+        <pre>
+minColumnWidth: 1000
+        </pre>
+      </td>
+    </tr>
+    <tr>
       <td>platforms</td>
       <td>Platforms defining the Rows of Grids</td>
       <td>Array</td>
@@ -56,6 +68,7 @@ So a valid dashboard with configration could look like this:
 strategy:
   type: custom:update-view-strategy
   config:
+    minColumnWidth: 1000
     platforms:
       - platform: mqtt
         title: Everything MQTT

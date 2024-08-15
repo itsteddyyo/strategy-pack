@@ -15,6 +15,18 @@
   </thead>
   <tbody>
     <tr>
+      <td>minColumnWidth</td>
+      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
+      <td>number</td>
+      <td>yes</td>
+      <td><a href="/src/config/areaDefaultConfig#L1">set</a></td>
+      <td>
+        <pre>
+minColumnWidth: 1000
+        </pre>
+      </td>
+    </tr>
+    <tr>
       <td>tabs</td>
       <td>Tabs shown in the main area. <a href="#tabs">More</a></td>
       <td>Array</td>
@@ -126,6 +138,7 @@ So a valid dashboard with configration could look like this:
 ```yaml
 type: custom:area-dashboard-strategy
 config:
+  minColumnWidth: 300
   areaBlacklist:
     - tv
   areaColors: []
