@@ -17,7 +17,8 @@ class UpdateViewStrategy extends HTMLTemplateElement {
             platforms:
                 [
                     { platform: "unifi", title: "UniFi" },
-                    { platform: "esphome", title: "ESPHome" }
+                    { platform: "esphome", title: "ESPHome" },
+                    { platform: "mqtt", title: "Zigbee" }
                 ],
             ...defaultConfig as UniversalStrategyOptions,
             ...userConfig
