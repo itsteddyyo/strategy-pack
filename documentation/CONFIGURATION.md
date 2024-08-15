@@ -487,6 +487,7 @@ There are 3 Tabs.
 
 There are Rows for:
 
+- alarm_control_panel
 - media_player
 - cover
 - vacuum

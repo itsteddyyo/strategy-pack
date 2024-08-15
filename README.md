@@ -34,6 +34,10 @@ The collection currently consists of 3 Strategies (with Area Dashboard Strategy 
 >Just create Labels with the exact name as below (Sort:1, Sort:2, ... as many as you want) and assign them.<br>
 >![Label Sort](/documentation/area-strategy-label-sort.png "Label Sort")
 
+## Installation
+
+[Installation Instructions here](./documentation/INSTALLATION.md)
+
 ## 1. Area Dashboard Strategy
 
 Fully configurabe Dashboard with View per Area and auto-populating entities ordered in Grids.
@@ -133,10 +137,6 @@ views:
 
 >[!NOTE]
 >At the moment there is no configuration possible, but I have it on my list.
-
-## Installation
-
-[Installation Instructions here](./documentation/INSTALLATION.md)
 
 ## Credits
 
