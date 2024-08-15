@@ -32,7 +32,7 @@ The collection currently consists of 3 Strategies (with Area Dashboard Strategy 
 >If you want to sort anything in the strategies, you can use "Label Sort".<br>
 >It works currently on areas (=sort of navigation areas and views overall) and entities (=sort in the grid).<br>
 >Just create Labels with the exact name as below (Sort:1, Sort:2, ... as many as you want) and assign them.<br>
->![Label Sort](/documentation/area-strategy-label-sort.png "Label Sort")
+>![Label Sort](/documentation/assets/area-strategy-label-sort.png "Label Sort")
 
 ## Installation
 
@@ -52,7 +52,7 @@ The Dashboard contains all entities assigned to that Area (either via device or 
 
  You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu.
 
- ![Top Menu](/documentation/area-strategy-top-menu.png "Top Menu")
+ ![Top Menu](/documentation/assets/area-strategy-top-menu.png "Top Menu")
 
 This is because the navigation is meant to be made with the left-sided navigation menu.
 
@@ -92,7 +92,7 @@ And if you find something you don’t like, just start configuring!
 
 View Strategy with one page for all battery entities.
 
- ![Battery View Strategy](/documentation/battery-view-strategy.png "Battery View Strategy")
+ ![Battery View Strategy](/documentation/assets/battery-view-strategy.png "Battery View Strategy")
 
 ### Usage
 
@@ -117,7 +117,7 @@ views:
 
 View Strategy with one page for all update entities.
 
- ![Update View Strategy](/documentation/update-view-strategy.png "Update View Strategy")
+ ![Update View Strategy](/documentation/assets/update-view-strategy.png "Update View Strategy")
 
 ### Usage
 

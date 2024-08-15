@@ -2,7 +2,7 @@
 
 ## UI explained
 
-![UI Explained](/documentation/area-strategy-ui-explained.png "UI Explained")
+![UI Explained](/documentation/assets/area-strategy-ui-explained.png "UI Explained")
 
 ### 1. Navigation
 
