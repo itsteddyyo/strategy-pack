@@ -19,7 +19,7 @@
       <td>Tabs shown in the main area. <a href="#tabs">More</a></td>
       <td>Array</td>
       <td>yes</td>
-      <td><a href="/src/defaultConfig.yml#L1">set</a></td>
+      <td><a href="/src/config/areaDefaultConfig.yml#L2">set</a></td>
       <td>
         <pre>
 tabs:
@@ -36,7 +36,7 @@ tabs:
         overlay.</td>
       <td>Array</td>
       <td>yes</td>
-      <td><a href="/src/defaultConfig.yml#L232">set</a></td>
+      <td><a href="/src/config/areaDefaultConfig#L233">set</a></td>
       <td>
         <pre>
 areaColors:
@@ -49,7 +49,7 @@ areaColors:
       <td>The config for the area card. All options allowed expect type, area, navigation_path</td>
       <td>Object</td>
       <td>yes</td>
-      <td><a href="/src/defaultConfig.yml#L225">set</a></td>
+      <td><a href="/src/config/areaDefaultConfig#L226">set</a></td>
       <td>
         <pre>
 areaCardConfig:
@@ -473,7 +473,7 @@ include:
 
 The default config is written as yaml. This should make it easy to make your own changes because it is written exactly as you would in your dashboard.
 
-You can find it [here](./src/defaultConfig.yml)
+You can find it [here](./src/config/areaDefaultConfig)
 
 The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
 
