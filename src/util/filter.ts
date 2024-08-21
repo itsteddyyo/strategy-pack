@@ -14,25 +14,27 @@ export const createRowFilter = (row: RowConfig, hass: HomeAssistant) => {
         const rowClone = cloneDeep(row)
         rowClone.filter = { ...(rowClone.filter || {}), include: [...(rowClone.filter?.include || []), domainIncludeFilter] }
 
+        let ret = true;
+
         if (!!rowClone.filter) {
             //custom include filter in row definition
             const include = rowClone.filter?.include || [];
-            include.forEach((filter) => {
-                const passed = filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
-                if (!passed) {
+            ret = include.reduce((ret2, filter) => {
+                if (!ret2) {
                     return false;
                 }
-            })
+                return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
+            }, ret)
             //custom exclude filter in row definition
             const exclude = rowClone.filter?.exclude || [];
-            exclude.forEach((filter) => {
-                const passed = !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
-                if (!passed) {
+            ret = exclude.reduce((ret2, filter) => {
+                if (!ret2) {
                     return false;
                 }
-            })
+                return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
+            }, ret)
         }
-        return true;
+        return ret;
     }
 }
 
