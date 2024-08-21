@@ -17,6 +17,7 @@ class UpdateViewStrategy extends HTMLTemplateElement {
             platforms:
                 [
                     { platform: "unifi", title: "UniFi" },
+                    { platform: "hacs", title: "HACS" },
                     { platform: "esphome", title: "ESPHome" },
                     { platform: "mqtt", title: "Zigbee" }
                 ],

@@ -101,6 +101,7 @@ Additionally for this View Strategy the platforms options is hard-coded so it is
 There are Rows for:
 
 - UniFi
+- HACS
 - ESPHome
 - Zigbee
 - Other (always present everything that is not defined in platforms!)
