@@ -4,9 +4,9 @@ import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { DeviceRegistryEntry } from "./homeassistant/device_registry";
 import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
-import { filterValue, hiddenFilter } from './util/filter';
+import { createRowFilter, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
-import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, Comparator, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
+import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
@@ -179,41 +179,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
               : areaDevices.has(entity.device_id);
           })
           //entity in defined domain of row
-          .filter((entity) => {
-            const domain = entity.entity_id.split(".")[0];
-            if (Array.isArray(curr.domain)) {
-              return curr.domain.filter((currDomain) => currDomain == domain)
-                .length > 0;
-            } else {
-              return curr.domain == domain;
-            }
-          });
-
-
-        if (!!curr.filter) {
-          //custom include filter in row definition
-          usedEntities = usedEntities.filter((entity) => {
-            const include = curr.filter?.include || [];
-            return include.reduce((prev, filter) => {
-              if (prev) {
-                return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
-              } else {
-                return prev;
-              }
-            }, true)
-          })
-          //custom exclude filter in row definition
-          usedEntities = usedEntities.filter((entity) => {
-            const exclude = curr.filter?.exclude || [];
-            return exclude.reduce((prev, filter) => {
-              if (prev) {
-                return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
-              } else {
-                return prev;
-              }
-            }, true)
-          })
-        }
+          .filter(createRowFilter(curr, hass));
 
         const gridCards = createGrid(usedEntities, curr, minColumnWidth, curr.title, replaceCards);
         prev.push(...gridCards);

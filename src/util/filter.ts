@@ -1,9 +1,37 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { EntityRegistryEntry } from "../homeassistant/entity_registry";
-import { Comparator, FilterType } from "./types";
+import { Comparator, FilterConfig, FilterType, RowConfig } from "./types";
 
 export const hiddenFilter = (entity: EntityRegistryEntry) => {
     return !entity.disabled_by && !entity.hidden_by;
+}
+
+export const createRowFilter = (row: RowConfig, hass: HomeAssistant) => {
+    return (entity: EntityRegistryEntry) => {
+        //convert domain to include filter
+        const domainIncludeFilter: FilterConfig = { type: FilterType.domain, comparator: Array.isArray(row.domain) ? Comparator.in : Comparator.equal, value: row.domain };
+        row.filter = { ...(row.filter || {}), include: [...(row.filter?.include || []), domainIncludeFilter] }
+
+        if (!!row.filter) {
+            //custom include filter in row definition
+            const include = row.filter?.include || [];
+            include.forEach((filter) => {
+                const passed = filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
+                if (!passed) {
+                    return false;
+                }
+            })
+            //custom exclude filter in row definition
+            const exclude = row.filter?.exclude || [];
+            exclude.forEach((filter) => {
+                const passed = !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
+                if (!passed) {
+                    return false;
+                }
+            })
+        }
+        return true;
+    }
 }
 
 export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
