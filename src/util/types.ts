@@ -32,10 +32,6 @@ export interface FilterConfig {
     value?: unknown;
 }
 
-export interface AreaStrategyCardConfig {
-    card: LovelaceCardConfig;
-}
-
 export interface RowFilterConfig {
     filter?: {
         exclude?: Array<FilterConfig>;
@@ -43,29 +39,13 @@ export interface RowFilterConfig {
     };
 }
 
-export interface RowConfig extends AreaStrategyCardConfig, RowFilterConfig {
-    domain: string | Array<string>;
-    title?: string;
-}
-
-export interface TabConfig {
-    label: string;
-    icon: string;
-    rows: Array<RowConfig>;
+export interface GridStrategyCardConfig {
+    card: LovelaceCardConfig;
 }
 
 export interface UniversalStrategyOptions {
     minColumnWidth: number;
-    replaceCards?: Record<string, AreaStrategyCardConfig>;
-}
-
-export interface AreaStrategyOptions extends UniversalStrategyOptions {
-    tabs: Array<TabConfig>;
-    areaColors: Array<string>;
-    areaCardConfig: Exclude<LovelaceCardConfig, "type">;
-    areaBlacklist?: Array<string>;
-    topCards?: Array<LovelaceCardConfig>;
-    extraViews?: Array<LovelaceViewConfig>;
+    replaceCards?: Record<string, GridStrategyCardConfig>;
 }
 
 export interface ManualConfigObject<T extends string, C> {
@@ -75,16 +55,3 @@ export interface ManualConfigObject<T extends string, C> {
 
 export interface GridViewConfig<T extends string, C extends UniversalStrategyOptions> extends ManualConfigObject<T, C> { };
 
-export interface AreaDashboardConfig extends ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions> { }
-
-export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string; }> {
-    meta?: {
-        devices: Array<DeviceRegistryEntry>;
-        entities: Array<EntityRegistryEntry>;
-        areas: Array<AreaRegistryEntry>;
-    }
-}
-
-export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
-    strategy: AreaViewConfig;
-}

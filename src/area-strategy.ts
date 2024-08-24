@@ -6,14 +6,46 @@ import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { createRowFilter, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
-import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW, FilterConfig, FilterType, Comparator } from "./util/types";
+import { CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW, FilterConfig, FilterType, Comparator, GridStrategyCardConfig, RowFilterConfig, UniversalStrategyOptions, ManualConfigObject } from "./util/types";
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
 import { mergeWith } from "lodash";
 
+export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+  domain: string | Array<string>;
+  title?: string;
+}
+
+export interface TabConfig {
+  label: string;
+  icon: string;
+  rows: Array<RowConfig>;
+}
+
+export interface AreaStrategyOptions extends UniversalStrategyOptions {
+  tabs: Array<TabConfig>;
+  areaColors: Array<string>;
+  areaCardConfig: Exclude<LovelaceCardConfig, "type">;
+  areaBlacklist?: Array<string>;
+  topCards?: Array<LovelaceCardConfig>;
+  extraViews?: Array<LovelaceViewConfig>;
+}
+
+export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string; }> {
+  meta?: {
+    devices: Array<DeviceRegistryEntry>;
+    entities: Array<EntityRegistryEntry>;
+    areas: Array<AreaRegistryEntry>;
+  }
+}
+
+export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
+  strategy: AreaViewConfig;
+}
+
 class AreaDashboardStrategy extends HTMLTemplateElement {
-  static async generate(dashboardConfig: AreaDashboardConfig, hass: HomeAssistant): Promise<LovelaceConfig> {
+  static async generate(dashboardConfig: ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions>, hass: HomeAssistant): Promise<LovelaceConfig> {
     const [entities, devices, areas] = await Promise.all([
       hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
       hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
@@ -185,8 +217,8 @@ class AreaViewStrategy extends HTMLTemplateElement {
         }
 
         const merged = mergeWith(
-          curr, 
-          domainIncludeFilter, 
+          curr,
+          domainIncludeFilter,
           (objValue, srcValue) => {
             if (Array.isArray(objValue)) {
               return objValue.concat(srcValue);
