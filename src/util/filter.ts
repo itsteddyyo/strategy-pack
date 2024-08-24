@@ -35,9 +35,15 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
 export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
     const a_number = parseFloat(a as string);
     const b_number = parseFloat(b as string);
+
+    const a_string = String(a);
+    const b_string = String(b);
+
     switch (comparator) {
         case Comparator.equal:
             return a == b;
+        case Comparator.match:
+            return new RegExp(b_string).test(a_string);
         case Comparator.in:
             if (Array.isArray(b)) {
                 return b.includes(a);

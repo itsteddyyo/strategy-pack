@@ -18,6 +18,7 @@ export enum FilterType {
 
 export enum Comparator {
     equal = "equal",
+    match = "match",
     in = "in",
     greater_than = "greater_than",
     lower_than = "lower_than",
