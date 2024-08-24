@@ -35,13 +35,16 @@ export interface AreaStrategyCardConfig {
     card: LovelaceCardConfig;
 }
 
-export interface RowConfig extends AreaStrategyCardConfig {
-    domain: string | Array<string>;
-    title?: string;
+export interface RowFilterConfig {
     filter?: {
         exclude?: Array<FilterConfig>;
         include?: Array<FilterConfig>;
     };
+}
+
+export interface RowConfig extends AreaStrategyCardConfig, RowFilterConfig {
+    domain: string | Array<string>;
+    title?: string;
 }
 
 export interface TabConfig {

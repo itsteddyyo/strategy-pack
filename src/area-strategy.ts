@@ -6,10 +6,11 @@ import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { createRowFilter, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
-import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW } from "./util/types";
+import { AreaDashboardConfig, AreaViewConfig, HomeAssistantConfigAreaStrategyView, RowConfig, AreaStrategyOptions, CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW, FilterConfig, FilterType, Comparator } from "./util/types";
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
+import { mergeWith } from "lodash";
 
 class AreaDashboardStrategy extends HTMLTemplateElement {
   static async generate(dashboardConfig: AreaDashboardConfig, hass: HomeAssistant): Promise<LovelaceConfig> {
@@ -170,6 +171,29 @@ class AreaViewStrategy extends HTMLTemplateElement {
 
     const createTabElements = (tabRows: Array<RowConfig>) =>
       tabRows.reduce((prev, curr) => {
+        //convert domain to include filter
+        const domainIncludeFilter: Pick<RowConfig, "filter"> = {
+          filter: {
+            include: [
+              {
+                type: FilterType.domain,
+                comparator: Array.isArray(curr.domain) ? Comparator.in : Comparator.equal,
+                value: curr.domain
+              }
+            ]
+          }
+        }
+
+        const merged = mergeWith(
+          curr, 
+          domainIncludeFilter, 
+          (objValue, srcValue) => {
+            if (Array.isArray(objValue)) {
+              return objValue.concat(srcValue);
+            }
+          }
+        )
+
         let usedEntities = entities
           .filter(hiddenFilter)
           //in this area
@@ -179,9 +203,9 @@ class AreaViewStrategy extends HTMLTemplateElement {
               : areaDevices.has(entity.device_id);
           })
           //entity in defined domain of row
-          .filter(createRowFilter(curr, hass));
+          .filter(createRowFilter(merged, hass));
 
-        const gridCards = createGrid(usedEntities, curr, minColumnWidth, curr.title, replaceCards);
+        const gridCards = createGrid(usedEntities, merged, minColumnWidth, curr.title, replaceCards);
         prev.push(...gridCards);
 
         return prev;

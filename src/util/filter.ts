@@ -1,24 +1,18 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { EntityRegistryEntry } from "../homeassistant/entity_registry";
-import { Comparator, FilterConfig, FilterType, RowConfig } from "./types";
-import { cloneDeep } from "lodash";
+import { Comparator, FilterType, RowFilterConfig } from "./types";
 
 export const hiddenFilter = (entity: EntityRegistryEntry) => {
     return !entity.disabled_by && !entity.hidden_by;
 }
 
-export const createRowFilter = (row: RowConfig, hass: HomeAssistant) => {
+export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
     return (entity: EntityRegistryEntry) => {
-        //convert domain to include filter
-        const domainIncludeFilter: FilterConfig = { type: FilterType.domain, comparator: Array.isArray(row.domain) ? Comparator.in : Comparator.equal, value: row.domain };
-        const rowClone = cloneDeep(row)
-        rowClone.filter = { ...(rowClone.filter || {}), include: [...(rowClone.filter?.include || []), domainIncludeFilter] }
-
         let ret = true;
 
-        if (!!rowClone.filter) {
+        if (!!row.filter) {
             //custom include filter in row definition
-            const include = rowClone.filter?.include || [];
+            const include = row.filter?.include || [];
             ret = include.reduce((ret2, filter) => {
                 if (!ret2) {
                     return false;
@@ -26,7 +20,7 @@ export const createRowFilter = (row: RowConfig, hass: HomeAssistant) => {
                 return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal)
             }, ret)
             //custom exclude filter in row definition
-            const exclude = rowClone.filter?.exclude || [];
+            const exclude = row.filter?.exclude || [];
             ret = exclude.reduce((ret2, filter) => {
                 if (!ret2) {
                     return false;
