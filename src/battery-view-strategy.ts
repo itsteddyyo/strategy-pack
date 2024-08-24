@@ -2,7 +2,7 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers"
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { AreaStrategyCardConfig, CUSTOM_ELEMENT_VIEW, GridViewConfig, UniversalStrategyOptions } from "./util/types";
+import { CUSTOM_ELEMENT_VIEW, GridStrategyCardConfig, GridViewConfig, UniversalStrategyOptions } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
@@ -27,7 +27,7 @@ class BatteryViewStrategy extends HTMLTemplateElement {
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
         ]);
 
-        const batteryCardConfig: AreaStrategyCardConfig = {
+        const batteryCardConfig: GridStrategyCardConfig = {
             card: {
                 type: "custom:mini-graph-card",
                 entities: ["$entity"],

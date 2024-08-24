@@ -6,7 +6,7 @@ import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { createRowFilter, hiddenFilter } from './util/filter';
 import { labelSort, notNil } from './util/helper';
-import { CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW, FilterConfig, FilterType, Comparator, GridStrategyCardConfig, RowFilterConfig, UniversalStrategyOptions, ManualConfigObject } from "./util/types";
+import { CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW, FilterType, Comparator, GridStrategyCardConfig, RowFilterConfig, UniversalStrategyOptions, ManualConfigObject } from "./util/types";
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";

@@ -2,9 +2,13 @@ import { HomeAssistant, LovelaceCardConfig, LovelaceViewConfig } from "custom-ca
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { createRowFilter, hiddenFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, UniversalStrategyOptions, GridViewConfig, RowConfig } from "./util/types";
+import { CUSTOM_ELEMENT_VIEW, UniversalStrategyOptions, GridViewConfig, GridStrategyCardConfig, RowFilterConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
+
+export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+    title?: string;
+}
 
 interface GridViewOptions extends UniversalStrategyOptions {
     rows: Array<RowConfig>
@@ -19,7 +23,7 @@ class GridViewStrategy extends HTMLTemplateElement {
         };
         const { minColumnWidth, replaceCards, rows } = config;
 
-        if(!rows) throw Error("rows not defined!");
+        if (!rows) throw Error("rows not defined!");
 
         const [entities] = await Promise.all([
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),

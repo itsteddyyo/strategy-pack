@@ -1,8 +1,8 @@
 import { LovelaceCardConfig } from "custom-card-helpers";
 import { EntityRegistryEntry } from "../homeassistant/entity_registry";
-import { AreaStrategyCardConfig } from "./types";
+import { GridStrategyCardConfig } from "./types";
 
-export const createGrid = (entities: Array<EntityRegistryEntry>, cardConfig: AreaStrategyCardConfig, minColumnWidth: number, title?: string, replaceCards?: Record<string, AreaStrategyCardConfig>): Array<LovelaceCardConfig> => {
+export const createGrid = (entities: Array<EntityRegistryEntry>, cardConfig: GridStrategyCardConfig, minColumnWidth: number, title?: string, replaceCards?: Record<string, GridStrategyCardConfig>): Array<LovelaceCardConfig> => {
     const returnCards: Array<LovelaceCardConfig> = [];
     const gridCards: Array<LovelaceCardConfig> = [];
 
