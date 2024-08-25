@@ -273,7 +273,7 @@ The row is defined by:
   <tbody>
     <tr>
       <td>domain</td>
-      <td>Domain or Array of domains the entity must belong to.</td>
+      <td>Domain or Array of domains the entity must belong to. Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter">include filter</a></td>
       <td>string, Array</td>
       <td>yes</td>
       <td>
@@ -402,6 +402,7 @@ type: state
 Comparator used to compare/filter.
 Available are:
 - equal (needs value to be set!)
+- match (needs value to be set!)
 - in (needs value to be set!)
 - greater_than (needs value to be set!)
 - lower_than (needs value to be set!)
@@ -427,6 +428,9 @@ comparator: is_numeric
 include:
   - type: entity
     value: media_player.test
+  - type: entity
+    comparator: match
+    value: media_player\..*bedroom.*
   - type: device
       comparator: in
       value:
