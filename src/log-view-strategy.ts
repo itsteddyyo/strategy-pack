@@ -14,7 +14,7 @@ interface LogViewOptions {
 }
 
 class LogViewStrategy extends HTMLTemplateElement {
-    static async generate(viewConfig: ManualConfigObject<"custom:log-view-strategy", LogViewOptions>, hass: HomeAssistant): Promise<LovelaceViewConfig> {
+    static async generate(viewConfig: ManualConfigObject<"custom:log-view-strategy", LogViewOptions>, hass: HomeAssistant): Promise<LovelaceViewConfig & { type: "masonry" | "panel" | "sidebar"; }> {
         const { config: userConfig } = viewConfig;
         const config = {
             ...userConfig
@@ -76,7 +76,7 @@ class LogViewStrategy extends HTMLTemplateElement {
                 },
                 presetButtons
             ]
-        } as any;
+        };
     }
 }
 
