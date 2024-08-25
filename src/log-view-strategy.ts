@@ -32,7 +32,7 @@ class LogViewStrategy extends HTMLTemplateElement {
             layout_type: "custom:grid-layout",
             layout: {
                 "grid-template-rows": "auto",
-                "grid-template-columns": `repeat(auto-fit, minmax(200px, 1fr))`,
+                "grid-template-columns": `repeat(auto-fit, minmax(200px, 400px))`,
                 padding: "0px 10px",
             },
             cards: []
