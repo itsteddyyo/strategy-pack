@@ -27,8 +27,19 @@ class LogViewStrategy extends HTMLTemplateElement {
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
         ]);
 
-        const presetsButtons: Array<LovelaceCardConfig> = presets.map((preset) => {
-            return {
+        const horizontalTemplate: LovelaceCardConfig = {
+            type: "custom:layout-card",
+            layout_type: "custom:grid-layout",
+            layout: {
+                "grid-template-rows": "auto",
+                "grid-template-columns": `repeat(auto-fit, minmax(200px, 1fr))`,
+                padding: "0px 10px",
+            },
+            cards: []
+        };
+
+        const presetsButtons = presets.reduce((horizontalCard, preset) => {
+            horizontalCard.cards.push({
                 type: "button",
                 name: preset.title,
                 icon: preset.icon,
@@ -36,8 +47,9 @@ class LogViewStrategy extends HTMLTemplateElement {
                     action: "navigate",
                     navigation_path: window.location.pathname + "#" + encodeURI(preset.title)
                 }
-            }
-        });
+            });
+            return horizontalCard;
+        }, horizontalTemplate);
 
         const map = presets.reduce((presetMap, preset) => {
             const filteredEntities = entities.filter(createRowFilter(preset, hass));
@@ -48,7 +60,7 @@ class LogViewStrategy extends HTMLTemplateElement {
             }
             const stackCard: LovelaceCardConfig = {
                 type: "vertical-stack",
-                cards: [...presetsButtons, logbookCard]
+                cards: [horizontalTemplate, logbookCard]
             }
 
             presetMap.set(encodeURI(preset.title), stackCard);
