@@ -10,7 +10,7 @@ import { CUSTOM_ELEMENT_DASHBOARD, CUSTOM_ELEMENT_VIEW, FilterType, Comparator, 
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
-import { mergeWith } from "lodash";
+import { cloneDeep, mergeWith } from "lodash";
 
 export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
   domain: string | Array<string>;
@@ -217,7 +217,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
         }
 
         const merged = mergeWith(
-          curr,
+          cloneDeep(curr),
           domainIncludeFilter,
           (objValue, srcValue) => {
             if (Array.isArray(objValue)) {
