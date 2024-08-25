@@ -27,18 +27,15 @@ class LogViewStrategy extends HTMLTemplateElement {
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
         ]);
 
-        const horizontalTemplate: LovelaceCardConfig = {
-            type: "custom:layout-card",
-            layout_type: "custom:grid-layout",
-            layout: {
-                "grid-template-rows": "auto",
-                "grid-template-columns": `repeat(auto-fit, minmax(200px, 400px))`,
-                padding: "0px 10px",
-            },
-            cards: []
+        const verticalStack: LovelaceCardConfig = {
+            type: "vertical-stack",
+            cards: [],
+            view_layout: {
+                position: "sidebar"
+            }
         };
 
-        const presetsButtons = presets.reduce((horizontalCard, preset) => {
+        const presetButtons = presets.reduce((horizontalCard, preset) => {
             horizontalCard.cards.push({
                 type: "button",
                 name: preset.title,
@@ -49,7 +46,7 @@ class LogViewStrategy extends HTMLTemplateElement {
                 }
             });
             return horizontalCard;
-        }, horizontalTemplate);
+        }, verticalStack);
 
         const map = presets.reduce((presetMap, preset) => {
             const filteredEntities = entities.filter(createRowFilter(preset, hass));
@@ -60,7 +57,7 @@ class LogViewStrategy extends HTMLTemplateElement {
             }
             const stackCard: LovelaceCardConfig = {
                 type: "vertical-stack",
-                cards: [horizontalTemplate, logbookCard]
+                cards: [logbookCard]
             }
 
             presetMap.set(encodeURI(preset.title), stackCard);
@@ -69,16 +66,17 @@ class LogViewStrategy extends HTMLTemplateElement {
 
 
         return {
-            panel: true,
+            type: "sidebar",
             cards: [
                 {
                     type: "custom:state-switch",
                     entity: "hash",
                     default: map.keys().next().value,
                     states: Object.fromEntries(map.entries())
-                }
+                },
+                presetButtons
             ]
-        };
+        } as any;
     }
 }
 
