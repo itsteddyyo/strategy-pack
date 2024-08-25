@@ -218,18 +218,22 @@ icon: mdi:test
         </pre>
       </td>
     </tr>
-    <td>rows</td>
-    <td>The grid rows definition of the tab. <a href="#contentrows">More</a></td>
-    <td>Object</td>
-    <td>yes</td>
-    <td>
-      <pre>
-card:
-  type: tile
-  entity: $entity
-  iconColor: red
-      </pre>
-    </td>
+    <tr>
+      <td>rows</td>
+      <td>The grid rows definition of the tab. <a href="#contentrows">More</a></td>
+      <td>Object</td>
+      <td>yes</td>
+      <td>
+        <pre>
+rows:
+  - title: test
+    domain: media_player
+    ...
+  - title: test2
+    domain: sensor
+    ...
+        </pre>
+      </td>
     </tr>
   </tbody>
 </table>
