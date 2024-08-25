@@ -15,18 +15,6 @@
   </thead>
   <tbody>
     <tr>
-      <td>minColumnWidth</td>
-      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
-      <td>number</td>
-      <td>yes</td>
-      <td><a href="/src/config/gridDefaultConfig.yml#L1">set</a></td>
-      <td>
-        <pre>
-minColumnWidth: 1000
-        </pre>
-      </td>
-    </tr>
-    <tr>
       <td>platforms</td>
       <td>Platforms defining the Rows of Grids</td>
       <td>Array</td>
@@ -45,6 +33,18 @@ platforms:
 platforms:
   - platform: mqtt
     title: Everything MQTT
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>minColumnWidth</td>
+      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
+      <td>number</td>
+      <td>yes</td>
+      <td><a href="/src/config/gridDefaultConfig.yml#L1">set</a></td>
+      <td>
+        <pre>
+minColumnWidth: 1000
         </pre>
       </td>
     </tr>

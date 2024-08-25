@@ -15,18 +15,6 @@
   </thead>
   <tbody>
     <tr>
-      <td>minColumnWidth</td>
-      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
-      <td>number</td>
-      <td>yes</td>
-      <td><a href="/src/config/areaDefaultConfig#L1">set</a></td>
-      <td>
-        <pre>
-minColumnWidth: 1000
-        </pre>
-      </td>
-    </tr>
-    <tr>
       <td>tabs</td>
       <td>Tabs shown in the main area. <a href="#tabs">More</a></td>
       <td>Array</td>
@@ -101,6 +89,32 @@ topCards:
       </td>
     </tr>
     <tr>
+      <td>extraViews</td>
+      <td>You can pass any extra views you want on the dashboard.</td>
+      <td>Array</td>
+      <td>no</td>
+      <td>-</td>
+      <td>
+        <pre>
+extraViews:
+  - strategy:
+      type: custom:battery-view-strategy
+        </pre>
+      </td>
+    </tr>
+    <tr>
+      <td>minColumnWidth</td>
+      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
+      <td>number</td>
+      <td>yes</td>
+      <td><a href="/src/config/areaDefaultConfig#L1">set</a></td>
+      <td>
+        <pre>
+minColumnWidth: 1000
+        </pre>
+      </td>
+    </tr>
+    <tr>
       <td>replaceCards</td>
       <td>You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card.</td>
       <td>Object</td>
@@ -113,20 +127,6 @@ replaceCards:
     type: entity
     entities:
       - $entity
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>extraViews</td>
-      <td>You can pass any extra views you want on the dashboard.</td>
-      <td>Array</td>
-      <td>no</td>
-      <td>-</td>
-      <td>
-        <pre>
-extraViews:
-  - strategy:
-      type: custom:battery-view-strategy
         </pre>
       </td>
     </tr>
