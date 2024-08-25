@@ -1,7 +1,4 @@
-import { LovelaceCardConfig, LovelaceViewConfig } from "custom-card-helpers";
-import { EntityRegistryEntry } from "../homeassistant/entity_registry"
-import { DeviceRegistryEntry } from "../homeassistant/device_registry"
-import { AreaRegistryEntry } from "../homeassistant/area_registry"
+import { LovelaceCardConfig } from "custom-card-helpers";
 
 export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-"
 export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-"
