@@ -106,7 +106,54 @@ And if you find something you don’t like, just start configuring!
 
 [Default Configuration explained](./documentation/markdown/area/CONFIGURATION.md#default-config-explained)
 
-## 2. Battery View Strategy
+## 2. Grid View Strategy
+
+Strategy fully customizable with custom rows. You can create auto-populating Dashboards where you can display anything you like with little configuration! Could be used to implement Battery/Update Strategy or something like that.
+
+ ![Grid View Strategy](/documentation/assets/grid/grid-view-strategy.png "Grid View Strategy")
+
+### Usage
+
+You add this to already existing dashboards as an extra view.
+
+Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Add the following
+
+```yaml
+... (existing dashboard)
+views:
+  - strategy:
+      type: custom:grid-view-strategy
+      config:
+        rows:
+          - this one needs configuration!
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
+```
+
+This Strategy is completely configurable.
+Modifications are possible to:
+
+- the rows/grids in the view (number of grids, header, etc.)
+
+Configuration works like this:
+
+```yaml
+  - strategy:
+      type: custom:update-view-strategy
+      config:
+        #Your Config here like:
+        rows:
+          - row 1 config
+          - row 2 config
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
+```
+
+[All Configration Options here](./documentation/markdown/grid/CONFIGURATION.md#configuration)
+
+## 3. Battery View Strategy
 
 View Strategy with one page for all battery entities.
 
@@ -148,7 +195,7 @@ Configuration works like this:
 
 [All Configration Options here](./documentation/markdown/battery/CONFIGURATION.md#configuration)
 
-## 3. Update View Strategy
+## 4. Update View Strategy
 
 View Strategy with one page for all update entities.
 
