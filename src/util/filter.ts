@@ -78,6 +78,10 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
         const domain = entity.entity_id.split(".")[0];
         return compare(comparator, domain, value);
     },
+    area: (entity, hass, value, comparator) => {
+        const area = entity.area_id;
+        return compare(comparator, area, value);
+    },
     device: (entity, hass, value, comparator) => {
         const deviceId = entity.device_id;
         return compare(comparator, deviceId, value);

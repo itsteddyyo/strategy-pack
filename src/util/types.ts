@@ -7,6 +7,7 @@ export enum FilterType {
     entity = "entity",
     domain = "domain",
     device = "device",
+    area = "area",
     integration = "integration",
     label = "label",
     state = "state",
