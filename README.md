@@ -237,6 +237,52 @@ Configuration works like this:
 
 [All Configration Options here](./documentation/markdown/update/CONFIGURATION.md#configuration)
 
+## 5. Log View Strategy
+
+View Strategy with one page for displaying accumulated log entries for fully configurable groups of entitites.
+
+ ![Log View Strategy](/documentation/assets/log/log-view-strategy.gif "Log View Strategy")
+
+### Usage
+
+You add this to already existing dashboards as an extra view.
+
+Dashboard -> Edit Dashboard -> Raw Configuration Editor (kebap menu) -> Add the following
+
+```yaml
+... (existing dashboard)
+views:
+  - strategy:
+      type: custom:log-view-strategy
+      config:
+        presets:
+          - this one needs configuration!
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
+```
+
+This Strategy is completely configurable.
+Modifications are possible to:
+
+- the number of log presets
+- the entities included in the single presets
+
+Configuration works like this:
+
+```yaml
+  - strategy:
+      type: custom:log-view-strategy
+      config:
+        #Your Config here like:
+        presets: ...
+    title: YourTitle
+    icon: mdi:youricon
+    path: yourpath
+```
+
+[All Configration Options here](./documentation/markdown/log/CONFIGURATION.md#configuration)
+
 ## Credits
 
 Thanks to everyone working on Home Assistant and the everyone in the community. Without your documentation, code, and forum posts, I wouldn't have even thought about this.
