@@ -1,0 +1,4 @@
+{
+    "entryPointStrategy": "expand",
+    "json": "docs/typedoc.json",
+}
