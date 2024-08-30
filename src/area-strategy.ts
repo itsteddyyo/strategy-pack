@@ -51,14 +51,36 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
 export interface TabConfig {
     /**
      * @description
-     * Title shown over Grid. Will not be rendered when not set.
+     * Title shown in the Tab
      * @example
      * ```yaml
-     * title: Buttons
+     * title: Test
      * ```
      */
-    label: string;
+    text: string;
+    /**
+     * @description
+     * Icon shown in the Tab
+     * @example
+     * ```yaml
+     * icon: mdi:test
+     * ```
+     */
     icon: string;
+    /**
+     * @description
+     * The grid rows definition of the tab. <a href="#contentrows">More</a>
+     * @example
+     * ```yaml
+     * rows:
+     *   - title: test
+     *     domain: media_player
+     *     ...
+     *   - title: test2
+     *     domain: sensor
+     *     ...
+     * ```
+     */
     rows: Array<RowConfig>;
 }
 
@@ -123,17 +145,16 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
      * ```
      */
     topCards?: Array<LovelaceCardConfig>;
-
     /**
      * @description
      * You can pass any extra views you want on the dashboard.
      * @example
      * ```yaml
-     * topCards:
-     *   - type: entity
-     *     entities:
-     *       - button.test
-     *       - button.test2
+     * extraViews:
+     *   - strategy:
+     *       type: custom:battery-view-strategy
+     *     icon: ...
+     *     ...
      * ```
      */
     extraViews?: Array<LovelaceViewConfig>;
@@ -356,7 +377,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                 if (tabElements.length > 0) {
                     return {
                         attributes: {
-                            label: tab.label,
+                            label: tab.text,
                             icon: tab.icon,
                             stacked: true,
                         },
