@@ -6,7 +6,7 @@ import { CUSTOM_ELEMENT_VIEW, UniversalStrategyOptions, GridViewConfig, GridStra
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
-interface UpdateViewOptions extends UniversalStrategyOptions {
+export interface UpdateViewOptions extends UniversalStrategyOptions {
     platforms: Array<{ platform: string; title: string }>;
 }
 

@@ -4,12 +4,12 @@ import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { createRowFilter } from "./util/filter";
 import { CUSTOM_ELEMENT_VIEW, ManualConfigObject, RowFilterConfig } from "./util/types";
 
-interface LogPreset extends RowFilterConfig {
+export interface LogPreset extends RowFilterConfig {
     title: string;
     icon: string;
 }
 
-interface LogViewOptions {
+export interface LogViewOptions {
     presets: Array<LogPreset>;
 }
 

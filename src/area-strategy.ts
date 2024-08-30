@@ -21,27 +21,125 @@ import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
 import { cloneDeep, mergeWith } from "lodash";
 
-interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+    /**
+     * @description
+     * Domain or Array of domains the entity must belong to.
+     * @remarks
+     * Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter">include filter</a>
+     * @example
+     * ```yaml
+     * domain: button
+     * #or
+     * domain:
+     *   - button
+     *   - media_player
+     * ```
+     */
     domain: string | Array<string>;
+    /**
+     * @description
+     * Title shown over Grid. Will not be rendered when not set.
+     * @example
+     * ```yaml
+     * title: Buttons
+     * ```
+     */
     title?: string;
 }
 
-interface TabConfig {
+export interface TabConfig {
+    /**
+     * @description
+     * Title shown over Grid. Will not be rendered when not set.
+     * @example
+     * ```yaml
+     * title: Buttons
+     * ```
+     */
     label: string;
     icon: string;
     rows: Array<RowConfig>;
 }
 
-interface AreaStrategyOptions extends UniversalStrategyOptions {
+export interface AreaStrategyOptions extends UniversalStrategyOptions {
+    /**
+     * @description
+     * Tabs shown in the main area. <a href="#tabs">More
+     * @example
+     * ```yaml
+     * tabs:
+     *   - label: Test
+     *     icon: mdi:test
+     *     rows: [...]
+     * ```
+     */
     tabs: Array<TabConfig>;
+    /**
+     * @description
+     * Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency.
+     * @remarks
+     * The colors get repeated when you have more areas than colors. Leave empty for no overlay.
+     * @example
+     * ```yaml
+     * areaColors:
+     *   - rgba(0,0,0,0.5)
+     * ```
+     */
     areaColors: Array<string>;
+    /**
+     * @description
+     * The config for the area card.
+     * @remarks
+     * Options type, area, navigation_path are not allowed!
+     * @example
+     * ```yaml
+     * areaCardConfig:
+     *   aspect_ratio: 1:1
+     * ```
+     */
     areaCardConfig: Exclude<LovelaceCardConfig, "type">;
+    /**
+     * @description
+     * Which areas should be ignored (no views generated/not shown in navigation)
+     * @example
+     * ```yaml
+     * areaBlacklist:
+     *   - living_room
+     *   - bathroom
+     * ```
+     */
     areaBlacklist?: Array<string>;
+    /**
+     * @description
+     * Slot for cards above navigation. <a href="#topCards">More</a>
+     * @example
+     * ```yaml
+     * topCards:
+     *   - type: entity
+     *     entities:
+     *       - button.test
+     *       - button.test2
+     * ```
+     */
     topCards?: Array<LovelaceCardConfig>;
+
+    /**
+     * @description
+     * You can pass any extra views you want on the dashboard.
+     * @example
+     * ```yaml
+     * topCards:
+     *   - type: entity
+     *     entities:
+     *       - button.test
+     *       - button.test2
+     * ```
+     */
     extraViews?: Array<LovelaceViewConfig>;
 }
 
-interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string }> {
+export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string }> {
     meta?: {
         devices: Array<DeviceRegistryEntry>;
         entities: Array<EntityRegistryEntry>;
@@ -49,7 +147,7 @@ interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy",
     };
 }
 
-interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
+export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
     strategy: AreaViewConfig;
 }
 

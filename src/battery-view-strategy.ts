@@ -6,7 +6,7 @@ import { CUSTOM_ELEMENT_VIEW, GridStrategyCardConfig, GridViewConfig, UniversalS
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
-interface BatteryViewOptions extends UniversalStrategyOptions {
+export interface BatteryViewOptions extends UniversalStrategyOptions {
     platforms: Array<{ platform: string; title: string }>;
 }
 
