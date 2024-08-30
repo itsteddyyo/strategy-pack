@@ -1,7 +1,7 @@
 import { LovelaceCardConfig } from "custom-card-helpers";
 
-export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-"
-export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-"
+export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-";
+export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-";
 
 export enum FilterType {
     entity = "entity",
@@ -11,7 +11,7 @@ export enum FilterType {
     integration = "integration",
     label = "label",
     state = "state",
-    attribute = "attribute"
+    attribute = "attribute",
 }
 
 export enum Comparator {
@@ -21,7 +21,7 @@ export enum Comparator {
     greater_than = "greater_than",
     lower_than = "lower_than",
     is_null = "is_null",
-    is_numeric = "is_numeric"
+    is_numeric = "is_numeric",
 }
 
 export interface FilterConfig {
@@ -51,5 +51,4 @@ export interface ManualConfigObject<T extends string, C> {
     config?: C;
 }
 
-export interface GridViewConfig<T extends string, C extends UniversalStrategyOptions> extends ManualConfigObject<T, C> { };
-
+export interface GridViewConfig<T extends string, C extends UniversalStrategyOptions> extends ManualConfigObject<T, C> {}
