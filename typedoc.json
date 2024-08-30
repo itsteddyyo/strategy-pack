@@ -1,4 +1,6 @@
 {
     "entryPointStrategy": "expand",
     "json": "docs/typedoc.json",
+    "readme": "none",
+    "blockTags": ["@description", "@example", "@remarks"]
 }
