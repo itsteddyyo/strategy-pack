@@ -21,18 +21,18 @@ import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
 import { cloneDeep, mergeWith } from "lodash";
 
-export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
     domain: string | Array<string>;
     title?: string;
 }
 
-export interface TabConfig {
+interface TabConfig {
     label: string;
     icon: string;
     rows: Array<RowConfig>;
 }
 
-export interface AreaStrategyOptions extends UniversalStrategyOptions {
+interface AreaStrategyOptions extends UniversalStrategyOptions {
     tabs: Array<TabConfig>;
     areaColors: Array<string>;
     areaCardConfig: Exclude<LovelaceCardConfig, "type">;
@@ -41,7 +41,7 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
     extraViews?: Array<LovelaceViewConfig>;
 }
 
-export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string }> {
+interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string }> {
     meta?: {
         devices: Array<DeviceRegistryEntry>;
         entities: Array<EntityRegistryEntry>;
@@ -49,7 +49,7 @@ export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-str
     };
 }
 
-export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
+interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
     strategy: AreaViewConfig;
 }
 

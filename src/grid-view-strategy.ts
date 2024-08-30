@@ -6,7 +6,7 @@ import { CUSTOM_ELEMENT_VIEW, UniversalStrategyOptions, GridViewConfig, GridStra
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
-export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
     title?: string;
 }
 
