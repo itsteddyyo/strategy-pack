@@ -4,33 +4,228 @@ export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-";
 export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-";
 
 export enum FilterType {
+    /**
+     * @description
+     * Filter on the entity_id of the entity.
+     * @example
+     * ```yaml
+     * - type: entity
+     *   comparator: equal
+     *   value: sensor.test123
+     * ```
+     */
     entity = "entity",
+    /**
+     * @description
+     * Filter on the domain of the entity.
+     * @example
+     * ```yaml
+     * - type: domain
+     *   comparator: equal
+     *   value: sensor
+     * ```
+     */
     domain = "domain",
+    /**
+     * @description
+     * Filter on the parent device_id of the entity.
+     * @example
+     * ```yaml
+     * - type: device
+     *   comparator: equal
+     *   value: 98b750a482bbf28ea959269981813219
+     * ```
+     */
     device = "device",
+    /**
+     * @description
+     * Filter on the area_id of the entity.
+     * @example
+     * ```yaml
+     * - type: area
+     *   comparator: equal
+     *   value: living_room
+     * ```
+     */
     area = "area",
+    /**
+     * @description
+     * Filter on the integration of the entity.
+     * @example
+     * ```yaml
+     * - type: integration
+     *   comparator: equal
+     *   value: mqtt
+     * ```
+     */
     integration = "integration",
+    /**
+     * @description
+     * Filter on the label of the entity.
+     * @example
+     * ```yaml
+     * - type: label
+     *   comparator: equal
+     *   value: sort_1
+     * ```
+     */
     label = "label",
+    /**
+     * @description
+     * Filter on the state of the entity.
+     * @example
+     * ```yaml
+     * - type: state
+     *   comparator: equal
+     *   value: on
+     * ```
+     */
     state = "state",
+    /**
+     * @description
+     * Filter on an attribute of the entity.
+     * @example
+     * ```yaml
+     * - type: attribute
+     *   comparator: equal
+     *   value:
+     *     key: volume
+     *     value: 100
+     * ```
+     */
     attribute = "attribute",
 }
 
 export enum Comparator {
+    /**
+     * @description
+     * Check if the selected type value of the entity and the passed value are equal.
+     * @example
+     * ```yaml
+     * - type: state
+     *   comparator: equal
+     *   value: on
+     * ```
+     */
     equal = "equal",
+    /**
+     * @description
+     * Check if the selected type value of the entity matches against the passed regexp value.
+     * @example
+     * ```yaml
+     * - type: entity
+     *   comparator: match
+     *   value: .*_occupancy
+     * ```
+     */
     match = "match",
+    /**
+     * @description
+     * Check if the selected type value of the entity is in the list of defined values.
+     * @example
+     * ```yaml
+     * - type: state
+     *   comparator: in
+     *   value:
+     *     - on
+     *     - off
+     * ```
+     */
     in = "in",
+    /**
+     * @description
+     * Check if the selected type value of the entity is greater than the defined value.
+     * @remarks
+     * Works only on numeric type values and defined values!
+     * @example
+     * ```yaml
+     * - type: state
+     *   comparator: greater_than
+     *   value: 5
+     * ```
+     */
     greater_than = "greater_than",
+    /**
+     * @description
+     * Check if the selected type value of the entity is lower than the defined value.
+     * @remarks
+     * Works only on numeric type values and defined values!
+     * @example
+     * ```yaml
+     * - type: state
+     *   comparator: lower_than
+     *   value: 5
+     * ```
+     */
     lower_than = "lower_than",
+    /**
+     * @description
+     * Check if the selected type value of the entity is null.
+     * @remarks
+     * Does not need a value defined!
+     * @example
+     * ```yaml
+     * - type: state
+     *   comparator: is_null
+     * ```
+     */
     is_null = "is_null",
+    /**
+     * @description
+     * Check if the selected type value of the entity is numeric.
+     * @remarks
+     * Does not need a value defined!
+     * @example
+     * ```yaml
+     * - type: attribute
+     *   comparator: is_numeric
+     *   value:
+     *     key: volume
+     * ```
+     */
     is_numeric = "is_numeric",
 }
 
 export interface FilterConfig {
+    /**
+     * @description
+     * The type of filter to determine the value or just specify the filter
+     */
     type: FilterType;
+    /**
+     * @description
+     * The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)
+     */
     comparator?: Comparator;
+    /**
+     * @description
+     * The user specified value
+     */
     value?: unknown;
 }
 
 export interface RowFilterConfig {
+    /**
+     * @description
+     * Define include and exclude function for more fine-grained control of entities selected for row than only domain.
+     * @remarks
+     * A entity needs to match all include filters to be included but it needs only to match one of the exclude filters to be excluded!
+     * @example
+     * ```yaml
+     * filter:
+     *   include:
+     *     - type: domain
+     *       value: binary_sensor
+     *     - type: state
+     *       value: on
+     *   exclude:
+     *     - type: entity
+     *       value: sensor.test123
+     *     - type: is_null
+     *     - type: area
+     *       value: living_room
+     * ```
+     */
     filter?: {
         exclude?: Array<FilterConfig>;
         include?: Array<FilterConfig>;
@@ -38,11 +233,44 @@ export interface RowFilterConfig {
 }
 
 export interface GridStrategyCardConfig {
+    /**
+     * @description
+     * The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard!
+     * @remarks
+     * You can insert the entityId of the entity with the $entity variable which will be replaced in the whole object by the entities entity_id.
+     * @example
+     * ```yaml
+     * card:
+     *   type: tile
+     *   entity: $entity
+     *   iconColor: red
+     * ```
+     */
     card: LovelaceCardConfig;
 }
 
 export interface UniversalStrategyOptions {
+    /**
+     * @description
+     * Minimal Column Width in the Grid = The Minimal Width of the Cards.
+     * @example
+     * ```yaml
+     * minColumWidth: 300
+     * ```
+     */
     minColumnWidth: number;
+    /**
+     * @description
+     * You can set a card to be used for a specific entity. Overwrites default card config
+     * @example
+     * ```yaml
+     * replaceCards:
+     *   button.test:
+     *     type: entity
+     *     entities:
+     *       - $entity
+     * ```
+     */
     replaceCards?: Record<string, GridStrategyCardConfig>;
 }
 
