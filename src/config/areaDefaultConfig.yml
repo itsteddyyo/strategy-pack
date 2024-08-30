@@ -1,6 +1,6 @@
 minColumnWidth: 200
 tabs:
-  - label: Control
+  - text: Control
     icon: mdi:button-pointer
     rows:
       - domain: alarm_control_panel
@@ -133,7 +133,7 @@ tabs:
             action: none
           hold_action:
             action: more-info
-  - label: Stats
+  - text: Stats
     icon: mdi:chart-line
     rows:
       - domain: binary_sensor
@@ -230,7 +230,7 @@ tabs:
                 fill: {{COLOR}};
                 stroke: {{COLOR}};
               }
-  - label: Camera
+  - text: Camera
     icon: mdi:camera
     rows:
       - domain: camera
