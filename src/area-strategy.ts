@@ -87,7 +87,9 @@ export interface TabConfig {
 export interface AreaStrategyOptions extends UniversalStrategyOptions {
     /**
      * @description
-     * Tabs shown in the main area. <a href="#tabs">More
+     * Tabs shown in the main area. <a href="#tabs">More</a>
+     * @defaultValue
+     * <a href="/src/config/areaDefaultConfig.yml#L2">set</a>
      * @example
      * ```yaml
      * tabs:
@@ -112,6 +114,8 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
     /**
      * @description
      * The config for the area card.
+     * @defaultValue
+     * <a href="/src/config/areaDefaultConfig.yml#L233">set</a>
      * @remarks
      * Options type, area, navigation_path are not allowed!
      * @example
@@ -124,6 +128,8 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
     /**
      * @description
      * Which areas should be ignored (no views generated/not shown in navigation)
+     * @defaultValue
+     * <a href="/src/config/areaDefaultConfig.yml#L226">set</a>
      * @example
      * ```yaml
      * areaBlacklist:

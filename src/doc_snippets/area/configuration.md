@@ -28,7 +28,7 @@
       {%- endif -%}
       </td>
       <td>{{ option.flags.isOptional | ternary: "yes", "no" }}</td>
-      <td>{{ option.annotations | find: "tag", "@default" | map: "content" }}</td>
+      <td>{{- option.annotations | find: "tag", "@defaultValue" | map: "content" -}}</td>
       <td>
         <pre>
 {{- option.annotations | find: "tag", "@example" | map: "content" -}}

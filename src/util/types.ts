@@ -253,6 +253,8 @@ export interface UniversalStrategyOptions {
     /**
      * @description
      * Minimal Column Width in the Grid = The Minimal Width of the Cards.
+     * @defaultValue
+     * <a href="/src/config/areaDefaultConfig.yml#L1">set</a>
      * @example
      * ```yaml
      * minColumWidth: 300

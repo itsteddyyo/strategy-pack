@@ -48,7 +48,9 @@ function getMergedDocumentationForFile(json, fileName) {
                         doc.push({
                             annotations: child.comment.blockTags.map((tag) => ({
                                 tag: tag.tag,
-                                content: tag.content.map((content) => content.text.replace("```yaml", "").replace("```", "")).join("\r\n"),
+                                content: tag.content
+                                    .map((content) => content.text.replace("```ts", "").replace("```yaml", "").replace("```", ""))
+                                    .join("\r\n"),
                             })),
                             flags: child.flags,
                             type: child.type,
