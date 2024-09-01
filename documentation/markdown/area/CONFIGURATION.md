@@ -1,181 +1,129 @@
+
+
 # Configuration
 
 ## Configuration Options
 
+<details>
+<summary>Click for Configuration Options</summary>
+
 <table>
   <thead>
-    <tr>
-      <th>option</th>
-      <th>description</th>
-      <th>type</th>
-      <th>required</th>
-      <th>default</th>
-      <th>example</th>
-    </tr>
+    <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>default</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td>tabs</td>
-      <td>Tabs shown in the main area. <a href="#tabs">More</a></td>
-      <td>Array</td>
-      <td>yes</td>
-      <td><a href="/src/config/areaDefaultConfig.yml#L2">set</a></td>
-      <td>
-        <pre>
-tabs:
-  - label: Test
-    icon: mdi:test
-    rows: [...]
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>areaColors</td>
-      <td>Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the
-        a-channel defines transparency. The colors get repeated when you have more areas than colors. Leave empty for no
-        overlay.</td>
-      <td>Array</td>
-      <td>yes</td>
-      <td><a href="/src/config/areaDefaultConfig#L233">set</a></td>
-      <td>
-        <pre>
-areaColors:
-  - rgba(0,0,0,0.5)
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>areaCardConfig</td>
-      <td>The config for the area card. All options allowed expect type, area, navigation_path</td>
-      <td>Object</td>
-      <td>yes</td>
-      <td><a href="/src/config/areaDefaultConfig#L226">set</a></td>
-      <td>
-        <pre>
-areaCardConfig:
-  aspect_ratio: 1:1
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>areaBlacklist</td>
-      <td>Which areas should be ignored?</td>
-      <td>Array</td>
-      <td>no</td>
-      <td>-</td>
-      <td>
+    <tr><td>areaBlacklist</td><td>Which areas should be ignored (no views generated/not shown in navigation)</td><td>Array</td><td>no</td><td>-</td><td>
         <pre>
 areaBlacklist:
   - living_room
   - bathroom
-        </pre>
-      </td>
-    </tr>
-    <tr>
-    <tr>
-      <td>topCards</td>
-      <td>Slot for cards above navigation. <a href="#topCards">More</a></td>
-      <td>Array</td>
-      <td>no</td>
-      <td>-</td>
-      <td>
+</pre>
+      </td></tr>
+    <tr><td>areaCardConfig</td><td>The config for the area card.<blockquote>Options type, area, navigation_path are not allowed!</blockquote></td><td>Object</td><td>yes</td><td>
+<a href="/src/config/areaDefaultConfig.yml#L246">set</a>
+</td><td>
         <pre>
-topCards:
-  - type: entity
-    entities:
-      - button.test
-      - button.test2
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>extraViews</td>
-      <td>You can pass any extra views you want on the dashboard.</td>
-      <td>Array</td>
-      <td>no</td>
-      <td>-</td>
-      <td>
+areaCardConfig:
+  aspect_ratio: 1:1
+</pre>
+      </td></tr>
+    <tr><td>areaColors</td><td>Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency.<blockquote>The colors get repeated when you have more areas than colors. Leave empty for no overlay.</blockquote></td><td>Array</td><td>yes</td><td>
+<a href="/src/config/areaDefaultConfig.yml#L253">set</a>
+</td><td>
+        <pre>
+areaColors:
+  - rgba(0,0,0,0.5)
+</pre>
+      </td></tr>
+    <tr><td>extraViews</td><td>You can pass any extra views you want on the dashboard.</td><td>Array</td><td>no</td><td>-</td><td>
         <pre>
 extraViews:
   - strategy:
       type: custom:battery-view-strategy
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>minColumnWidth</td>
-      <td>Minimal Column Width in the Grid = The Minimal Width of the Cards</td>
-      <td>number</td>
-      <td>yes</td>
-      <td><a href="/src/config/areaDefaultConfig#L1">set</a></td>
-      <td>
+    icon: mdi:test
+    path: test
+    title: Test
+</pre>
+      </td></tr>
+    <tr><td>minColumnWidth</td><td>Minimal Column Width in the Grid = The Minimal Width of the Cards.</td><td>number</td><td>yes</td><td>
+<a href="/src/config/areaDefaultConfig.yml#L1">set</a>
+</td><td>
         <pre>
-minColumnWidth: 1000
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>replaceCards</td>
-      <td>You can set a card to be used for a specific entity. Overwrites Config in Tabs - Rows - card.</td>
-      <td>Object</td>
-      <td>no</td>
-      <td>-</td>
-      <td>
+minColumnWidth: 300
+</pre>
+      </td></tr>
+    <tr><td>replaceCards</td><td>You can set a card to be used for a specific entity. Overwrites default card config</td><td>Object</td><td>no</td><td>-</td><td>
         <pre>
 replaceCards:
   button.test:
     type: entity
     entities:
       - $entity
-        </pre>
-      </td>
-    </tr>
+</pre>
+      </td></tr>
+    <tr><td>tabs</td><td>Tabs shown in the main area. <a href="#tabs">More</a></td><td>Array</td><td>yes</td><td>
+<a href="/src/config/areaDefaultConfig.yml#L2">set</a>
+</td><td>
+        <pre>
+tabs:
+  - label: Test
+    icon: mdi:test
+    rows:
+      - rowConfig here
+</pre>
+      </td></tr>
+    <tr><td>topCards</td><td>Slot for cards above navigation. <a href="#topCards">More</a></td><td>Array</td><td>no</td><td>-</td><td>
+        <pre>
+topCards:
+  - type: entity
+    entities:
+      - button.test
+      - button.test2
+</pre>
+      </td></tr>
   </tbody>
 </table>
 
-So a valid dashboard with configration could look like this:
+</details>
+<br />
+
+So a valid configuration could look like this:
 
 ```yaml
-type: custom:area-dashboard-strategy
-config:
-  minColumnWidth: 300
-  areaBlacklist:
-    - tv
-  areaColors: []
-  areaCardConfig:
-    aspect_ratio: '1:1'
-    sensor_classes:
-      - temperature
-  topCards:
-    - type: picture
-      image: https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F12466824-d58f-4bd3-939d-cbdd8514c9a2.jpg?crop=3358%2C1889%2C305%2C577&resize=1200
-  tabs:
-    - label: Updates
-      icon: mdi:package-up
-      rows:
-        - title: Updates
-          domain: update
-          filter:
-            include:
-              - type: state
-                value: 'off'
-          card:
-            type: tile
-            entity: $entity
-  replaceCards:
-    update.occupancy_sensor_living_room_firmware:
-      card:
-        type: picture
-        image: https://www.thetimes.com/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F12466824-d58f-4bd3-939d-cbdd8514c9a2.jpg?crop=3358%2C1889%2C305%2C577&resize=1200
-  extraViews:
-    - strategy:
-        type: custom:update-view-strategy
+strategy:
+  type: custom:area-dashboard-strategy
+  config:
+    areaBlacklist:
+      - living_room
+      - bathroom
+    areaCardConfig:
+      aspect_ratio: 1:1
+    areaColors:
+      - rgba(0,0,0,0.5)
+    extraViews:
+      - strategy:
+          type: custom:battery-view-strategy
+        icon: mdi:test
+        path: test
+        title: Test
+    minColumnWidth: 300
+    replaceCards:
+      button.test:
+        type: entity
+        entities:
+          - $entity
+    tabs:
+      - label: Test
+        icon: mdi:test
+        rows:
+          - rowConfig here
+    topCards:
+      - type: entity
+        entities:
+          - button.test
+          - button.test2
 
 ```
-
-This would result in this spectacular dashboard.
-
-![Custom](/documentation/assets/area/area-strategy-with-custom-options.png "Custom")
 
 I used all available options in this example. You don`t need to do this!
 
@@ -185,78 +133,74 @@ More on the default configuration [here](#default-config-explained)
 
 The tabs shown in the the main section.
 
-<table>
-  <thead>
-    <tr>
-      <th>attribute</th>
-      <th>description</th>
-      <th>type</th>
-      <th>required</th>
-      <th>example</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>title</td>
-      <td>Tab title</td>
-      <td>string</td>
-      <td>yes</td>
-      <td>
-        <pre>
-title: Test
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>icon</td>
-      <td>Tab icon</td>
-      <td>string</td>
-      <td>yes</td>
-      <td>
-        <pre>
-icon: mdi:test
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>rows</td>
-      <td>The grid rows definition of the tab. <a href="#contentrows">More</a></td>
-      <td>Object</td>
-      <td>yes</td>
-      <td>
-        <pre>
-rows:
-  - title: test
-    domain: media_player
-    ...
-  - title: test2
-    domain: sensor
-    ...
-        </pre>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-Complete example:
-
-```yaml
-tabs:
-  - label: Control
-    icon: mdi:button-pointer
-    rows:
-      - <row 1 definition>
-      - <row 2 definition>
-      - ...
-  - label: Test
-    icon: mdi:test
-    rows: [...]
-```
-
 Define as many Tabs as you want.
 The Tab will only be shown in the View per Area when it has content.
 
 Example: if the Living Room has a Tab where none of the rows would have entities (like Camera, which has only one row and can easily be empty) the whole Tab is hidden.
+
+<details>
+<summary>Click for Configuration Options</summary>
+
+<table>
+  <thead>
+    <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>example</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>icon</td><td>Icon shown in the Tab</td><td>string</td><td>yes</td><td>
+        <pre>
+icon: mdi:test
+</pre>
+      </td></tr>
+    <tr><td>rows</td><td>The grid rows definition of the tab. <a href="#contentrows">More</a></td><td>Array</td><td>yes</td><td>
+        <pre>
+rows:
+  - title: test
+    domain: media_player
+    card:
+      type: tile
+    filter:
+      - filterConfig here
+  - title: test2
+    domain: sensor
+    card:
+      type: tile
+    filter:
+      - filterConfig here
+</pre>
+      </td></tr>
+    <tr><td>text</td><td>Title shown in the Tab</td><td>string</td><td>yes</td><td>
+        <pre>
+text: Test
+</pre>
+      </td></tr>
+  </tbody>
+</table>
+
+</details>
+<br />
+
+So a valid configuration could look like this:
+
+```yaml
+icon: mdi:test
+rows:
+  - title: test
+    domain: media_player
+    card:
+      type: tile
+    filter:
+      - filterConfig here
+  - title: test2
+    domain: sensor
+    card:
+      type: tile
+    filter:
+      - filterConfig here
+text: Test
+
+```
+
+I used all available options in this example. You don`t need to do this!
 
 ## Content/Rows
 
@@ -264,89 +208,83 @@ Define the Rows in the Tab.
 Every Row consists of a (optional) title and a Grid with all the cards for the entities.
 The row is defined by:
 
+<details>
+<summary>Click for Configuration Options</summary>
+
 <table>
   <thead>
-    <tr>
-      <th>attribute</th>
-      <th>description</th>
-      <th>type</th>
-      <th>required</th>
-      <th>example</th>
-    </tr>
+    <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td>domain</td>
-      <td>Domain or Array of domains the entity must belong to. Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter">include filter</a></td>
-      <td>string, Array</td>
-      <td>yes</td>
-      <td>
+    <tr><td>card</td><td>The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard!<blockquote>You can insert the entityId of the entity with the $entity variable which will be replaced in the whole object by the entities entity_id.</blockquote></td><td>Object</td><td>yes</td><td>
         <pre>
-domain: button
-or
-domain:
-  - button
-  - light
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>title</td>
-      <td>Title shown over Grid. Will not be rendered when not set.</td>
-      <td>string</td>
-      <td>no</td>
-      <td>
-        <pre>
-title: Test
-        </pre>
-      </td>
-    </tr>
-    <td>card</td>
-    <td>The cardConfig of the card that should be rendered for every entity in the grid. You can insert the entityId of the entity with the $entity variable. You can use all cards you would normally use in your dashboard!</td>
-    <td>Object</td>
-    <td>yes</td>
-    <td>
-      <pre>
 card:
   type: tile
   entity: $entity
   iconColor: red
-      </pre>
-    </td>
-    </tr>
-    <tr>
-      <td>filter</td>
-      <td>Define include and exclude function for more fine-grained control of entities selected for row than only
-        domain. <a href="#filter">More</a></td>
-      <td>Object</td>
-      <td>no</td>
-      <td>
+</pre>
+      </td></tr>
+    <tr><td>domain</td><td>Domain or Array of domains the entity must belong to.<blockquote>Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter">include filter</a></blockquote></td><td></td><td>yes</td><td>
         <pre>
-include:
-  - type :state
-    comparator: equal
-    value: on
-exclude:
-  - type: attribute
-    comparator: is_numeric
-    value: key: clickCount
-        </pre>
-      </td>
-    </tr>
+domain:
+  - button
+  - media_player
+</pre>
+      </td></tr>
+    <tr><td>filter</td><td>Define include and exclude function for more fine-grained control of entities selected for row than only domain.<blockquote>A entity needs to match all include filters to be included but it needs only to match one of the exclude filters to be excluded!</blockquote></td><td></td><td>no</td><td>
+        <pre>
+filter:
+  include:
+    - type: domain
+      value: binary_sensor
+    - type: state
+      value: on
+  exclude:
+    - type: entity
+      value: sensor.test123
+    - type: is_null
+    - type: area
+      value: living_room
+</pre>
+      </td></tr>
+    <tr><td>title</td><td>Title shown over Grid. Will not be rendered when not set.</td><td>string</td><td>no</td><td>
+        <pre>
+title: Buttons
+</pre>
+      </td></tr>
   </tbody>
 </table>
 
-Complete example:
+</details>
+<br />
+
+So a valid configuration could look like this:
 
 ```yaml
-rows:
-  - domain: light
-    title: Lights
-    card:
-      type: tile
-      entity: $entity
-    filter: ...
+card:
+  type: tile
+  entity: $entity
+  iconColor: red
+domain:
+  - button
+  - media_player
+filter:
+  include:
+    - type: domain
+      value: binary_sensor
+    - type: state
+      value: on
+  exclude:
+    - type: entity
+      value: sensor.test123
+    - type: is_null
+    - type: area
+      value: living_room
+title: Buttons
+
 ```
+
+I used all available options in this example. You don`t need to do this!
 
 ### Filter
 
@@ -363,132 +301,195 @@ filter:
 
 Both accept the same types and syntax.
 
+>[!NOTE]
+>A entity needs to match all include filters to be included but it needs only to match one of the exclude filters to be excluded!
+
 The filter object looks like this.
+
+<details>
+<summary>Click for Configuration Options</summary>
 
 <table>
   <thead>
-    <tr>
-      <th>attribute</th>
-      <th>description</th>
-      <th>type</th>
-      <th>required</th>
-      <th>example</th>
-    </tr>
+    <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr>
-      <td>type</td>
-      <td>
+    <tr><td>comparator</td><td>The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)</td><td>Object</td><td>no</td><td>
         <pre>
-Type of filter.
-Available are:
-- entity
-- domain
-- device
-- integration
-- label
-- state
-- attribute
-        </pre>
-      </td>
-      <td>enum</td>
-      <td>yes</td>
-      <td>
+comparator: equal
+</pre>
+      </td></tr>
+    <tr><td>type</td><td>The type of filter to determine the value or just specify the filter</td><td>Object</td><td>yes</td><td>
         <pre>
 type: state
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>comparator</td>
-      <td>
+</pre>
+      </td></tr>
+    <tr><td>value</td><td>The user specified value</td><td>unknown</td><td>no</td><td>
         <pre>
-Comparator used to compare/filter.
-Available are:
-- equal (needs value to be set!)
-- match (needs value to be set!)
-- in (needs value to be set!)
-- greater_than (needs value to be set!)
-- lower_than (needs value to be set!)
-- is_numeric (does not need value. when type: attribute you need to specifiy key!)
-- is_null (does not need value. when type: attribute you need to specifiy key!)
-        </pre>
-      </td>
-      <td>enum</td>
-      <td>no (default is equal)</td>
-      <td>
-        <pre>
-comparator: is_numeric
-        </pre>
-      </td>
-    </tr>
-    <tr>
-      <td>value</td>
-      <td>Value to compare against. Can be in variable form. See example.</td>
-      <td>dependant on type and comparator</td>
-      <td>no (dependant on type and comparator)</td>
-      <td>
-        <pre>
-include:
-  - type: entity
-    value: media_player.test
-  - type: entity
-    comparator: match
-    value: media_player\..*bedroom.*
-  - type: device
-      comparator: in
-      value:
-        - e7130bc20010fd2399f89f1d39666146
-        - b52d046e38fff9d5ca2bdb54304f4695
-  - type: domain
-    value: media_player
-  - type: integration
-    value: mqtt
-  - type: label
-    comparator: in
-    value:
-      - sort_1
-      - sort_2
-      - sort_3
-  - type: state
-    value: 5
-  - type: state
-    comparator: greater_than
-    value: 2
-  - type: state
-    comparator: is_numeric
-  - type: state
-    comparator: is_null
-  - type: state
-    value: 5
-  - type: attribute
-    comparator: greater_than
-    value:
-      key: uptime
-      value: 2
-  - type: attribute
-    comparator: is_numeric
-    value:
-      key: uptime
-  - type: attribute
-    comparator: is_null
-    value:
-      key: uptime
-  - type: attribute
-    comparator: in
-    value:
-      key: uptime
-      value:
-        - 1
-        - 2
-        - 3
-        </pre>
-      </td>
-    </tr>
-
+value: on
+</pre>
+      </td></tr>
   </tbody>
-
 </table>
+
+</details>
+<br />
+
+So a valid configuration could look like this:
+
+```yaml
+comparator: equal
+type: state
+value: on
+
+```
+
+I used all available options in this example. You don`t need to do this!
+
+#### Filter Type
+
+These are the options for filter type.
+
+<details>
+<summary>Click for Configuration Options</summary>
+
+<table>
+  <thead>
+    <tr><th>option</th><th>description</th><th>example</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>area</td><td>Filter on the area_id of the entity.</td><td>
+        <pre>
+- type: area
+  comparator: equal
+  value: living_room
+</pre>
+      </td></tr>
+    <tr><td>attribute</td><td>Filter on an attribute of the entity.</td><td>
+        <pre>
+- type: attribute
+  comparator: equal
+  value:
+    key: volume
+    value: 100
+</pre>
+      </td></tr>
+    <tr><td>device</td><td>Filter on the parent device_id of the entity.</td><td>
+        <pre>
+- type: device
+  comparator: equal
+  value: 98b750a482bbf28ea959269981813219
+</pre>
+      </td></tr>
+    <tr><td>domain</td><td>Filter on the domain of the entity.</td><td>
+        <pre>
+- type: domain
+  comparator: equal
+  value: sensor
+</pre>
+      </td></tr>
+    <tr><td>entity</td><td>Filter on the entity_id of the entity.</td><td>
+        <pre>
+- type: entity
+  comparator: equal
+  value: sensor.test123
+</pre>
+      </td></tr>
+    <tr><td>integration</td><td>Filter on the integration of the entity.</td><td>
+        <pre>
+- type: integration
+  comparator: equal
+  value: mqtt
+</pre>
+      </td></tr>
+    <tr><td>label</td><td>Filter on the label of the entity.</td><td>
+        <pre>
+- type: label
+  comparator: equal
+  value: sort_1
+</pre>
+      </td></tr>
+    <tr><td>state</td><td>Filter on the state of the entity.</td><td>
+        <pre>
+- type: state
+  comparator: equal
+  value: on
+</pre>
+      </td></tr>
+  </tbody>
+</table>
+
+</details>
+<br />
+
+#### Filter Comparator
+
+These are the options for filter comparator.
+
+<details>
+<summary>Click for Configuration Options</summary>
+
+<table>
+  <thead>
+    <tr><th>option</th><th>description</th><th>example</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>equal</td><td>Check if the selected type value of the entity and the passed value are equal.</td><td>
+        <pre>
+- type: state
+  comparator: equal
+  value: on
+</pre>
+      </td></tr>
+    <tr><td>greater_than</td><td>Check if the selected type value of the entity is greater than the defined value.<blockquote>Works only on numeric type values and defined values!</blockquote></td><td>
+        <pre>
+- type: state
+  comparator: greater_than
+  value: 5
+</pre>
+      </td></tr>
+    <tr><td>in</td><td>Check if the selected type value of the entity is in the list of defined values.</td><td>
+        <pre>
+- type: state
+  comparator: in
+  value:
+    - on
+    - off
+</pre>
+      </td></tr>
+    <tr><td>is_null</td><td>Check if the selected type value of the entity is null.<blockquote>Does not need a value defined!</blockquote></td><td>
+        <pre>
+- type: state
+  comparator: is_null
+</pre>
+      </td></tr>
+    <tr><td>is_numeric</td><td>Check if the selected type value of the entity is numeric.<blockquote>Does not need a value defined!</blockquote></td><td>
+        <pre>
+- type: attribute
+  comparator: is_numeric
+  value:
+    key: volume
+</pre>
+      </td></tr>
+    <tr><td>lower_than</td><td>Check if the selected type value of the entity is lower than the defined value.<blockquote>Works only on numeric type values and defined values!</blockquote></td><td>
+        <pre>
+- type: state
+  comparator: lower_than
+  value: 5
+</pre>
+      </td></tr>
+    <tr><td>match</td><td>Check if the selected type value of the entity matches against the passed regexp value.</td><td>
+        <pre>
+- type: entity
+  comparator: match
+  value: .*_occupancy
+</pre>
+      </td></tr>
+  </tbody>
+</table>
+
+</details>
+<br />
 
 # Default Config explained
 
