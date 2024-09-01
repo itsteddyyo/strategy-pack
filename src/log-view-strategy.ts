@@ -5,11 +5,51 @@ import { createRowFilter } from "./util/filter";
 import { CUSTOM_ELEMENT_VIEW, ManualConfigObject, RowFilterConfig } from "./util/types";
 
 export interface LogPreset extends RowFilterConfig {
+    /**
+     * @description
+     * The title shown in the Preset Button and the Log Card
+     * @example
+     * ```yaml
+     * title: Test
+     * ```
+     */
     title: string;
+    /**
+     * @description
+     * The icon shown in the Preset Button
+     * @example
+     * ```yaml
+     * icon: mdi:test
+     * ```
+     */
     icon: string;
 }
 
 export interface LogViewOptions {
+    /**
+     * @description
+     * The presets for which there will be buttons which load the history of the specified (filtered) entities.
+     * @example
+     * ```yaml
+     * presets:
+     *   - icon: mdi:motion-sensor
+     *     title: Occupancy
+     *     filter:
+     *       include:
+     *         - type: entity
+     *           comparator: match
+     *           value: binary_sensor\..*_occupancy
+     *   - icon: mdi:light-bulb
+     *     title: Lights (but not Living Room)
+     *     filter:
+     *       include:
+     *         - type: domain
+     *           value:
+     *       exclude:
+     *         - type: area
+     *           value: living_room
+     * ```
+     */
     presets: Array<LogPreset>;
 }
 

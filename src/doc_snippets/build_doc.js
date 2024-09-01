@@ -181,6 +181,36 @@ createMarkdown({
     ],
 });
 
+createMarkdown({
+    file: "documentation/markdown/log/CONFIGURATION.md",
+    parts: [
+        {
+            text: `
+# Configuration
+
+## Configuration Options`,
+        },
+        {
+            markdown: "src/doc_snippets/common/table.md",
+            ctx: { doc: "log-view-strategy.ts", resolver: (ctx) => ({ options: ctx.LogViewOptions }) },
+        },
+        {
+            markdown: "src/doc_snippets/common/example.md",
+            ctx: { doc: "log-view-strategy.ts", resolver: (ctx) => ({ example: example(ctx.LogViewOptions, "log-view-strategy") }) },
+        },
+        { markdown: "src/doc_snippets/log/log-preset.md" },
+        {
+            markdown: "src/doc_snippets/common/table.md",
+            ctx: { doc: "log-view-strategy.ts", resolver: (ctx) => ({ options: ctx.LogPreset, disable: { default: true } }) },
+        },
+        {
+            markdown: "src/doc_snippets/common/example.md",
+            ctx: { doc: "log-view-strategy.ts", resolver: (ctx) => ({ example: example(ctx.LogPreset) }) },
+        },
+        ...filter,
+    ],
+});
+
 function createMarkdown(config) {
     const markdown = config.parts.reduce(async (prev, curr) => {
         let text = "";
