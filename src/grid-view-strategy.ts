@@ -7,10 +7,38 @@ import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
 export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
+    /**
+     * @description
+     * Title shown over Grid. Will not be rendered when not set.
+     * @example
+     * ```yaml
+     * title: Buttons
+     * ```
+     */
     title?: string;
 }
 
 export interface GridViewOptions extends UniversalStrategyOptions {
+    /**
+     * @description
+     * The grid rows definition of the tab. <a href="#contentrows">More</a>
+     * @example
+     * ```yaml
+     * rows:
+     *   - title: test
+     *     domain: media_player
+     *     card:
+     *       type: tile
+     *     filter:
+     *       - filterConfig here
+     *   - title: test2
+     *     domain: sensor
+     *     card:
+     *       type: tile
+     *     filter:
+     *       - filterConfig here
+     * ```
+     */
     rows: Array<RowConfig>;
 }
 

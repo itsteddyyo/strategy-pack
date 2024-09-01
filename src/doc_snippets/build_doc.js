@@ -151,6 +151,36 @@ createMarkdown({
     ],
 });
 
+createMarkdown({
+    file: "documentation/markdown/grid/CONFIGURATION.md",
+    parts: [
+        {
+            text: `
+# Configuration
+
+## Configuration Options`,
+        },
+        {
+            markdown: "src/doc_snippets/common/table.md",
+            ctx: { doc: "grid-view-strategy.ts", resolver: (ctx) => ({ options: ctx.GridViewOptions }) },
+        },
+        {
+            markdown: "src/doc_snippets/common/example.md",
+            ctx: { doc: "grid-view-strategy.ts", resolver: (ctx) => ({ example: example(ctx.GridViewOptions, "grid-view-strategy") }) },
+        },
+        { markdown: "src/doc_snippets/common/rows.md" },
+        {
+            markdown: "src/doc_snippets/common/table.md",
+            ctx: { doc: "grid-view-strategy.ts", resolver: (ctx) => ({ options: ctx.RowConfig, disable: { default: true } }) },
+        },
+        {
+            markdown: "src/doc_snippets/common/example.md",
+            ctx: { doc: "grid-view-strategy.ts", resolver: (ctx) => ({ example: example(ctx.RowConfig) }) },
+        },
+        ...filter,
+    ],
+});
+
 function createMarkdown(config) {
     const markdown = config.parts.reduce(async (prev, curr) => {
         let text = "";
