@@ -7,6 +7,22 @@ import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
 export interface BatteryViewOptions extends UniversalStrategyOptions {
+    /**
+     * @description
+     * Platforms (= integrations) for which the strategy should generate rows
+     * @defaultValue
+     * Zigbee, Switchbot, Other (always present everything that is not defined in platforms!)
+     * @remarks
+     * You need the internal HA id of the integration. <a href="https://community.home-assistant.io/t/how-to-get-an-integration-name-for-an-entity/447635">Here</a> is described how to obtain it
+     * @example
+     * ```yaml
+     * platforms:
+     *   - platform: hacs
+     *     title: HACS
+     *   - platform: MQTT
+     *     title: Everything MQTT
+     * ```
+     */
     platforms: Array<{ platform: string; title: string }>;
 }
 

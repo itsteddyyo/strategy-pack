@@ -109,6 +109,48 @@ createMarkdown({
     ],
 });
 
+createMarkdown({
+    file: "documentation/markdown/battery/CONFIGURATION.md",
+    parts: [
+        {
+            text: `
+# Configuration
+
+## Configuration Options`,
+        },
+        {
+            markdown: "src/doc_snippets/common/table.md",
+            ctx: { doc: "battery-view-strategy.ts", resolver: (ctx) => ({ options: ctx.BatteryViewOptions }) },
+        },
+        {
+            markdown: "src/doc_snippets/common/example.md",
+            ctx: { doc: "battery-view-strategy.ts", resolver: (ctx) => ({ example: example(ctx.BatteryViewOptions, "battery-view-strategy") }) },
+        },
+        { markdown: "src/doc_snippets/battery/default-config.md" },
+    ],
+});
+
+createMarkdown({
+    file: "documentation/markdown/update/CONFIGURATION.md",
+    parts: [
+        {
+            text: `
+# Configuration
+
+## Configuration Options`,
+        },
+        {
+            markdown: "src/doc_snippets/common/table.md",
+            ctx: { doc: "update-view-strategy.ts", resolver: (ctx) => ({ options: ctx.UpdateViewOptions }) },
+        },
+        {
+            markdown: "src/doc_snippets/common/example.md",
+            ctx: { doc: "update-view-strategy.ts", resolver: (ctx) => ({ example: example(ctx.UpdateViewOptions, "update-view-strategy") }) },
+        },
+        { markdown: "src/doc_snippets/update/default-config.md" },
+    ],
+});
+
 function createMarkdown(config) {
     const markdown = config.parts.reduce(async (prev, curr) => {
         let text = "";
