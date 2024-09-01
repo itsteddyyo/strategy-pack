@@ -29,8 +29,6 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
      * Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter">include filter</a>
      * @example
      * ```yaml
-     * domain: button
-     * #or
      * domain:
      *   - button
      *   - media_player
@@ -54,7 +52,7 @@ export interface TabConfig {
      * Title shown in the Tab
      * @example
      * ```yaml
-     * title: Test
+     * text: Test
      * ```
      */
     text: string;
@@ -75,10 +73,16 @@ export interface TabConfig {
      * rows:
      *   - title: test
      *     domain: media_player
-     *     ...
+     *     card:
+     *       type: tile
+     *     filter:
+     *       - filterConfig here
      *   - title: test2
      *     domain: sensor
-     *     ...
+     *     card:
+     *       type: tile
+     *     filter:
+     *       - filterConfig here
      * ```
      */
     rows: Array<RowConfig>;
@@ -95,13 +99,16 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
      * tabs:
      *   - label: Test
      *     icon: mdi:test
-     *     rows: [...]
+     *     rows:
+     *       - rowConfig here
      * ```
      */
     tabs: Array<TabConfig>;
     /**
      * @description
      * Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency.
+     * @defaultValue
+     * <a href="/src/config/areaDefaultConfig.yml#L253">set</a>
      * @remarks
      * The colors get repeated when you have more areas than colors. Leave empty for no overlay.
      * @example
@@ -115,7 +122,7 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
      * @description
      * The config for the area card.
      * @defaultValue
-     * <a href="/src/config/areaDefaultConfig.yml#L233">set</a>
+     * <a href="/src/config/areaDefaultConfig.yml#L246">set</a>
      * @remarks
      * Options type, area, navigation_path are not allowed!
      * @example
@@ -128,8 +135,6 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
     /**
      * @description
      * Which areas should be ignored (no views generated/not shown in navigation)
-     * @defaultValue
-     * <a href="/src/config/areaDefaultConfig.yml#L226">set</a>
      * @example
      * ```yaml
      * areaBlacklist:
@@ -159,8 +164,9 @@ export interface AreaStrategyOptions extends UniversalStrategyOptions {
      * extraViews:
      *   - strategy:
      *       type: custom:battery-view-strategy
-     *     icon: ...
-     *     ...
+     *     icon: mdi:test
+     *     path: test
+     *     title: Test
      * ```
      */
     extraViews?: Array<LovelaceViewConfig>;

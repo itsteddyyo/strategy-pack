@@ -190,16 +190,22 @@ export interface FilterConfig {
     /**
      * @description
      * The type of filter to determine the value or just specify the filter
+     * @example
+     * type: state
      */
     type: FilterType;
     /**
      * @description
      * The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)
+     * @example
+     * comparator: equal
      */
     comparator?: Comparator;
     /**
      * @description
      * The user specified value
+     * @example
+     * value: on
      */
     value?: unknown;
 }
@@ -257,7 +263,7 @@ export interface UniversalStrategyOptions {
      * <a href="/src/config/areaDefaultConfig.yml#L1">set</a>
      * @example
      * ```yaml
-     * minColumWidth: 300
+     * minColumnWidth: 300
      * ```
      */
     minColumnWidth: number;
