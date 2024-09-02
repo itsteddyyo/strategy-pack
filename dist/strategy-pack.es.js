@@ -76,7 +76,7 @@ const Sf = {
   minColumnWidth: 200,
   tabs: [
     {
-      label: "Control",
+      text: "Control",
       icon: "mdi:button-pointer",
       rows: [
         {
@@ -216,7 +216,7 @@ const Sf = {
       ]
     },
     {
-      label: "Stats",
+      text: "Stats",
       icon: "mdi:chart-line",
       rows: [
         {
@@ -329,7 +329,7 @@ const Sf = {
       ]
     },
     {
-      label: "Camera",
+      text: "Camera",
       icon: "mdi:camera",
       rows: [{
         domain: "camera",
@@ -4131,56 +4131,55 @@ class m_ extends HTMLTemplateElement {
           cards: []
         }
       ]
-    }, pn = Vn.reduce(
-      (j, Nn, kn) => {
-        const Ct = {
-          ...fn,
-          type: "area",
-          area: Nn.area_id,
-          navigation_path: `${Nn.area_id}#main`
-        };
-        return j.cards[0].cards.push({
-          type: "conditional",
-          conditions: [{
+    }, pn = Vn.reduce((j, Nn, kn) => {
+      const Ct = {
+        ...fn,
+        type: "area",
+        area: Nn.area_id,
+        navigation_path: `${Nn.area_id}#main`
+      };
+      return j.cards[0].cards.push({
+        type: "conditional",
+        conditions: [
+          {
             condition: "screen",
             media_query: "(max-width: 1000px)"
-          }],
-          card: {
-            ...Ct,
-            card_mod: {
-              style: `
+          }
+        ],
+        card: {
+          ...Ct,
+          card_mod: {
+            style: `
                   hui-image {
                     opacity: 0.3;
                   }
                   div.navigate {
                     background-color: ${D[kn]};
                   }`
-            }
           }
-        }), j.cards[0].cards.push(
+        }
+      }), j.cards[0].cards.push({
+        type: "conditional",
+        conditions: [
           {
-            type: "conditional",
-            conditions: [{
-              condition: "screen",
-              media_query: "(min-width: 1001px)"
-            }],
-            card: Nn.area_id == At.area_id ? Ct : {
-              ...Ct,
-              card_mod: {
-                style: `
+            condition: "screen",
+            media_query: "(min-width: 1001px)"
+          }
+        ],
+        card: Nn.area_id == At.area_id ? Ct : {
+          ...Ct,
+          card_mod: {
+            style: `
                         hui-image {
                           opacity: 0.3;
                         }
                         div.navigate {
                           background-color: ${D[kn]};
                         }`
-              }
-            }
           }
-        ), j;
-      },
-      st
-    );
+        }
+      }), j;
+    }, st);
     pn.cards = [...H || [], ...pn.cards];
     const lt = (j) => j.reduce((Nn, kn) => {
       const Ct = {
@@ -4193,14 +4192,10 @@ class m_ extends HTMLTemplateElement {
             }
           ]
         }
-      }, Qt = Af.mergeWith(
-        Af.cloneDeep(kn),
-        Ct,
-        (vn, Zn) => {
-          if (Array.isArray(vn))
-            return vn.concat(Zn);
-        }
-      );
+      }, Qt = Af.mergeWith(Af.cloneDeep(kn), Ct, (vn, Zn) => {
+        if (Array.isArray(vn))
+          return vn.concat(Zn);
+      });
       let mr = X.filter(vr).filter((vn) => vn.area_id ? vn.area_id === At.area_id : An.has(vn.device_id)).filter(Hi(Qt, f));
       const yr = Jt(mr, Qt, Q, kn.title, $);
       return Nn.push(...yr), Nn;
@@ -4208,7 +4203,7 @@ class m_ extends HTMLTemplateElement {
       const Nn = lt(j.rows);
       return Nn.length > 0 ? {
         attributes: {
-          label: j.label,
+          label: j.text,
           icon: j.icon,
           stacked: !0
         },
@@ -4232,10 +4227,12 @@ class m_ extends HTMLTemplateElement {
         cards: [
           {
             type: "conditional",
-            conditions: [{
-              condition: "screen",
-              media_query: "(max-width: 1000px)"
-            }],
+            conditions: [
+              {
+                condition: "screen",
+                media_query: "(max-width: 1000px)"
+              }
+            ],
             card: {
               type: "custom:state-switch",
               entity: "hash",
@@ -4303,10 +4300,12 @@ class m_ extends HTMLTemplateElement {
           },
           {
             type: "conditional",
-            conditions: [{
-              condition: "screen",
-              media_query: "(min-width: 1001px)"
-            }],
+            conditions: [
+              {
+                condition: "screen",
+                media_query: "(min-width: 1001px)"
+              }
+            ],
             card: {
               type: "custom:layout-card",
               layout_type: "custom:grid-layout",
@@ -4330,9 +4329,7 @@ class y_ extends HTMLTemplateElement {
       ...S
     }, { presets: B } = E;
     if (!B) throw Error("presets not defined!");
-    const [W] = await Promise.all([
-      f.callWS({ type: "config/entity_registry/list" })
-    ]), Y = {
+    const [W] = await Promise.all([f.callWS({ type: "config/entity_registry/list" })]), Y = {
       type: "vertical-stack",
       cards: [],
       view_layout: {
@@ -4380,9 +4377,7 @@ class w_ extends HTMLTemplateElement {
       ...S
     }, { minColumnWidth: B, replaceCards: W, rows: Y } = E;
     if (!Y) throw Error("rows not defined!");
-    const [Q] = await Promise.all([
-      f.callWS({ type: "config/entity_registry/list" })
-    ]);
+    const [Q] = await Promise.all([f.callWS({ type: "config/entity_registry/list" })]);
     return {
       panel: !0,
       cards: [
@@ -4407,9 +4402,7 @@ class x_ extends HTMLTemplateElement {
       ],
       ...Gi,
       ...S
-    }, { minColumnWidth: B, replaceCards: W, platforms: Y } = E, [Q] = await Promise.all([
-      f.callWS({ type: "config/entity_registry/list" })
-    ]), $ = {
+    }, { minColumnWidth: B, replaceCards: W, platforms: Y } = E, [Q] = await Promise.all([f.callWS({ type: "config/entity_registry/list" })]), $ = {
       card: {
         type: "custom:mini-graph-card",
         entities: ["$entity"],
@@ -4463,16 +4456,12 @@ class A_ extends HTMLTemplateElement {
       ],
       ...Gi,
       ...S
-    }, { minColumnWidth: B, replaceCards: W, platforms: Y } = E, [Q] = await Promise.all([
-      f.callWS({ type: "config/entity_registry/list" })
-    ]), $ = {
+    }, { minColumnWidth: B, replaceCards: W, platforms: Y } = E, [Q] = await Promise.all([f.callWS({ type: "config/entity_registry/list" })]), $ = {
       card: {
         type: "tile",
         entity: "$entity",
         hide_state: !0,
-        features: [
-          { type: "update-actions", backup: "ask" }
-        ]
+        features: [{ type: "update-actions", backup: "ask" }]
       }
     }, H = Q.filter(vr).filter((q) => q.entity_id.split(".")[0] == "update"), D = (q) => !Y.map((X) => X.platform).includes(q.platform), fn = Jt(H.filter(D), $, B, "Other", W);
     return Y.forEach((q) => {
