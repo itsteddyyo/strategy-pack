@@ -4199,7 +4199,7 @@ class m_ extends HTMLTemplateElement {
       let yr = X.filter(mr).filter((_n) => _n.area_id ? _n.area_id === At.area_id : Cn.has(_n.device_id)).filter(Ki(xe, f));
       const jn = Qt(yr, xe, V, Tn.title, $);
       return gn.push(...jn), gn;
-    }, Array()), Ln = (J) => (gn) => qi.isString(gn) ? J.find((Yn) => "@" + Yn.title === gn) : gn, Ct = Y.map(Ln(dr.tabs)).filter(Gi).map((J) => {
+    }, Array()), Ln = (J) => (gn) => qi.isString(gn) ? J.find((Yn) => "~" + Yn.title === gn) : gn, Ct = Y.map(Ln(dr.tabs)).filter(Gi).map((J) => {
       const gn = ct(
         J.rows.map(Ln(dr.tabs.flatMap((Tn) => Tn.rows))).filter(Gi)
       );
