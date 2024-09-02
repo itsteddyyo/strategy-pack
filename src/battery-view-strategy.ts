@@ -2,11 +2,11 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers";
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, GridStrategyCardConfig, GridViewConfig, UniversalStrategyOptions } from "./util/types";
+import { CUSTOM_ELEMENT_VIEW, GridStrategyCardConfig, GridViewConfig, BaseGridOptions } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
-export interface BatteryViewOptions extends UniversalStrategyOptions {
+export interface BatteryViewOptions extends BaseGridOptions {
     /**
      * @description
      * Platforms (= integrations) for which the strategy should generate rows
@@ -37,7 +37,7 @@ class BatteryViewStrategy extends HTMLTemplateElement {
                 { platform: "mqtt", title: "Zigbee" },
                 { platform: "switchbot", title: "Switchbot" },
             ],
-            ...(defaultConfig as UniversalStrategyOptions),
+            ...(defaultConfig as BaseGridOptions),
             ...userConfig,
         };
         const { minColumnWidth, replaceCards, platforms } = config;

@@ -255,7 +255,7 @@ export interface GridStrategyCardConfig {
     card: LovelaceCardConfig;
 }
 
-export interface UniversalStrategyOptions {
+export interface BaseGridOptions {
     /**
      * @description
      * Minimal Column Width in the Grid = The Minimal Width of the Cards.
@@ -287,4 +287,4 @@ export interface ManualConfigObject<T extends string, C> {
     config?: C;
 }
 
-export interface GridViewConfig<T extends string, C extends UniversalStrategyOptions> extends ManualConfigObject<T, C> {}
+export interface GridViewConfig<T extends string, C extends BaseGridOptions> extends ManualConfigObject<T, C> {}

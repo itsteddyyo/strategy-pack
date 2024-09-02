@@ -13,7 +13,7 @@ import {
     Comparator,
     GridStrategyCardConfig,
     RowFilterConfig,
-    UniversalStrategyOptions,
+    BaseGridOptions,
     ManualConfigObject,
 } from "./util/types";
 
@@ -88,7 +88,7 @@ export interface TabConfig {
     rows: Array<RowConfig>;
 }
 
-export interface AreaStrategyOptions extends UniversalStrategyOptions {
+export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
      * Tabs shown in the main area. <a href="#tabs">More</a>

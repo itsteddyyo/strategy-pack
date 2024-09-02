@@ -2,7 +2,7 @@ import { HomeAssistant, LovelaceCardConfig, LovelaceViewConfig } from "custom-ca
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { createRowFilter, hiddenFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, UniversalStrategyOptions, GridViewConfig, GridStrategyCardConfig, RowFilterConfig } from "./util/types";
+import { CUSTOM_ELEMENT_VIEW, BaseGridOptions, GridViewConfig, GridStrategyCardConfig, RowFilterConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
@@ -18,7 +18,7 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
     title?: string;
 }
 
-export interface GridViewOptions extends UniversalStrategyOptions {
+export interface GridViewOptions extends BaseGridOptions {
     /**
      * @description
      * The grid rows definition of the tab. <a href="#contentrows">More</a>
@@ -49,7 +49,7 @@ class GridViewStrategy extends HTMLTemplateElement {
     ): Promise<LovelaceViewConfig> {
         const { config: userConfig } = viewConfig;
         const config = {
-            ...(defaultConfig as UniversalStrategyOptions),
+            ...(defaultConfig as BaseGridOptions),
             ...userConfig,
         };
         const { minColumnWidth, replaceCards, rows } = config;

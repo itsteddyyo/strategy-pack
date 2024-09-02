@@ -2,11 +2,11 @@ import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers";
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { hiddenFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, UniversalStrategyOptions, GridViewConfig, GridStrategyCardConfig } from "./util/types";
+import { CUSTOM_ELEMENT_VIEW, BaseGridOptions, GridViewConfig, GridStrategyCardConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
 
-export interface UpdateViewOptions extends UniversalStrategyOptions {
+export interface UpdateViewOptions extends BaseGridOptions {
     /**
      * @description
      * Platforms (= integrations) for which the strategy should generate rows
@@ -39,7 +39,7 @@ class UpdateViewStrategy extends HTMLTemplateElement {
                 { platform: "esphome", title: "ESPHome" },
                 { platform: "mqtt", title: "Zigbee" },
             ],
-            ...(defaultConfig as UniversalStrategyOptions),
+            ...(defaultConfig as BaseGridOptions),
             ...userConfig,
         };
         const { minColumnWidth, replaceCards, platforms } = config;
