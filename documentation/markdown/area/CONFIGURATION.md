@@ -61,8 +61,8 @@ replaceCards:
       - $entity
 </pre>
       </td></tr>
-    <tr><td>tabs</td><td>Tabs shown in the main area. <a href="#tabs">More</a><blockquote>You can also reference tab entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing @ + title of tab.
-With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - @Stats instead of whole config</blockquote></td><td>Array</td><td>yes</td><td>
+    <tr><td>tabs</td><td>Tabs shown in the main area. <a href="#tabs">More</a><blockquote>You can also reference tab entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing ~ + title of tab.
+With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - ~Stats instead of whole config</blockquote></td><td>Array</td><td>yes</td><td>
 <a href="/src/config/areaDefaultConfig.yml#L2">set</a>
 </td><td>
         <pre>
@@ -152,8 +152,8 @@ Example: if the Living Room has a Tab where none of the rows would have entities
 icon: mdi:test
 </pre>
       </td></tr>
-    <tr><td>rows</td><td>The grid rows definition of the tab. <a href="#contentrows">More</a><blockquote>You can also reference row entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing @ + title of row.
-With that you can easily change a single row while just referencing the other without the need to copy the whole config. Example: - @Buttons instead of whole config</blockquote></td><td>Array</td><td>yes</td><td>
+    <tr><td>rows</td><td>The grid rows definition of the tab. <a href="#contentrows">More</a><blockquote>You can also reference row entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing ~ + title of row.
+With that you can easily change a single row while just referencing the other without the need to copy the whole config. Example: - ~Buttons instead of whole config</blockquote></td><td>Array</td><td>yes</td><td>
         <pre>
 rows:
   - title: test

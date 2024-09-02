@@ -69,8 +69,8 @@ export interface TabConfig {
      * @description
      * The grid rows definition of the tab. <a href="#contentrows">More</a>
      * @remarks
-     * You can also reference row entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing @ + title of row.
-     * With that you can easily change a single row while just referencing the other without the need to copy the whole config. Example: - \@Buttons instead of whole config
+     * You can also reference row entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing ~ + title of row.
+     * With that you can easily change a single row while just referencing the other without the need to copy the whole config. Example: - ~Buttons instead of whole config
      * @example
      * ```yaml
      * rows:
@@ -98,8 +98,8 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @defaultValue
      * <a href="/src/config/areaDefaultConfig.yml#L2">set</a>
      * @remarks
-     * You can also reference tab entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing @ + title of tab.
-     * With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - \@Stats instead of whole config
+     * You can also reference tab entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing ~ + title of tab.
+     * With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - ~Stats instead of whole config
      * @example
      * ```yaml
      * tabs:
@@ -393,7 +393,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
             (arr: Array<unknown>) =>
             <T extends RowConfig | TabConfig | string>(item: T) => {
                 const resolvedTab = isString(item)
-                    ? (arr as Array<Exclude<T, string>>).find((defaultTab) => "@" + defaultTab.title === item)
+                    ? (arr as Array<Exclude<T, string>>).find((defaultTab) => "~" + defaultTab.title === item)
                     : (item as Exclude<T, string>);
                 return resolvedTab;
             };
