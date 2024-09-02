@@ -80,12 +80,15 @@ export interface TabConfig {
      *       type: tile
      *     filter:
      *       - filterConfig here
+     *   - ~Switches
      *   - title: test2
      *     domain: sensor
      *     card:
      *       type: tile
      *     filter:
      *       - filterConfig here
+     *   - ~Buttons
+     *   - ~Alerts
      * ```
      */
     rows: Array<RowConfig | string>;
@@ -107,6 +110,8 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      *     icon: mdi:test
      *     rows:
      *       - rowConfig here
+     *   - ~Camera
+     *   - ~Stats
      * ```
      */
     tabs: Array<TabConfig | string>;

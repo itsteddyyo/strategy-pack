@@ -71,6 +71,8 @@ tabs:
     icon: mdi:test
     rows:
       - rowConfig here
+  - ~Camera
+  - ~Stats
 </pre>
       </td></tr>
     <tr><td>topCards</td><td>Slot for cards above navigation. <a href="#topCards">More</a></td><td>Array</td><td>no</td><td>-</td><td>
@@ -118,6 +120,8 @@ strategy:
         icon: mdi:test
         rows:
           - rowConfig here
+      - ~Camera
+      - ~Stats
     topCards:
       - type: entity
         entities:
@@ -162,12 +166,15 @@ rows:
       type: tile
     filter:
       - filterConfig here
+  - ~Switches
   - title: test2
     domain: sensor
     card:
       type: tile
     filter:
       - filterConfig here
+  - ~Buttons
+  - ~Alerts
 </pre>
       </td></tr>
     <tr><td>title</td><td>Title shown in the Tab</td><td>string</td><td>yes</td><td>
@@ -192,12 +199,15 @@ rows:
       type: tile
     filter:
       - filterConfig here
+  - ~Switches
   - title: test2
     domain: sensor
     card:
       type: tile
     filter:
       - filterConfig here
+  - ~Buttons
+  - ~Alerts
 title: Test
 
 ```
