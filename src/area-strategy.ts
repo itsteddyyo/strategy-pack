@@ -19,7 +19,7 @@ import {
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
 import { createGrid } from "./util/createGrid";
-import { cloneDeep, mergeWith } from "lodash";
+import { cloneDeep, isString, mergeWith } from "lodash";
 
 export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
     /**
@@ -52,10 +52,10 @@ export interface TabConfig {
      * Title shown in the Tab
      * @example
      * ```yaml
-     * text: Test
+     * title: Test
      * ```
      */
-    text: string;
+    title: string;
     /**
      * @description
      * Icon shown in the Tab
@@ -68,6 +68,9 @@ export interface TabConfig {
     /**
      * @description
      * The grid rows definition of the tab. <a href="#contentrows">More</a>
+     * @remarks
+     * You can also reference row entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing @ + title of row.
+     * With that you can easily change a single row while just referencing the other without the need to copy the whole config. Example: - \@Buttons instead of whole config
      * @example
      * ```yaml
      * rows:
@@ -85,7 +88,7 @@ export interface TabConfig {
      *       - filterConfig here
      * ```
      */
-    rows: Array<RowConfig>;
+    rows: Array<RowConfig | string>;
 }
 
 export interface AreaStrategyOptions extends BaseGridOptions {
@@ -94,6 +97,9 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * Tabs shown in the main area. <a href="#tabs">More</a>
      * @defaultValue
      * <a href="/src/config/areaDefaultConfig.yml#L2">set</a>
+     * @remarks
+     * You can also reference tab entries from the <a href="/src/config/areaDefaultConfig.yml">default config</a> by just writing @ + title of tab.
+     * With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - \@Stats instead of whole config
      * @example
      * ```yaml
      * tabs:
@@ -103,7 +109,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      *       - rowConfig here
      * ```
      */
-    tabs: Array<TabConfig>;
+    tabs: Array<TabConfig | string>;
     /**
      * @description
      * Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency.
@@ -383,13 +389,26 @@ class AreaViewStrategy extends HTMLTemplateElement {
                 return prev;
             }, Array<LovelaceCardConfig>());
 
+        const resolveStringLink =
+            (arr: Array<unknown>) =>
+            <T extends RowConfig | TabConfig | string>(item: T) => {
+                const resolvedTab = isString(item)
+                    ? (arr as Array<Exclude<T, string>>).find((defaultTab) => "@" + defaultTab.title === item)
+                    : (item as Exclude<T, string>);
+                return resolvedTab;
+            };
+
         const generatedTabs = tabs
+            .map(resolveStringLink((defaultConfig as AreaStrategyOptions).tabs))
+            .filter(notNil)
             .map((tab) => {
-                const tabElements = createTabElements(tab.rows);
+                const tabElements = createTabElements(
+                    tab.rows.map(resolveStringLink((defaultConfig.tabs as Array<TabConfig>).flatMap((t) => t.rows))).filter(notNil),
+                );
                 if (tabElements.length > 0) {
                     return {
                         attributes: {
-                            label: tab.text,
+                            label: tab.title,
                             icon: tab.icon,
                             stacked: true,
                         },
