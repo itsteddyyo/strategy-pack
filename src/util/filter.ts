@@ -20,7 +20,7 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
                 try {
                     return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
                 } catch (e: unknown) {
-                    console.log(e);
+                    console.error(e);
                     return false;
                 }
             }, ret);
@@ -34,7 +34,7 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
                 try {
                     return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
                 } catch (e: unknown) {
-                    console.log(e);
+                    console.error(e);
                     return false;
                 }
             }, ret);
