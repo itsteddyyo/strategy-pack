@@ -129,3 +129,5 @@ out
 .pnp.*
 
 docs/typedoc.json
+
+dist
