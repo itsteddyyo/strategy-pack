@@ -11,21 +11,32 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
         let ret = true;
 
         if (!!row.filter) {
-            //custom include filter in row definition
-            const include = row.filter?.include || [];
-            ret = include.reduce((ret2, filter) => {
-                if (!ret2) {
-                    return false;
-                }
-                return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
-            }, ret);
             //custom exclude filter in row definition
             const exclude = row.filter?.exclude || [];
             ret = exclude.reduce((ret2, filter) => {
                 if (!ret2) {
                     return false;
                 }
-                return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                try {
+                    return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                } catch (e: unknown) {
+                    console.log(e);
+                    return false;
+                }
+            }, ret);
+
+            //custom include filter in row definition
+            const include = row.filter?.include || [];
+            ret = include.reduce((ret2, filter) => {
+                if (!ret2) {
+                    return false;
+                }
+                try {
+                    return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                } catch (e: unknown) {
+                    console.log(e);
+                    return false;
+                }
             }, ret);
         }
         return ret;
