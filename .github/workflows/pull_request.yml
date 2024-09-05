@@ -10,10 +10,11 @@ on:
             - reopened
             - synchronize
 jobs:
-    label:
+    check:
         runs-on: ubuntu-latest
         steps:
-            - uses: nearform-actions/github-action-check-linked-issues@v1
+            - name: Check for linked issues
+              uses: nearform-actions/github-action-check-linked-issues@v1
               id: check-linked-issues
             - name: Get the output
               run: |
@@ -21,13 +22,25 @@ jobs:
                     echo "You need to have at least one linked issue!"
                     exit 1
                   fi
-            - uses: mondeja/remove-labels-gh-action@v2
+    cleanup:
+        needs:
+            - check
+        runs-on: ubuntu-latest
+        steps:
+            - name: Remove Labels
+              uses: mondeja/remove-labels-gh-action@v2
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   labels: |
                       breaking-change
                       enhancement
                       bug
+    label:
+        needs:
+            - check
+            - cleanup
+        runs-on: ubuntu-latest
+        steps:
             - name: Copy Labels
               uses: michalvankodev/copy-issue-labels@v1.2.1
               with:
