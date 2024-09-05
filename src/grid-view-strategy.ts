@@ -1,7 +1,7 @@
 import { HomeAssistant, LovelaceCardConfig, LovelaceViewConfig } from "custom-card-helpers";
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
-import { createRowFilter, hiddenFilter } from "./util/filter";
+import { createRowFilter } from "./util/filter";
 import { CUSTOM_ELEMENT_VIEW, BaseGridOptions, GridViewConfig, GridStrategyCardConfig, RowFilterConfig } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
@@ -59,7 +59,7 @@ class GridViewStrategy extends HTMLTemplateElement {
         const [entities] = await Promise.all([hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" })]);
 
         const stackCards = rows.reduce((cards, row) => {
-            const rowEntities = entities.filter(hiddenFilter).filter(createRowFilter(row, hass));
+            const rowEntities = entities.filter(createRowFilter(row, hass));
             cards.push(...createGrid(rowEntities, row, minColumnWidth, row.title, replaceCards));
             return cards;
         }, new Array<LovelaceCardConfig>());

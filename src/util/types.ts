@@ -94,6 +94,32 @@ export enum FilterType {
      * ```
      */
     attribute = "attribute",
+    /**
+     * @description
+     * Filter on the disabled_by state of the entity.
+     * @remarks
+     * Possible Disablers <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here>
+     * @example
+     * ```yaml
+     * - type: disabled_by
+     *   comparator: match
+     *   value: .*
+     * ```
+     */
+    disabled_by = "disabled_by",
+    /**
+     * @description
+     * Filter on the hidden_by state of the entity.
+     * @remarks
+     * Possible Hiders <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here>
+     * @example
+     * ```yaml
+     * - type: hidden_by
+     *   comparator: match
+     *   value: .*
+     * ```
+     */
+    hidden_by = "hidden_by",
 }
 
 export enum Comparator {
