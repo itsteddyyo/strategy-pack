@@ -29,7 +29,7 @@ jobs:
                       enhancement
                       bug
             - name: Copy Labels
-              uses: michalvankodev/copy-issue-labels@v1
+              uses: michalvankodev/copy-issue-labels@v1.2.1
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
                   custom-keywords: |
@@ -40,3 +40,4 @@ jobs:
               with:
                   repo-token: ${{ github.token }}
                   configuration-path: .github/labeler.yml
+                  enable-versioned-regex: 0
