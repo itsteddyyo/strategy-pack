@@ -94,6 +94,28 @@ export enum FilterType {
      * ```
      */
     attribute = "attribute",
+    /**
+     * @description
+     * Filter on the disabled_by state of the entity.
+     * @example
+     * ```yaml
+     * - type: disabled_by
+     *   comparator: match
+     *   value: .*
+     * ```
+     */
+    disabled_by = "disabled_by",
+    /**
+     * @description
+     * Filter on the hidden_by state of the entity.
+     * @example
+     * ```yaml
+     * - type: hidden_by
+     *   comparator: match
+     *   value: .*
+     * ```
+     */
+    hidden_by = "hidden_by",
 }
 
 export enum Comparator {

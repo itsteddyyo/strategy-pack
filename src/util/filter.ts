@@ -110,4 +110,12 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
                 throw Error("value is not defined correctly");
             }
         },
+        disabled_by: (entity, hass, value, comparator) => {
+            const disabledBy = entity.disabled_by;
+            return compare(comparator, disabledBy, value);
+        },
+        hidden_by: (entity, hass, value, comparator) => {
+            const hiddenBy = entity.hidden_by;
+            return compare(comparator, hiddenBy, value);
+        },
     };

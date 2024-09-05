@@ -4,7 +4,7 @@ import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { DeviceRegistryEntry } from "./homeassistant/device_registry";
 import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
-import { createRowFilter, hiddenFilter } from "./util/filter";
+import { createRowFilter } from "./util/filter";
 import { labelSort, notNil } from "./util/helper";
 import {
     CUSTOM_ELEMENT_DASHBOARD,
@@ -361,7 +361,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
         const createTabElements = (tabRows: Array<RowConfig>) =>
             tabRows.reduce((prev, curr) => {
                 //convert domain to include filter
-                const domainIncludeFilter: Pick<RowConfig, "filter"> = {
+                const baseFilter: Pick<RowConfig, "filter"> = {
                     filter: {
                         include: [
                             {
@@ -370,17 +370,28 @@ class AreaViewStrategy extends HTMLTemplateElement {
                                 value: curr.domain,
                             },
                         ],
+                        exclude: [
+                            {
+                                type: FilterType.disabled_by,
+                                comparator: Comparator.match,
+                                value: ".*",
+                            },
+                            {
+                                type: FilterType.hidden_by,
+                                comparator: Comparator.match,
+                                value: ".*",
+                            },
+                        ],
                     },
                 };
 
-                const merged = mergeWith(cloneDeep(curr), domainIncludeFilter, (objValue, srcValue) => {
+                const merged = mergeWith(cloneDeep(curr), baseFilter, (objValue, srcValue) => {
                     if (Array.isArray(objValue)) {
                         return objValue.concat(srcValue);
                     }
                 });
 
                 let usedEntities = entities
-                    .filter(hiddenFilter)
                     //in this area
                     .filter((entity) => {
                         return entity.area_id ? entity.area_id === currentArea.area_id : areaDevices.has(entity.device_id);
