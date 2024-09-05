@@ -1,0 +1,48 @@
+name: 🐞 Bug Report
+description: Create a report to help us improve
+title: "[Bug]: <title>"
+labels: ["bug"]
+body:
+    - type: checkboxes
+      attributes:
+          label: Requirements
+          options:
+              - label: I have updated the Strategy Pack to the latest available version
+                required: true
+              - label: I did a search to see if there is a similar issue or if a pull request is open.
+                required: true
+    - type: textarea
+      attributes:
+          label: Current Behavior
+          description: A concise description of what you're experiencing.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Expected Behavior
+          description: A concise description of what you expected to happen.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Steps To Reproduce
+          description: Steps to reproduce the behavior.
+          placeholder: |
+              1. In this environment...
+              2. With this config...
+              3. Run '...'
+              4. See error...
+      validations:
+          required: false
+    - type: textarea
+      attributes:
+          label: Strategy Config
+          description: |
+              The YAML config you used
+          value: |
+              YAML state
+              ```yaml
+
+              ```
+      validations:
+          required: false
