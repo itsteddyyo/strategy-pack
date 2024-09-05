@@ -1,14 +1,13 @@
 name: HACS validation
 on:
+    pull_request:
     push:
-        branches:
-            - main
 jobs:
-  hacs:
-    name: HACS Action
-    runs-on: "ubuntu-latest"
-    steps:
-      - name: HACS Action
-        uses: "hacs/action@main"
-        with:
-          category: "plugin"
+    hacs:
+        name: HACS Action
+        runs-on: "ubuntu-latest"
+        steps:
+            - name: HACS Action
+              uses: "hacs/action@main"
+              with:
+                  category: "plugin"
