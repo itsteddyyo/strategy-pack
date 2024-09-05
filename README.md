@@ -294,7 +294,7 @@ Also have a look at [Mushroom Strategy][mushroomStrategy], which has a very simi
 <!-- Badge References -->
 [hacsBadge]: https://my.home-assistant.io/badges/hacs_repository.svg
 <!-- URL References -->
-[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=lovelace
+[strategyPackHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=itsteddyyo&repository=strategy-pack&category=Plugin
 <!-- Credit References -->
 [dwainsDashboard]: https://github.com/dwainscheeren/dwains-lovelace-dashboard
 [mushRoomStrategy]: https://github.com/AalianKhan/mushroom-strategy
