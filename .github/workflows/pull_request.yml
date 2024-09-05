@@ -1,0 +1,27 @@
+name: Pull Request Labels
+permissions:
+    issues: read
+    pull-requests: write
+on:
+    pull_request_target:
+        types:
+            - opened
+            - edited
+            - reopened
+            - synchronize
+jobs:
+    label:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: nearform-actions/github-action-check-linked-issues@v1
+              id: check-linked-issues
+            - name: Get the output
+              run: |
+                  if ${{ steps.check-linked-issues.outputs.linked_issues_count }} == 0 ; then
+                    echo "You need to have at least one linked issue!"
+                    exit 1
+                  fi
+            - name: Copy Labels
+              uses: michalvankodev/copy-issue-labels@v1
+              with:
+                  repo-token: ${{ secrets.GITHUB_TOKEN }}
