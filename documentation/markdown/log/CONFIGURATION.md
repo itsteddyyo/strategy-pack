@@ -268,14 +268,14 @@ These are the options for filter type.
     value: 100
 </pre>
       </td></tr>
-    <tr><td>disabled_by</td><td>Filter on the disabled_by state of the entity.</td><td>
+    <tr><td>disabled_by</td><td>Filter on the disabled_by state of the entity.<blockquote>Possible Disablers <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here></blockquote></td><td>
         <pre>
 - type: disabled_by
   comparator: match
   value: .*
 </pre>
       </td></tr>
-    <tr><td>hidden_by</td><td>Filter on the hidden_by state of the entity.</td><td>
+    <tr><td>hidden_by</td><td>Filter on the hidden_by state of the entity.<blockquote>Possible Hiders <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here></blockquote></td><td>
         <pre>
 - type: hidden_by
   comparator: match

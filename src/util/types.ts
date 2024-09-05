@@ -97,6 +97,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the disabled_by state of the entity.
+     * @remarks
+     * Possible Disablers <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here>
      * @example
      * ```yaml
      * - type: disabled_by
@@ -108,6 +110,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the hidden_by state of the entity.
+     * @remarks
+     * Possible Hiders <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here>
      * @example
      * ```yaml
      * - type: hidden_by
