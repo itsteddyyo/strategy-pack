@@ -2,5 +2,6 @@
     "entryPointStrategy": "expand",
     "json": "docs/typedoc.json",
     "readme": "none",
-    "blockTags": ["@description", "@defaultValue", "@remarks", "@example"]
+    "blockTags": ["@description", "@defaultValue", "@remarks", "@example"],
+    "sort": ["enum-member-source-order", "source-order"]
 }

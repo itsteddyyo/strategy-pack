@@ -12,22 +12,6 @@
     <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>default</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr><td>minColumnWidth</td><td>Minimal Column Width in the Grid = The Minimal Width of the Cards.</td><td>number</td><td>yes</td><td>
-<a href="/src/config/areaDefaultConfig.yml#L1">set</a>
-</td><td>
-        <pre>
-minColumnWidth: 300
-</pre>
-      </td></tr>
-    <tr><td>replaceCards</td><td>You can set a card to be used for a specific entity. Overwrites default card config</td><td>Object</td><td>no</td><td>-</td><td>
-        <pre>
-replaceCards:
-  button.test:
-    type: entity
-    entities:
-      - $entity
-</pre>
-      </td></tr>
     <tr><td>rows</td><td>The grid rows definition of the tab. <a href="#contentrows">More</a></td><td>Array</td><td>yes</td><td>-</td><td>
         <pre>
 rows:
@@ -45,6 +29,22 @@ rows:
       - filterConfig here
 </pre>
       </td></tr>
+    <tr><td>minColumnWidth</td><td>Minimal Column Width in the Grid = The Minimal Width of the Cards.</td><td>number</td><td>yes</td><td>
+<a href="/src/config/areaDefaultConfig.yml#L1">set</a>
+</td><td>
+        <pre>
+minColumnWidth: 300
+</pre>
+      </td></tr>
+    <tr><td>replaceCards</td><td>You can set a card to be used for a specific entity. Overwrites default card config</td><td>Object</td><td>no</td><td>-</td><td>
+        <pre>
+replaceCards:
+  button.test:
+    type: entity
+    entities:
+      - $entity
+</pre>
+      </td></tr>
   </tbody>
 </table>
 
@@ -57,12 +57,6 @@ So a valid configuration could look like this:
 strategy:
   type: custom:grid-view-strategy
   config:
-    minColumnWidth: 300
-    replaceCards:
-      button.test:
-        type: entity
-        entities:
-          - $entity
     rows:
       - title: test
         domain: media_player
@@ -76,6 +70,12 @@ strategy:
           type: tile
         filter:
           - filterConfig here
+    minColumnWidth: 300
+    replaceCards:
+      button.test:
+        type: entity
+        entities:
+          - $entity
 icon: mdi:test
 path: test
 title: Test
@@ -98,12 +98,9 @@ The row is defined by:
     <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr><td>card</td><td>The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard!<blockquote>You can insert the entityId of the entity with the $entity variable which will be replaced in the whole object by the entities entity_id.</blockquote></td><td>Object</td><td>yes</td><td>
+    <tr><td>title</td><td>Title shown over Grid. Will not be rendered when not set.</td><td>string</td><td>no</td><td>
         <pre>
-card:
-  type: tile
-  entity: $entity
-  iconColor: red
+title: Buttons
 </pre>
       </td></tr>
     <tr><td>filter</td><td>Define include and exclude function for more fine-grained control of entities selected for row than only domain.<blockquote>A entity needs to match all include filters to be included but it needs only to match one of the exclude filters to be excluded!</blockquote></td><td></td><td>no</td><td>
@@ -122,9 +119,12 @@ filter:
       value: living_room
 </pre>
       </td></tr>
-    <tr><td>title</td><td>Title shown over Grid. Will not be rendered when not set.</td><td>string</td><td>no</td><td>
+    <tr><td>card</td><td>The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard!<blockquote>You can insert the entityId of the entity with the $entity variable which will be replaced in the whole object by the entities entity_id.</blockquote></td><td>Object</td><td>yes</td><td>
         <pre>
-title: Buttons
+card:
+  type: tile
+  entity: $entity
+  iconColor: red
 </pre>
       </td></tr>
   </tbody>
@@ -136,10 +136,7 @@ title: Buttons
 So a valid configuration could look like this:
 
 ```yaml
-card:
-  type: tile
-  entity: $entity
-  iconColor: red
+title: Buttons
 filter:
   include:
     - type: domain
@@ -152,7 +149,10 @@ filter:
     - type: is_null
     - type: area
       value: living_room
-title: Buttons
+card:
+  type: tile
+  entity: $entity
+  iconColor: red
 
 ```
 
@@ -186,14 +186,14 @@ The filter object looks like this.
     <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr><td>comparator</td><td>The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)</td><td>Object</td><td>no</td><td>
-        <pre>
-comparator: equal
-</pre>
-      </td></tr>
     <tr><td>type</td><td>The type of filter to determine the value or just specify the filter</td><td>Object</td><td>yes</td><td>
         <pre>
 type: state
+</pre>
+      </td></tr>
+    <tr><td>comparator</td><td>The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)</td><td>Object</td><td>no</td><td>
+        <pre>
+comparator: equal
 </pre>
       </td></tr>
     <tr><td>value</td><td>The user specified value</td><td>unknown</td><td>no</td><td>
@@ -210,8 +210,8 @@ value: on
 So a valid configuration could look like this:
 
 ```yaml
-comparator: equal
 type: state
+comparator: equal
 value: on
 
 ```
@@ -230,27 +230,11 @@ These are the options for filter type.
     <tr><th>option</th><th>description</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr><td>area</td><td>Filter on the area_id of the entity.</td><td>
+    <tr><td>entity</td><td>Filter on the entity_id of the entity.</td><td>
         <pre>
-- type: area
+- type: entity
   comparator: equal
-  value: living_room
-</pre>
-      </td></tr>
-    <tr><td>attribute</td><td>Filter on an attribute of the entity.</td><td>
-        <pre>
-- type: attribute
-  comparator: equal
-  value:
-    key: volume
-    value: 100
-</pre>
-      </td></tr>
-    <tr><td>device</td><td>Filter on the parent device_id of the entity.</td><td>
-        <pre>
-- type: device
-  comparator: equal
-  value: 98b750a482bbf28ea959269981813219
+  value: sensor.test123
 </pre>
       </td></tr>
     <tr><td>domain</td><td>Filter on the domain of the entity.</td><td>
@@ -260,11 +244,18 @@ These are the options for filter type.
   value: sensor
 </pre>
       </td></tr>
-    <tr><td>entity</td><td>Filter on the entity_id of the entity.</td><td>
+    <tr><td>device</td><td>Filter on the parent device_id of the entity.</td><td>
         <pre>
-- type: entity
+- type: device
   comparator: equal
-  value: sensor.test123
+  value: 98b750a482bbf28ea959269981813219
+</pre>
+      </td></tr>
+    <tr><td>area</td><td>Filter on the area_id of the entity.</td><td>
+        <pre>
+- type: area
+  comparator: equal
+  value: living_room
 </pre>
       </td></tr>
     <tr><td>integration</td><td>Filter on the integration of the entity.</td><td>
@@ -286,6 +277,15 @@ These are the options for filter type.
 - type: state
   comparator: equal
   value: on
+</pre>
+      </td></tr>
+    <tr><td>attribute</td><td>Filter on an attribute of the entity.</td><td>
+        <pre>
+- type: attribute
+  comparator: equal
+  value:
+    key: volume
+    value: 100
 </pre>
       </td></tr>
   </tbody>
@@ -313,11 +313,11 @@ These are the options for filter comparator.
   value: on
 </pre>
       </td></tr>
-    <tr><td>greater_than</td><td>Check if the selected type value of the entity is greater than the defined value.<blockquote>Works only on numeric type values and defined values!</blockquote></td><td>
+    <tr><td>match</td><td>Check if the selected type value of the entity matches against the passed regexp value.</td><td>
         <pre>
-- type: state
-  comparator: greater_than
-  value: 5
+- type: entity
+  comparator: match
+  value: .*_occupancy
 </pre>
       </td></tr>
     <tr><td>in</td><td>Check if the selected type value of the entity is in the list of defined values.</td><td>
@@ -327,6 +327,20 @@ These are the options for filter comparator.
   value:
     - on
     - off
+</pre>
+      </td></tr>
+    <tr><td>greater_than</td><td>Check if the selected type value of the entity is greater than the defined value.<blockquote>Works only on numeric type values and defined values!</blockquote></td><td>
+        <pre>
+- type: state
+  comparator: greater_than
+  value: 5
+</pre>
+      </td></tr>
+    <tr><td>lower_than</td><td>Check if the selected type value of the entity is lower than the defined value.<blockquote>Works only on numeric type values and defined values!</blockquote></td><td>
+        <pre>
+- type: state
+  comparator: lower_than
+  value: 5
 </pre>
       </td></tr>
     <tr><td>is_null</td><td>Check if the selected type value of the entity is null.<blockquote>Does not need a value defined!</blockquote></td><td>
@@ -341,20 +355,6 @@ These are the options for filter comparator.
   comparator: is_numeric
   value:
     key: volume
-</pre>
-      </td></tr>
-    <tr><td>lower_than</td><td>Check if the selected type value of the entity is lower than the defined value.<blockquote>Works only on numeric type values and defined values!</blockquote></td><td>
-        <pre>
-- type: state
-  comparator: lower_than
-  value: 5
-</pre>
-      </td></tr>
-    <tr><td>match</td><td>Check if the selected type value of the entity matches against the passed regexp value.</td><td>
-        <pre>
-- type: entity
-  comparator: match
-  value: .*_occupancy
 </pre>
       </td></tr>
   </tbody>

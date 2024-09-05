@@ -12,13 +12,6 @@
     <tr><th>option</th><th>description</th><th>type</th><th>required</th><th>default</th><th>example</th></tr>
   </thead>
   <tbody>
-    <tr><td>minColumnWidth</td><td>Minimal Column Width in the Grid = The Minimal Width of the Cards.</td><td>number</td><td>yes</td><td>
-<a href="/src/config/areaDefaultConfig.yml#L1">set</a>
-</td><td>
-        <pre>
-minColumnWidth: 300
-</pre>
-      </td></tr>
     <tr><td>platforms</td><td>Platforms (= integrations) for which the strategy should generate rows<blockquote>You need the internal HA id of the integration. <a href="https://community.home-assistant.io/t/how-to-get-an-integration-name-for-an-entity/447635">Here</a> is described how to obtain it</blockquote></td><td>Array</td><td>yes</td><td>
 UniFi, HACS, ESPHome, Zigbee, Other (always present everything that is not defined in platforms!)
 </td><td>
@@ -28,6 +21,13 @@ platforms:
     title: HACS
   - platform: MQTT
     title: Everything MQTT
+</pre>
+      </td></tr>
+    <tr><td>minColumnWidth</td><td>Minimal Column Width in the Grid = The Minimal Width of the Cards.</td><td>number</td><td>yes</td><td>
+<a href="/src/config/areaDefaultConfig.yml#L1">set</a>
+</td><td>
+        <pre>
+minColumnWidth: 300
 </pre>
       </td></tr>
     <tr><td>replaceCards</td><td>You can set a card to be used for a specific entity. Overwrites default card config</td><td>Object</td><td>no</td><td>-</td><td>
@@ -51,12 +51,12 @@ So a valid configuration could look like this:
 strategy:
   type: custom:update-view-strategy
   config:
-    minColumnWidth: 300
     platforms:
       - platform: hacs
         title: HACS
       - platform: MQTT
         title: Everything MQTT
+    minColumnWidth: 300
     replaceCards:
       button.test:
         type: entity
