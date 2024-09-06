@@ -54,7 +54,7 @@ export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
             return a == b;
         case Comparator.match:
             //null/undefined should not return true
-            if(!a) return false;
+            if (!a) return false;
             return new RegExp(b_string).test(a_string);
         case Comparator.in:
             if (Array.isArray(b)) {
@@ -120,7 +120,12 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
                 return !!value && typeof value === "object" && value.hasOwnProperty("key") && value.hasOwnProperty("value");
             };
             if (isValueFormat(value)) {
-                return compare(comparator, attributes[value.key], value.value);
+                if (!!attributes && attributes.hasOwnProperty(value.key)) {
+                    return compare(comparator, attributes[value.key], value.value);
+                } else {
+                    console.warn(`${value.key} does not exist on ${entity.entity_id}`);
+                    return false;
+                }
             } else {
                 console.warn("value is not defined correctly");
                 return false;
