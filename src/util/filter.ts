@@ -17,7 +17,12 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
                 if (!ret2) {
                     return false;
                 }
-                return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                try {
+                    return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                } catch (e: unknown) {
+                    console.error(e);
+                    return false;
+                }
             }, ret);
             //custom exclude filter in row definition
             const exclude = row.filter?.exclude || [];
@@ -25,7 +30,12 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
                 if (!ret2) {
                     return false;
                 }
-                return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                try {
+                    return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                } catch (e: unknown) {
+                    console.error(e);
+                    return false;
+                }
             }, ret);
         }
         return ret;
@@ -43,22 +53,27 @@ export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
         case Comparator.equal:
             return a == b;
         case Comparator.match:
+            //null/undefined should not return true
+            if (!a) return false;
             return new RegExp(b_string).test(a_string);
         case Comparator.in:
             if (Array.isArray(b)) {
                 return b.includes(a);
             } else {
-                throw Error("Cannot compare. Value must be array.");
+                console.warn("Cannot compare. Value must be array.");
+                return false;
             }
         case Comparator.greater_than:
             if (isNaN(a_number) || isNaN(b_number)) {
-                throw Error("Cannot compare. One or more values are not numeric");
+                console.warn("Cannot compare. One or more values are not numeric");
+                return false;
             } else {
                 return a_number > b_number;
             }
         case Comparator.lower_than:
             if (isNaN(a_number) || isNaN(b_number)) {
-                throw Error("Cannot compare. One or more values are not numeric");
+                console.warn("Cannot compare. One or more values are not numeric");
+                return false;
             } else {
                 return a_number < b_number;
             }
@@ -105,9 +120,15 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
                 return !!value && typeof value === "object" && value.hasOwnProperty("key") && value.hasOwnProperty("value");
             };
             if (isValueFormat(value)) {
-                return compare(comparator, attributes[value.key], value.value);
+                if (!!attributes && attributes.hasOwnProperty(value.key)) {
+                    return compare(comparator, attributes[value.key], value.value);
+                } else {
+                    console.warn(`${value.key} does not exist on ${entity.entity_id}`);
+                    return false;
+                }
             } else {
-                throw Error("value is not defined correctly");
+                console.warn("value is not defined correctly");
+                return false;
             }
         },
         disabled_by: (entity, hass, value, comparator) => {

@@ -387,7 +387,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
 
                 const merged = mergeWith(cloneDeep(curr), baseFilter, (objValue, srcValue) => {
                     if (Array.isArray(objValue)) {
-                        return objValue.concat(srcValue);
+                        return srcValue.concat(objValue);
                     }
                 });
 
