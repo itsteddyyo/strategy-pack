@@ -54,22 +54,27 @@ export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
         case Comparator.equal:
             return a == b;
         case Comparator.match:
+            //null/undefined should not return true
+            if(!a) return false;
             return new RegExp(b_string).test(a_string);
         case Comparator.in:
             if (Array.isArray(b)) {
                 return b.includes(a);
             } else {
-                throw Error("Cannot compare. Value must be array.");
+                console.warn("Cannot compare. Value must be array.");
+                return false;
             }
         case Comparator.greater_than:
             if (isNaN(a_number) || isNaN(b_number)) {
-                throw Error("Cannot compare. One or more values are not numeric");
+                console.warn("Cannot compare. One or more values are not numeric");
+                return false;
             } else {
                 return a_number > b_number;
             }
         case Comparator.lower_than:
             if (isNaN(a_number) || isNaN(b_number)) {
-                throw Error("Cannot compare. One or more values are not numeric");
+                console.warn("Cannot compare. One or more values are not numeric");
+                return false;
             } else {
                 return a_number < b_number;
             }
@@ -118,7 +123,8 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
             if (isValueFormat(value)) {
                 return compare(comparator, attributes[value.key], value.value);
             } else {
-                throw Error("value is not defined correctly");
+                console.warn("value is not defined correctly");
+                return false;
             }
         },
         disabled_by: (entity, hass, value, comparator) => {
