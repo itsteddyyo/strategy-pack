@@ -9,8 +9,10 @@ This PR fixes or closes issue: fixes #
 
 ## Breaking
 
-<!--- Is your addition a Breaking Change for the "YAML Interface" the end user interacts with? -->
-<!--- (= fix or feature that would cause existing functionality to change) -->
+<!--- Is your addition a Breaking Change? (= fix or feature that would cause existing functionality to change) -->
+<!--- Does it maybe change the "YAML Interface" the end user interacts with or change? -->
+<!--- Or does it change what is happening in the 'end product' dashboard of the users? -->
+<!--- Or anything else? -->
 
 -   [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)
 
@@ -28,12 +30,12 @@ Only fill out if applicable
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 
-### Development
+### Development (Check all)
 
 -   [ ] My code follows the code style of this project (I used the Prettier config).
 -   [ ] I have tested the change locally.
 
-### Documentation
+### Documentation (Pick one)
 
 -   [ ] I have checked that the documentation will update automatically from my code (npm run typedoc).
 -   [ ] I have manually updated the documentation accordingly (files in /src/doc_snippets!).
