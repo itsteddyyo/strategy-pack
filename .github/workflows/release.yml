@@ -16,21 +16,11 @@ jobs:
               run: npm ci
             - name: Build
               run: npm run build
-            - name: Release Beta
-              uses: softprops/action-gh-release@v2
-              if: ${{ contains(github.ref, 'beta') }}
-              with:
-                  prerelease: true
-                  make_latest: false
-                  generate_release_notes: true
-                  files: dist/*.js
-                  fail_on_unmatched_files: true
             - name: Release
               uses: softprops/action-gh-release@v2
-              if: ${{ ! contains(github.ref, 'beta') }}
               with:
-                  prerelease: false
-                  make_latest: true
+                  prerelease: ${{ contains(github.ref, 'beta') }}
+                  make_latest: ${{ ! contains(github.ref, 'beta') }}
                   generate_release_notes: true
                   files: dist/*.js
                   fail_on_unmatched_files: true
