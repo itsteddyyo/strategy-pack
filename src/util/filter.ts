@@ -2,10 +2,6 @@ import { HomeAssistant } from "custom-card-helpers";
 import { EntityRegistryEntry } from "../homeassistant/entity_registry";
 import { Comparator, FilterType, RowFilterConfig } from "./types";
 
-export const hiddenFilter = (entity: EntityRegistryEntry) => {
-    return !entity.disabled_by && !entity.hidden_by;
-};
-
 export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
     return (entity: EntityRegistryEntry) => {
         let ret = true;

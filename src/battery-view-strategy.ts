@@ -1,10 +1,12 @@
 import { HomeAssistant, LovelaceViewConfig } from "custom-card-helpers";
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
-import { hiddenFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, GridStrategyCardConfig, GridViewConfig, BaseGridOptions } from "./util/types";
+import { createRowFilter } from "./util/filter";
+import { CUSTOM_ELEMENT_VIEW, GridStrategyCardConfig, GridViewConfig, BaseGridOptions, RowFilterConfig, FilterType, Comparator } from "./util/types";
 import { createGrid } from "./util/createGrid";
 import defaultConfig from "./config/gridDefaultConfig.yml";
+import { mergeWith } from "lodash";
+import { arrayCustomizer } from "./util/helper";
 
 export interface BatteryViewOptions extends BaseGridOptions {
     /**
@@ -70,23 +72,40 @@ class BatteryViewStrategy extends HTMLTemplateElement {
             },
         };
 
-        const batteryEntities = entities.filter(hiddenFilter).filter((entity) => {
-            const domain = entity.entity_id.split(".")[0];
-            return domain == "sensor" && hass.states[entity.entity_id]?.attributes?.device_class == "battery";
-        });
-
-        const otherFilter = (entity: EntityRegistryEntry) => {
-            return !platforms.map((platform) => platform.platform).includes(entity.platform);
+        const baseFilter: RowFilterConfig = {
+            filter: {
+                include: [
+                    { type: FilterType.domain, value: "sensor" },
+                    { type: FilterType.attribute, value: { key: "device_class", value: "battery" } },
+                ],
+                exclude: [
+                    { type: FilterType.disabled_by, comparator: Comparator.match, value: ".*" },
+                    { type: FilterType.hidden_by, comparator: Comparator.match, value: ".*" },
+                ],
+            },
         };
 
-        const stackCards = createGrid(batteryEntities.filter(otherFilter), batteryCardConfig, minColumnWidth, "Other", replaceCards);
-        platforms.forEach((platform) => {
-            const filter = (entity: EntityRegistryEntry) => {
-                return entity.platform === platform.platform;
-            };
+        const otherFilter: RowFilterConfig = mergeWith<RowFilterConfig, RowFilterConfig>(
+            baseFilter,
+            {
+                filter: {
+                    exclude: [{ type: FilterType.integration, comparator: Comparator.in, value: platforms.map((platform) => platform.platform) }],
+                },
+            },
+            arrayCustomizer,
+        );
 
-            stackCards.push(...createGrid(batteryEntities.filter(filter), batteryCardConfig, minColumnWidth, platform.title, replaceCards));
-        });
+        const stackCards = platforms.reduce((prev, curr) => {
+            const platformFilter: RowFilterConfig = {
+                filter: {
+                    include: [{ type: FilterType.integration, value: curr.platform }],
+                },
+            };
+            const filterConfig = mergeWith(baseFilter, platformFilter, arrayCustomizer);
+            const rowEntities = entities.filter(createRowFilter(filterConfig, hass));
+            prev.push(...createGrid(rowEntities, batteryCardConfig, minColumnWidth, curr.title, replaceCards));
+            return prev;
+        }, createGrid(entities.filter(createRowFilter(otherFilter, hass)), batteryCardConfig, minColumnWidth, "Other", replaceCards));
 
         return {
             panel: true,
