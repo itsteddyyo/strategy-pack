@@ -68,26 +68,29 @@ class UpdateViewStrategy extends HTMLTemplateElement {
         };
 
         const otherFilter: RowFilterConfig = mergeWith<RowFilterConfig, RowFilterConfig>(
-            baseFilter,
             {
                 filter: {
                     exclude: [{ type: FilterType.integration, comparator: Comparator.in, value: platforms.map((platform) => platform.platform) }],
                 },
             },
+            baseFilter,
             arrayCustomizer,
         );
 
-        const stackCards = platforms.reduce((prev, curr) => {
-            const platformFilter: RowFilterConfig = {
-                filter: {
-                    include: [{ type: FilterType.integration, value: curr.platform }],
-                },
-            };
-            const filterConfig = mergeWith(baseFilter, platformFilter, arrayCustomizer);
-            const rowEntities = entities.filter(createRowFilter(filterConfig, hass));
-            prev.push(...createGrid(rowEntities, updateCardConfig, minColumnWidth, curr.title, replaceCards));
-            return prev;
-        }, createGrid(entities.filter(createRowFilter(otherFilter, hass)), updateCardConfig, minColumnWidth, "Other", replaceCards));
+        const stackCards = platforms.reduce(
+            (prev, curr) => {
+                const platformFilter: RowFilterConfig = {
+                    filter: {
+                        include: [{ type: FilterType.integration, value: curr.platform }],
+                    },
+                };
+                const filterConfig = mergeWith(platformFilter, baseFilter, arrayCustomizer);
+                const rowEntities = entities.filter(createRowFilter(filterConfig, hass));
+                prev.push(...createGrid(rowEntities, updateCardConfig, minColumnWidth, curr.title, replaceCards));
+                return prev;
+            },
+            createGrid(entities.filter(createRowFilter(otherFilter, hass)), updateCardConfig, minColumnWidth, "Other", replaceCards),
+        );
 
         return {
             panel: true,
