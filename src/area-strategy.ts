@@ -5,7 +5,7 @@ import { DeviceRegistryEntry } from "./homeassistant/device_registry";
 import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
 import { createRowFilter } from "./util/filter";
-import { labelSort, notNil } from "./util/helper";
+import { arrayCustomizer, labelSort, notNil } from "./util/helper";
 import {
     CUSTOM_ELEMENT_DASHBOARD,
     CUSTOM_ELEMENT_VIEW,
@@ -385,11 +385,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     },
                 };
 
-                const merged = mergeWith(cloneDeep(curr), baseFilter, (objValue, srcValue) => {
-                    if (Array.isArray(objValue)) {
-                        return srcValue.concat(objValue);
-                    }
-                });
+                const merged = mergeWith(cloneDeep(curr), baseFilter, arrayCustomizer);
 
                 let usedEntities = entities
                     //in this area

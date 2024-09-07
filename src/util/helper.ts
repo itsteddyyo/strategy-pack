@@ -1,3 +1,5 @@
+import { castArray } from "lodash";
+
 export const labelSort = (a: { labels: Array<string> }, b: { labels: Array<string> }) => {
     const labelToNumberArray = (labels: Array<string>) => {
         const arr = labels.filter((label) => label.startsWith("sort_")).map((label) => label.replace("sort_", "") as unknown as number);
@@ -11,4 +13,10 @@ export const labelSort = (a: { labels: Array<string> }, b: { labels: Array<strin
 
 export function notNil<T>(val: T | null | undefined): val is T {
     return val !== null && val !== undefined;
+}
+
+export function arrayCustomizer(objValue: unknown, srcValue: unknown) {
+    if (Array.isArray(objValue) || Array.isArray(srcValue)) {
+        return castArray(srcValue).concat(objValue);
+    }
 }
