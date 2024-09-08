@@ -35,7 +35,7 @@ jobs:
     non-technical:
         needs:
             - identify
-        if: ${{ ! contains(steps.check-linked-issues.outputs.LABELS, 'technical') }}
+        if: ${{ ! contains(fromJSON(env.LABELS), 'technical') }}
         runs-on: ubuntu-latest
         steps:
             - name: Check for linked issues
