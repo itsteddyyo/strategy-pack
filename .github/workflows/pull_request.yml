@@ -12,6 +12,8 @@ on:
 jobs:
     identify:
         runs-on: ubuntu-latest
+        outputs:
+            is-technical: ${{ contains(steps.check-linked-issues.outputs.labels, 'technical') }}
         steps:
             - name: Remove Labels
               uses: mondeja/remove-labels-gh-action@v2
@@ -35,7 +37,7 @@ jobs:
     non-technical:
         needs:
             - identify
-        if: ${{ ! contains(fromJSON(env.LABELS), 'technical') }}
+        if: ${{ needs.identify.outputs.is-technical == 'true' }}
         runs-on: ubuntu-latest
         steps:
             - name: Check for linked issues
