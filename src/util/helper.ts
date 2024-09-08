@@ -1,4 +1,4 @@
-import { castArray, cloneDeep } from "lodash";
+import { castArray } from "lodash";
 
 export const labelSort = (a: { labels: Array<string> }, b: { labels: Array<string> }) => {
     const labelToNumberArray = (labels: Array<string>) => {
@@ -17,6 +17,8 @@ export function notNil<T>(val: T | null | undefined): val is T {
 
 export function arrayCustomizer(objValue: unknown, srcValue: unknown) {
     if (Array.isArray(objValue) || Array.isArray(srcValue)) {
-        return castArray(cloneDeep(srcValue)).concat(cloneDeep(objValue));
+        const firstArray = castArray(objValue).filter(notNil);
+        const secondArray = castArray(srcValue).filter(notNil);
+        return firstArray.concat(secondArray);
     }
 }

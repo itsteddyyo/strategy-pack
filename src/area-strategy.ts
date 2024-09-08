@@ -385,7 +385,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     },
                 };
 
-                const merged = mergeWith(cloneDeep(curr), baseFilter, arrayCustomizer);
+                const merged = mergeWith({}, baseFilter, cloneDeep(curr), arrayCustomizer);
 
                 let usedEntities = entities
                     //in this area
