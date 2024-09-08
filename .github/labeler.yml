@@ -1,3 +1,4 @@
-# Add/remove 'critical' label if issue contains the words 'urgent' or 'critical'
 breaking-change:
     - '.*-   \[[X|x]\] ⚠️ Breaking change.*'
+technical:
+    - '.*-   \[[X|x]\] 🛠 Purely Technical Changes.*'

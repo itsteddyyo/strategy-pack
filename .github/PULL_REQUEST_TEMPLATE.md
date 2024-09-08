@@ -1,11 +1,24 @@
+<!--- This project only accepts pull requests related to open issues -->
+<!--- The only exception are purely technical Improvements ((Performance Improvements, Stability Improvements, Build Changes, GH Workflow Changes, etc.)) -->
+<!--- Keep in mind this is probably (around 90%) not what you want and is mainly only for maintainers of the project -->
+## Technical Changes
+
+<!--- You need to check this checkbox for the correct workflow if your change is purely technical -->
+
+-   [ ] 🛠 Purely Technical Changes (Performance Improvements, Stability Improvements, etc.)
+
+## OR
+
 ## Related Issue
 
-<!--- This project only accepts pull requests related to open issues -->
 <!--- If suggesting a new feature or change, please open a "New Feature" issue -->
 <!--- If fixing a bug, please open a "Bug" issue describing it with steps to reproduce -->
 <!--- Please link to the issue here -->
 
-This PR fixes or closes issue: fixes #
+This PR fixes or closes issue: 
+<!--- One PR can fix multiple issues (only one feature but maybe multiple bugs as side effect). -->
+<!--- Copy as many times as you need. -->
+fixes #
 
 ## Breaking
 

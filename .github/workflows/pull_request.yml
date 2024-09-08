@@ -10,7 +10,32 @@ on:
             - reopened
             - synchronize
 jobs:
-    check:
+    identify:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Remove Labels
+              uses: mondeja/remove-labels-gh-action@v2
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  labels: |
+                      bugfix
+                      technical
+                      enhancement
+                      bug
+            - name: RegEx Issue Labeler
+              uses: github/issue-labeler@v3.4
+              with:
+                  repo-token: ${{ github.token }}
+                  configuration-path: .github/labeler.yml
+                  enable-versioned-regex: 0
+                  sync-labels: 1
+            - name: Identify Labels
+              id: identitfy-labels
+              uses: snnaplab/get-labels-action@v1
+    non-technical:
+        needs:
+            - identify
+        if: ${{ ! contains(steps.check-linked-issues.outputs.LABELS, 'technical') }}
         runs-on: ubuntu-latest
         steps:
             - name: Check for linked issues
@@ -22,25 +47,6 @@ jobs:
                     echo "You need to have at least one linked issue!"
                     exit 1
                   fi
-    cleanup:
-        needs:
-            - check
-        runs-on: ubuntu-latest
-        steps:
-            - name: Remove Labels
-              uses: mondeja/remove-labels-gh-action@v2
-              with:
-                  token: ${{ secrets.GITHUB_TOKEN }}
-                  labels: |
-                      breaking-change
-                      enhancement
-                      bug
-    label:
-        needs:
-            - check
-            - cleanup
-        runs-on: ubuntu-latest
-        steps:
             - name: Copy Labels
               uses: michalvankodev/copy-issue-labels@v1.2.1
               with:
@@ -48,9 +54,3 @@ jobs:
                   custom-keywords: |
                       enhancement
                       bug
-            - name: RegEx Issue Labeler
-              uses: github/issue-labeler@v3.4
-              with:
-                  repo-token: ${{ github.token }}
-                  configuration-path: .github/labeler.yml
-                  enable-versioned-regex: 0
