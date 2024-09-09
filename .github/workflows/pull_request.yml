@@ -37,7 +37,7 @@ jobs:
     non-technical:
         needs:
             - identify
-        if: ${{ needs.identify.outputs.is-technical == 'true' }}
+        if: ${{ needs.identify.outputs.is-technical == 'false' }}
         runs-on: ubuntu-latest
         steps:
             - name: Check for linked issues
