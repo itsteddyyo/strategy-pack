@@ -1,6 +1,7 @@
 import { HomeAssistant } from "custom-card-helpers";
 import { EntityRegistryEntry } from "../homeassistant/entity_registry";
 import { Comparator, FilterType, RowFilterConfig } from "./types";
+import { DeviceRegistryEntry } from "../homeassistant/device_registry";
 
 export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
     return (entity: EntityRegistryEntry) => {
@@ -91,7 +92,8 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
             return compare(comparator, domain, value);
         },
         area: (entity, hass, value, comparator) => {
-            const area = entity.area_id;
+            const device_area = !!entity.device_id ? ((hass as any).devices as Record<string, DeviceRegistryEntry>)[entity.device_id]?.area_id : null;
+            const area = entity.area_id || device_area;
             return compare(comparator, area, value);
         },
         device: (entity, hass, value, comparator) => {
