@@ -185,7 +185,6 @@ export interface AreaStrategyOptions extends BaseGridOptions {
 
 export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string }> {
     meta?: {
-        devices: Array<DeviceRegistryEntry>;
         entities: Array<EntityRegistryEntry>;
         areas: Array<AreaRegistryEntry>;
     };
@@ -200,9 +199,8 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
         dashboardConfig: ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions>,
         hass: HomeAssistant,
     ): Promise<LovelaceConfig> {
-        const [entities, devices, areas] = await Promise.all([
+        const [entities, areas] = await Promise.all([
             hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
-            hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
             hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
         ]);
 
@@ -217,7 +215,6 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
                 type: "custom:area-view-strategy",
                 meta: {
                     entities,
-                    devices,
                     areas,
                 },
                 config: {
@@ -248,26 +245,21 @@ class AreaViewStrategy extends HTMLTemplateElement {
         const { area, tabs, minColumnWidth, replaceCards, topCards, areaColors, areaCardConfig, areaBlacklist } = config;
 
         let entities = Array<EntityRegistryEntry>();
-        let devices = Array<DeviceRegistryEntry>();
         let areas = Array<AreaRegistryEntry>();
 
         if (!!meta) {
             entities = meta.entities;
-            devices = meta.devices;
             areas = meta.areas;
         } else {
             const loadedMeta = await Promise.all([
                 hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
-                hass.callWS<Array<DeviceRegistryEntry>>({ type: "config/device_registry/list" }),
                 hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
             ]);
             entities = loadedMeta[0];
-            devices = loadedMeta[1];
-            areas = loadedMeta[2];
+            areas = loadedMeta[1];
         }
 
         entities = [...entities].sort(labelSort);
-        devices = [...devices].sort(labelSort);
         areas = [...areas].sort(labelSort);
 
         const usedAreas = areas.filter((area) => {
@@ -276,13 +268,6 @@ class AreaViewStrategy extends HTMLTemplateElement {
         const currentArea = areas.find((a) => a.area_id == area);
 
         if (!currentArea) throw Error("No area defined");
-
-        const areaDevices = new Set();
-        for (const device of devices) {
-            if (device.area_id === currentArea.area_id) {
-                areaDevices.add(device.id);
-            }
-        }
 
         const gridTemplate: LovelaceCardConfig = {
             type: "vertical-stack",
@@ -365,6 +350,10 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     filter: {
                         include: [
                             {
+                                type: FilterType.area,
+                                value: currentArea.area_id,
+                            },
+                            {
                                 type: FilterType.domain,
                                 comparator: Array.isArray(curr.domain) ? Comparator.in : Comparator.equal,
                                 value: curr.domain,
@@ -387,13 +376,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
 
                 const merged = mergeWith({}, baseFilter, cloneDeep(curr), arrayCustomizer);
 
-                let usedEntities = entities
-                    //in this area
-                    .filter((entity) => {
-                        return entity.area_id ? entity.area_id === currentArea.area_id : areaDevices.has(entity.device_id);
-                    })
-                    //entity in defined domain of row
-                    .filter(createRowFilter(merged, hass));
+                let usedEntities = entities.filter(createRowFilter(merged, hass));
 
                 const gridCards = createGrid(usedEntities, merged, minColumnWidth, curr.title, replaceCards);
                 prev.push(...gridCards);
