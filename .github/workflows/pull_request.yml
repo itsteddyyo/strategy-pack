@@ -13,7 +13,7 @@ jobs:
     identify:
         runs-on: ubuntu-latest
         outputs:
-            is-technical: ${{ contains(steps.check-linked-issues.outputs.labels, 'technical') }}
+            is-technical: ${{ contains(steps.identitfy-labels.outputs.labels, 'technical') }}
         steps:
             - name: Remove Labels
               uses: mondeja/remove-labels-gh-action@v2
