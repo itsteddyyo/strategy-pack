@@ -6,7 +6,7 @@ module Jekyll
       YAML.dump(input)
     end
     def fromYAML (input)
-      YAML.dump(input)
+      YAML.safe_load(input)
     end  
   end
 end
