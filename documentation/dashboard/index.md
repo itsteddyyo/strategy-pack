@@ -14,7 +14,7 @@ A [Dashboard](https://www.home-assistant.io/dashboards/){:target="_blank"} is a 
 
 Take a look at the example image:
 
- ![Dashboard](/strategy-pack/assets/dashboard/dashboard.png "Dashboard")
+![Dashboard](/strategy-pack/assets/dashboard/dashboard.png "Dashboard")
 
  - the Dashboard is the Thing in the Sidebar with the red mark
  - the Views are the Things inside the Dashboard with the orange mark

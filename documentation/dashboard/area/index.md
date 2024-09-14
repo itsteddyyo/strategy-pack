@@ -11,11 +11,11 @@ parent: Dashboard Strategies
 
 Fully configurabe Dashboard with View per Area and auto-populating entities ordered in Grids.
 
- ![Area Strategy](/strategy-pack/assets/area/area-strategy.gif "Area Strategy")
+![Area Strategy](/strategy-pack/assets/area/area-strategy.gif "Area Strategy")
  
 The dashboard was designed to be fully responsive! You can absolutely use this also on tablets or phones!
 
- ![Area Strategy Responsive](/strategy-pack/assets/area/area-strategy-responsive-new.gif "Area Strategy Responsive")
+![Area Strategy Responsive](/strategy-pack/assets/area/area-strategy-responsive-new.gif "Area Strategy Responsive")
 
 The Dashboard contains all entities assigned to the Area selected in the Navigation (either via device or entity itself) that are not hidden or disabled.
 
