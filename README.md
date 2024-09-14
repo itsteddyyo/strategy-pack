@@ -6,9 +6,11 @@ This is a collection of [Home Assistant Strategies](https://developers.home-assi
 
 A strategy is Javascript code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
 
-## Documentation
+## Find out more!
 
-All available Strategies + Documentation on [Github Pages](https://itsteddyyo.github.io/strategy-pack).
+All available Strategies and their Documentation on [the new Github Pages Homepage!](https://itsteddyyo.github.io/strategy-pack)
+
+![Github Pages](./documentation/assets/github_pages.png "Github Pages")
 
 ## Credits
 
