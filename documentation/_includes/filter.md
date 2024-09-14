@@ -34,7 +34,7 @@ Both accept the same types and syntax.
 
 The filter object looks like this.
 
-{% include table.md options=filter_config %}
+{% include table.md options=filter_config disable=disable_default %}
 
 {% include example.md options=filter_config %}
 
@@ -42,10 +42,10 @@ The filter object looks like this.
 
 These are the options for filter type.
 
-{% include table.md options=filter_type %}
+{% include table.md options=filter_type disable=disable_most %}
 
 ### Filter Comparator
 
 These are the options for filter comparator.
 
-{% include table.md options=comparator %}
+{% include table.md options=comparator disable=disable_most %}
