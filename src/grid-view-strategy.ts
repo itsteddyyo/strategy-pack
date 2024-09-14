@@ -21,7 +21,7 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
 export interface GridViewOptions extends BaseGridOptions {
     /**
      * @description
-     * The grid rows definition of the tab. <a href="#contentrows">More</a>
+     * The grid rows definition of the tab. <a href="#contentrows" target="_blank">More</a>
      * @example
      * ```yaml
      * rows:
@@ -29,14 +29,12 @@ export interface GridViewOptions extends BaseGridOptions {
      *     domain: media_player
      *     card:
      *       type: tile
-     *     filter:
-     *       - filterConfig here
+     *     filter: #Filter Config here
      *   - title: test2
      *     domain: sensor
      *     card:
      *       type: tile
-     *     filter:
-     *       - filterConfig here
+     *     filter: #Filter Config here
      * ```
      */
     rows: Array<RowConfig>;
