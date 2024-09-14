@@ -60,4 +60,4 @@ The Strategies are all fully responsive, meaning you can use all of them on Tabl
 
 *Example of Responsiveness with Area Dashboard Strategy:*
 
- ![Area Strategy Responsive](/assets/area/area-strategy-responsive-new.gif "Area Strategy Responsive")
+ ![Area Strategy Responsive](/strategy-pack/assets/area/area-strategy-responsive-new.gif "Area Strategy Responsive")

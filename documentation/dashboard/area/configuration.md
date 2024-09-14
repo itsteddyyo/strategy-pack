@@ -52,13 +52,13 @@ You can find it [here](https://github.com/itsteddyyo/strategy-pack/blob/main/src
 
 The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
 
-![Area Card](/assets/area/area-strategy-navigation.png "Area Card")
+![Area Card](/strategy-pack/assets/area/area-strategy-navigation.png "Area Card")
 
 There are 3 Tabs.
 
 1. Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
 
-![Control](/assets/area/area-strategy-main-control.png "Control")
+![Control](/strategy-pack/assets/area/area-strategy-main-control.png "Control")
 
 There are Rows for:
 
@@ -75,7 +75,7 @@ I skipped lights and fans because they already are controllable with the area-ca
 
 2. Stats is for "read-only" entities like binary_sensors and sensors.
 
-![Stats](/assets/area/area-strategy-main-stats.png "Stats")
+![Stats](/strategy-pack/assets/area/area-strategy-main-stats.png "Stats")
 
 There are Rows for:
 
@@ -85,7 +85,7 @@ There are Rows for:
 
 3. Camera is for Camera-Streams.
 
-![Camera](/assets/area/area-strategy-main-camera.png "Camera")
+![Camera](/strategy-pack/assets/area/area-strategy-main-camera.png "Camera")
 
 There are Rows for:
 

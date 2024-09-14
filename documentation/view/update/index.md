@@ -11,7 +11,7 @@ parent: View Strategies
 
 View Strategy with one page for all update entities.
 
- ![Update View Strategy](/assets/update/update-view-strategy.png "Update View Strategy")
+ ![Update View Strategy](/strategy-pack/assets/update/update-view-strategy.png "Update View Strategy")
 
 {% include usage.md type=type %}
 

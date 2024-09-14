@@ -8,7 +8,7 @@ parent: Area Dashboard Strategy
 
 ## UI explained
 
-![UI Explained](/assets/area/area-strategy-ui-explained.png "UI Explained")
+![UI Explained](/strategy-pack/assets/area/area-strategy-ui-explained.png "UI Explained")
 
 ### 1. Navigation
 

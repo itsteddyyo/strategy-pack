@@ -11,7 +11,7 @@ parent: View Strategies
 
 Strategy fully customizable with custom rows. You can create auto-populating Dashboards where you can display anything you like with little configuration! Could be used to implement Battery/Update Strategy or something like that.
 
- ![Grid View Strategy](/assets/grid/grid-view-strategy.png "Grid View Strategy")
+ ![Grid View Strategy](/strategy-pack/assets/grid/grid-view-strategy.png "Grid View Strategy")
 
 {% include usage.md type=type %}
 
