@@ -7,6 +7,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the entity_id of the entity.
+     * @remarks
+     * entity_id not Entity Name or Display Name! Some ways to find it explained <a href="https://community.home-assistant.io/t/device-id-entity-id-where-to-find/289230/12">here</a>
      * @example
      * ```yaml
      * - type: entity
@@ -29,6 +31,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the parent device_id of the entity.
+     * @remarks
+     * device_id not Device Name or Display Name! Some ways to find it explained <a href="https://community.home-assistant.io/t/device-id-entity-id-where-to-find/289230/12">here</a>
      * @example
      * ```yaml
      * - type: device
@@ -40,6 +44,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the area_id of the entity.
+     * @remarks
+     * area_id not Area Name or Display Name! Find at "https://YourHA/config/areas/dashboard". Edit Area = shows area_id
      * @example
      * ```yaml
      * - type: area
@@ -51,6 +57,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the integration of the entity.
+     * @remarks
+     * Needs to be the id of the integration not the name! More on how to find it <a href="https://community.home-assistant.io/t/how-to-get-an-integration-name-for-an-entity/447635">here</a>
      * @example
      * ```yaml
      * - type: integration
@@ -62,6 +70,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on the label of the entity.
+     * @remarks
+     * Needs to be the id of the label not the name! More on how to find it <a href="https://www.home-assistant.io/docs/configuration/templating/#labels">here</a>
      * @example
      * ```yaml
      * - type: label
@@ -84,6 +94,8 @@ export enum FilterType {
     /**
      * @description
      * Filter on an attribute of the entity.
+     * @remarks
+     * Needs a special value structure with another object with key + value, where key is the desired attribute
      * @example
      * ```yaml
      * - type: attribute
@@ -98,7 +110,7 @@ export enum FilterType {
      * @description
      * Filter on the disabled_by state of the entity.
      * @remarks
-     * Possible Disablers <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here>
+     * Possible Disablers <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104" target="_blank">here</a>
      * @example
      * ```yaml
      * - type: disabled_by
@@ -111,7 +123,7 @@ export enum FilterType {
      * @description
      * Filter on the hidden_by state of the entity.
      * @remarks
-     * Possible Hiders <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104">here</here>
+     * Possible Hiders <a href="https://github.com/home-assistant/core/blob/dev/homeassistant/helpers/entity_registry.py#L104" target="_blank">here</a>
      * @example
      * ```yaml
      * - type: hidden_by
@@ -137,6 +149,8 @@ export enum Comparator {
     /**
      * @description
      * Check if the selected type value of the entity matches against the passed regexp value.
+     * @remarks
+     * Regexp can be tested <a href="https://regex101.com/">here</a>
      * @example
      * ```yaml
      * - type: entity
@@ -148,6 +162,8 @@ export enum Comparator {
     /**
      * @description
      * Check if the selected type value of the entity is in the list of defined values.
+     * @remarks
+     * value needs to be an array!
      * @example
      * ```yaml
      * - type: state
@@ -188,7 +204,7 @@ export enum Comparator {
      * @description
      * Check if the selected type value of the entity is null.
      * @remarks
-     * Does not need a value defined!
+     * Does not need a value defined! Exception is type: attribute as it needs key for attribute name!
      * @example
      * ```yaml
      * - type: state
@@ -200,7 +216,7 @@ export enum Comparator {
      * @description
      * Check if the selected type value of the entity is numeric.
      * @remarks
-     * Does not need a value defined!
+     * Does not need a value defined! Exception is type: attribute as it needs key for attribute name!
      * @example
      * ```yaml
      * - type: attribute
@@ -286,7 +302,8 @@ export interface BaseGridOptions {
      * @description
      * Minimal Column Width in the Grid = The Minimal Width of the Cards.
      * @defaultValue
-     * <a href="/src/config/areaDefaultConfig.yml#L1">set</a>
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L1" target="_blank">set for area-dashboard-strategy</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for all other strategies</a><br />
      * @example
      * ```yaml
      * minColumnWidth: 300

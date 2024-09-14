@@ -15,7 +15,7 @@ export interface UpdateViewOptions extends BaseGridOptions {
      * @defaultValue
      * UniFi, HACS, ESPHome, Zigbee, Other (always present everything that is not defined in platforms!)
      * @remarks
-     * You need the internal HA id of the integration. <a href="https://community.home-assistant.io/t/how-to-get-an-integration-name-for-an-entity/447635">Here</a> is described how to obtain it
+     * You need the internal HA id of the integration. <a href="https://community.home-assistant.io/t/how-to-get-an-integration-name-for-an-entity/447635" target="_blank">Here</a> is described how to obtain it
      * @example
      * ```yaml
      * platforms:

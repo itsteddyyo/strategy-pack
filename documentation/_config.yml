@@ -1,0 +1,15 @@
+title: Strategy Pack
+tagline: Dashboard Strategies for Home Assistant
+description: >-
+    This is a collection of Home Assistant Strategies. A strategy is Javascript code that gets executed to create Dashboards and Views automatically.
+    They make it easy to have auto-populated Dashboards with next to no configuration!
+theme: just-the-docs
+aux_links:
+    Strategy Pack on GitHub:
+        - https://github.com/itsteddyyo/strategy-pack
+    Strategy Pack on HA Community Forum:
+        - https://community.home-assistant.io/t/auto-populating-dashboard-with-strategy-pack-area-dashboard-strategy/740109
+callouts:
+    note:
+        title: Note
+        color: purple

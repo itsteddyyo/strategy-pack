@@ -30,8 +30,7 @@
   },
   "scripts": {
     "build": "tsc --noEmit && vite build",
-    "prebuild": "npm run typedoc",
-    "typedoc": "typedoc ./src && node ./src/doc_snippets/build_doc.js"
+    "typedoc": "typedoc ./src && node ./documentation/code/build_types.js"
   },
   "repository": {
     "type": "git",

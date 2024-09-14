@@ -128,6 +128,7 @@ out
 .yarn/install-state.gz
 .pnp.*
 
-docs/typedoc.json
+.typedoc
+documentation/_data/types.json
 
 dist
