@@ -8,9 +8,9 @@ A strategy is Javascript code that gets executed to create Dashboards and Views 
 
 ## Find out more!
 
-All available Strategies and their Documentation on [the new Github Pages Homepage!](https://itsteddyyo.github.io/strategy-pack)
+All available Strategies and their Documentation on [the new GitHub Pages Homepage!](https://itsteddyyo.github.io/strategy-pack)
 
-![Github Pages](./documentation/assets/github_pages.png "Github Pages")
+![GitHub Pages](./documentation/assets/github_pages.png "GitHub Pages")
 
 ## Credits
 
