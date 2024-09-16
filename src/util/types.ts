@@ -133,6 +133,7 @@ export enum FilterType {
      */
     hidden_by = "hidden_by",
     /**
+     * @description
      * Filter on the category of the entity.
      * @example
      * ```yaml
