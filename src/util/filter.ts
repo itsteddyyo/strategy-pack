@@ -137,4 +137,8 @@ export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass:
             const hiddenBy = entity.hidden_by;
             return compare(comparator, hiddenBy, value);
         },
+        entity_category: (entity, hass, value, comparator) => {
+            const entityCategory = entity.entity_category;
+            return compare(comparator, entityCategory, value);
+        },
     };
