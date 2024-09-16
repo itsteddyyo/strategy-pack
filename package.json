@@ -23,6 +23,7 @@
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.4.0",
     "liquidjs": "^10.16.7",
+    "prettier": "^3.3.3",
     "typedoc": "^0.26.6",
     "typescript": "^5.5.4",
     "vite": "^5.4.3",
