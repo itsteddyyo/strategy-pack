@@ -1,6 +1,5 @@
 name: HACS validation
 on:
-    pull_request:
     push:
 jobs:
     hacs:
