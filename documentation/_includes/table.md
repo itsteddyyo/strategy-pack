@@ -8,7 +8,7 @@
       <th>option</th>
     {%- endunless -%}
     {%- unless include.disable.description -%}
-      <th style="min-width: 250px;">description</th>
+      <th style="min-width: 350px;">description</th>
     {%- endunless -%}
     {%- unless include.disable.type -%}
       <th>type</th>
@@ -20,7 +20,7 @@
       <th style="min-width: 100px;">default</th>
     {%- endunless -%}
     {%- unless include.disable.example -%}
-      <th style="min-width: 250px;">example</th>
+      <th style="min-width: 350px;">example</th>
     {%- endunless -%}
     </tr>
   </thead>
