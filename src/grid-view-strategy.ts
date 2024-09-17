@@ -21,7 +21,7 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
 export interface GridViewOptions extends BaseGridOptions {
     /**
      * @description
-     * The grid rows definition of the tab. <a href="#contentrows" target="_blank">More</a>
+     * The rows shown in the View. <a href="#contentrows" target="_blank">More</a>
      * @example
      * ```yaml
      * rows:

@@ -280,7 +280,8 @@ export interface RowFilterConfig {
      *   exclude:
      *     - type: entity
      *       value: sensor.test123
-     *     - type: is_null
+     *     - type: state
+     *       comparator: is_null
      *     - type: area
      *       value: living_room
      * ```
