@@ -115,7 +115,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @description
      * Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency.
      * @defaultValue
-     * <a href="/src/config/areaDefaultConfig.yml#L253" target="_blank">set</a>
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L253" target="_blank">set</a>
      * @remarks
      * The colors get repeated when you have more areas than colors. Leave empty for no overlay.
      * @example
@@ -129,7 +129,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @description
      * The config for the area card.
      * @defaultValue
-     * <a href="/src/config/areaDefaultConfig.yml#L246" target="_blank">set</a>
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246" target="_blank">set</a>
      * @remarks
      * Options type, area, navigation_path are not allowed!
      * @example
