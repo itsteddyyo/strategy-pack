@@ -287,6 +287,21 @@ class AreaViewStrategy extends HTMLTemplateElement {
                 area: curr.area_id,
                 navigation_path: `${curr.area_id}#main`,
             };
+
+            const styles = [
+                `
+                hui-image {
+                    opacity: 0.3;
+                }`,
+            ];
+            
+            if (areaColors.length > 0) {
+                styles.push(`
+                    div.navigate {
+                        background-color: ${areaColors[index % areaColors.length]};
+                    }`);
+            }
+
             prev.cards[0].cards.push({
                 type: "conditional",
                 conditions: [
@@ -298,13 +313,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                 card: {
                     ...areaCard,
                     card_mod: {
-                        style: `
-                  hui-image {
-                    opacity: 0.3;
-                  }
-                  div.navigate {
-                    background-color: ${areaColors[index]};
-                  }`,
+                        style: styles.join("\r\n"),
                     },
                 },
             });
@@ -323,13 +332,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         : {
                               ...areaCard,
                               card_mod: {
-                                  style: `
-                        hui-image {
-                          opacity: 0.3;
-                        }
-                        div.navigate {
-                          background-color: ${areaColors[index]};
-                        }`,
+                                  style: styles.join("\r\n"),
                               },
                           },
             });
