@@ -2,8 +2,8 @@ name: Deploy Jekyll site to Pages
 on:
     push:
         tags:
-            - "*.*.*"
-            - "!*.*.*.beta.*"
+            - "v*.*.*"
+            - "!v*.*.*-beta.*"
     workflow_dispatch:
 permissions:
     contents: read

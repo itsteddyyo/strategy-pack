@@ -4,8 +4,8 @@ permissions:
 on:
     push:
         tags:
-            - "*.*.*.beta.*"
-            - "*.*.*"
+            - "v*.*.*-beta.*"
+            - "v*.*.*"
 jobs:
     release:
         runs-on: ubuntu-latest
