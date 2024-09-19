@@ -1,7 +1,6 @@
 {
   "name": "@itsteddyyo/strategy-pack",
   "version": "0.0.3",
-  "description": "A Dashboard Strategy to generate a Dashboard with Views per Area autopopulated by entities",
   "type": "module",
   "files": [
     "dist"
