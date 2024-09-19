@@ -21,12 +21,10 @@
     "@types/lodash": "^4.17.7",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.4.0",
-    "liquidjs": "^10.16.7",
     "prettier": "^3.3.3",
     "typedoc": "^0.26.6",
     "typescript": "^5.5.4",
-    "vite": "^5.4.3",
-    "yaml": "^2.5.1"
+    "vite": "^5.4.3"
   },
   "scripts": {
     "build": "tsc --noEmit && vite build",
