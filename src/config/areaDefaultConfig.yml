@@ -51,6 +51,25 @@ tabs:
                 media_controls:
                     - play_pause_stop
                 <<: *actions-toggle-ref
+          - domain: light
+            title: Light
+            card:
+                type: tile
+                entity: $entity
+                features:
+                    - type: light-brightness
+                    - type: light-color-temp
+                <<: *actions-toggle-ref
+          - domain: fan
+            title: Fan
+            card:
+                type: tile
+                entity: $entity
+                features:
+                    - type: fan-speed
+                    - type: fan-preset-modes
+                      style: icons
+                <<: *actions-toggle-ref
           - domain: cover
             title: Cover
             card:
@@ -200,7 +219,6 @@ areaCardConfig:
         - occupancy
     sensor_classes:
         - temperature
-        - moisture
 areaColors:
     - rgba(42,72,100,0.3)
     - rgba(234,162,33,0.3)

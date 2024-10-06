@@ -50,7 +50,7 @@ The default config is written as yaml. This should make it easy to make your own
 
 You can find it [here](https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml){:target="_blank"}.
 
-The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
+The Area Cards shows only device_type: occupancy as an alarm icon and temperature as info.
 
 ![Area Card](/strategy-pack/assets/area/area-strategy-navigation.png "Area Card")
 
@@ -64,14 +64,14 @@ There are Rows for:
 
 - alarm_control_panel
 - media_player
+- light
+- fan
 - cover
 - vacuum
 - switch and input_boolean
 - select and input_select
 - button and scene
 - number
-
-I skipped lights and fans because they already are controllable with the area-card in the navigation but feel free to add them to your configuration!
 
 2. Stats is for "read-only" entities like binary_sensors and sensors.
 
