@@ -64,14 +64,14 @@ There are Rows for:
 
 - alarm_control_panel
 - media_player
+- light
+- fan
 - cover
 - vacuum
 - switch and input_boolean
 - select and input_select
 - button and scene
 - number
-
-I skipped lights and fans because they already are controllable with the area-card in the navigation but feel free to add them to your configuration!
 
 2. Stats is for "read-only" entities like binary_sensors and sensors.
 
