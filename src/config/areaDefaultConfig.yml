@@ -219,7 +219,6 @@ areaCardConfig:
         - occupancy
     sensor_classes:
         - temperature
-        - moisture
 areaColors:
     - rgba(42,72,100,0.3)
     - rgba(234,162,33,0.3)

@@ -50,7 +50,7 @@ The default config is written as yaml. This should make it easy to make your own
 
 You can find it [here](https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml){:target="_blank"}.
 
-The Area Cards shows only device_type: occupancy as an alarm icon and temperature/moisture (is used for plants for me) as info.
+The Area Cards shows only device_type: occupancy as an alarm icon and temperature as info.
 
 ![Area Card](/strategy-pack/assets/area/area-strategy-navigation.png "Area Card")
 
