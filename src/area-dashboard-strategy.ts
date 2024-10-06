@@ -294,7 +294,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     opacity: 0.3;
                 }`,
             ];
-            
+
             if (areaColors.length > 0) {
                 styles.push(`
                     div.navigate {
