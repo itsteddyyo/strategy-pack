@@ -1,3 +1,19 @@
+anchors:
+    - actions-info: &actions-info-ref
+          tap_action:
+              action: more-info
+          icon_tap_action:
+              action: none
+          hold_action:
+              action: more-info
+    - actions-toggle: &actions-toggle-ref
+          tap_action:
+              action: toggle
+          icon_tap_action:
+              action: none
+          hold_action:
+              action: more-info
+
 minColumnWidth: 200
 tabs:
     - title: Control
@@ -17,12 +33,7 @@ tabs:
                           - armed_vacation
                           - armed_custom_bypass
                           - disarmed
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
           - domain: media_player
             title: Media
             card:
@@ -36,12 +47,7 @@ tabs:
                     - volume_set
                 media_controls:
                     - play_pause_stop
-                tap_action:
-                    action: toggle
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-toggle-ref
           - domain: cover
             title: Cover
             card:
@@ -49,12 +55,7 @@ tabs:
                 entity: $entity
                 features:
                     - type: cover-open-close
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
           - domain: vacuum
             title: Vacuum
             card:
@@ -65,12 +66,7 @@ tabs:
                       commands:
                           - start_pause
                           - return_home
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
           - domain:
                 - switch
                 - input_boolean
@@ -80,12 +76,7 @@ tabs:
                 entity: $entity
                 hide_state: true
                 color: amber
-                tap_action:
-                    action: toggle
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-toggle-ref
           - domain:
                 - select
                 - input_select
@@ -97,12 +88,7 @@ tabs:
                 color: primary
                 features:
                     - type: select-options
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
           - domain:
                 - button
                 - scene
@@ -112,12 +98,7 @@ tabs:
                 entity: $entity
                 hide_state: true
                 color: primary
-                tap_action:
-                    action: toggle
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-toggle-ref
           - domain: number
             title: Number
             card:
@@ -127,12 +108,7 @@ tabs:
                 features:
                     - type: numeric-input
                       style: slider
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
     - title: Stats
       icon: mdi:chart-line
       rows:
@@ -153,12 +129,7 @@ tabs:
                 entity: $entity
                 hide_state: true
                 color: primary
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
           - domain: sensor
             title: Sensor
             filter:
@@ -173,12 +144,7 @@ tabs:
                 type: tile
                 entity: $entity
                 color: primary
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
           - domain: sensor
             title: Graphs
             filter:
@@ -199,12 +165,7 @@ tabs:
                 align_state: center
                 font_size: 50
                 font_size_header: 12
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
                 card_mod:
                     style: |
                         .header {
@@ -237,12 +198,7 @@ tabs:
             card:
                 type: picture-entity
                 entity: $entity
-                tap_action:
-                    action: more-info
-                icon_tap_action:
-                    action: none
-                hold_action:
-                    action: more-info
+                <<: *actions-info-ref
 areaCardConfig:
     aspect_ratio: 35:15
     alert_classes:
