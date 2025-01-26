@@ -26,6 +26,9 @@
     "typescript": "^5.7.3",
     "vite": "^6.0.11"
   },
+  "overrides": {
+    "vite": "$vite"
+  },
   "scripts": {
     "build": "tsc --noEmit && vite build",
     "typedoc": "typedoc ./src && node ./documentation/code/build_types.js"
