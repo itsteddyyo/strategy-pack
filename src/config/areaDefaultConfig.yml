@@ -70,6 +70,15 @@ tabs:
                     - type: fan-preset-modes
                       style: icons
                 <<: *actions-toggle-ref
+          - domain: humidifier
+            title: Humidifier
+            card:
+                type: tile
+                entity: $entity
+                features:
+                    - type: target-humidity
+                    - type: humidifier-toggle
+                <<: *actions-toggle-ref
           - domain: cover
             title: Cover
             card:
