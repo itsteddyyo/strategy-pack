@@ -66,6 +66,7 @@ There are Rows for:
 - media_player
 - light
 - fan
+- humidifier
 - cover
 - vacuum
 - switch and input_boolean
