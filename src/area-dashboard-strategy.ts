@@ -24,8 +24,9 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
     /**
      * @description
      * Domain or Array of domains the entity must belong to.
+     * @deprecated 2.0.0
      * @remarks
-     * Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter" target="_blank">include filter</a>
+     * <a href="#filter" target="_blank">Include filter</a> should be used from now on.
      * @example
      * ```yaml
      * domain:

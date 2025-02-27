@@ -33,10 +33,14 @@
     {%- unless include.disable.description -%}
       <td>
       {{- option.annotations | where: "tag", "@description" | first | map: "content" -}}
-      {%- assign remarksArr = option.annotations | where: "tag", "@remarks" | default([]) -%}
-      {%- if remarksArr.size > 0 -%}
-        <blockquote class="note"><p>{{- option.annotations | find: "tag", "@remarks" | map: "content" -}}</p></blockquote>
+      {%- assign deprecatedArr = option.annotations | where: "tag", "@deprecated" | default([]) -%}
+      {%- if deprecatedArr.size > 0 -%}
+        <blockquote class="warn"><p>Will be deprecated in: v{{- deprecatedArr | first | map: "content" -}}</p></blockquote>
       {%- endif -%}
+      {%- assign remarksArr = option.annotations | where: "tag", "@remarks" | default([]) -%}
+      {%- for remark in remarksArr %}
+        <blockquote class="note"><p>{{- remark.content -}}</p></blockquote>
+      {%- endfor %}
       </td>
     {%- endunless -%}
     {%- unless include.disable.type -%}
