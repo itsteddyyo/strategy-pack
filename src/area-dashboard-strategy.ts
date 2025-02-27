@@ -74,18 +74,19 @@ export interface TabConfig {
      * ```yaml
      * rows:
      *   - title: test
-     *     domain: media_player
      *     card:
      *       type: tile
-     *     filter: #Filter Config here
-     *   - ~Switches
+     *     filter: 
+     *       include:
+     *          - type: domain
+     *            value: media_player
      *   - title: test2
-     *     domain: sensor
      *     card:
      *       type: tile
-     *     filter: #Filter Config here
-     *   - ~Buttons
-     *   - ~Alerts
+     *     filter: 
+     *       include:
+     *          - type: domain
+     *            value: sensor
      * ```
      */
     rows: Array<RowConfig | string>;

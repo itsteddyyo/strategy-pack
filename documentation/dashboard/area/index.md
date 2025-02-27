@@ -69,8 +69,11 @@ Modifications are possible to:
 >       - title: Control
 >         icon: mdi:button-pointer
 >         rows:
->             - domain: light
->               title: Lights
+>             - title: Lights
+>               filter:
+>                   include:
+>                       - type: domain
+>                         value: light
 >               card:
 >                   type: tile
 >                   entity: $entity

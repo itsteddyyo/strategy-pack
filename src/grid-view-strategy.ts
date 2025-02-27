@@ -26,15 +26,19 @@ export interface GridViewOptions extends BaseGridOptions {
      * ```yaml
      * rows:
      *   - title: test
-     *     domain: media_player
      *     card:
      *       type: tile
-     *     filter: #Filter Config here
+     *     filter: 
+     *       include:
+     *          - type: domain
+     *            value: media_player
      *   - title: test2
-     *     domain: sensor
      *     card:
      *       type: tile
-     *     filter: #Filter Config here
+     *     filter: 
+     *       include:
+     *          - type: domain
+     *            value: sensor
      * ```
      */
     rows: Array<RowConfig>;
