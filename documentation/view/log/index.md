@@ -11,7 +11,7 @@ parent: View Strategies
 
 View Strategy with one page for displaying accumulated log entries for fully configurable groups of entitites.
 
-![Log View Strategy](/strategy-pack/assets/log/log-view-strategy.gif "Log View Strategy")
+<img src="/assets/log/log-view-strategy.gif" alt="Log View Strategy" style="max-height: 20rem;" />
 
 {% include usage.md type=type %}
 

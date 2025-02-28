@@ -5,4 +5,4 @@
 >
 >Just create Labels with the exact name as below (Sort:1, Sort:2, ... as many as you want) and assign them.
 >
->![Label Sort](/strategy-pack/assets/area/area-strategy-label-sort.png "Label Sort")
+><img src="/assets/area/area-strategy-label-sort.png" alt="Label Sort" style="max-height: 20rem;" />
