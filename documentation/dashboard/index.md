@@ -14,7 +14,7 @@ A [Dashboard](https://www.home-assistant.io/dashboards/){:target="_blank"} is a 
 
 Take a look at the example image:
 
-<img src="/assets/dashboard/dashboard.png" alt="Dashboard" style="max-height: 20rem;" />
+<img src="{{site.baseurl}}/assets/dashboard/dashboard.png" alt="Dashboard" style="max-height: 20rem;" />
 
  - the Dashboard is the Thing in the Sidebar with the red mark
  - the Views are the Things inside the Dashboard with the orange mark

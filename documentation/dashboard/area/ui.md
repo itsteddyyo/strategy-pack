@@ -8,7 +8,7 @@ parent: Area Dashboard Strategy
 
 ## UI explained
 
-<img src="/assets/area/area-strategy-ui-explained.png" alt="UI Explained" style="max-height: 20rem;" />
+<img src="{{site.baseurl}}/assets/area/area-strategy-ui-explained.png" alt="UI Explained" style="max-height: 20rem;" />
 
 ### 1. Navigation
 

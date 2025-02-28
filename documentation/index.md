@@ -49,7 +49,7 @@ views:
     title: Battery
         </pre>
       </td>
-      <td><img src="/assets/battery/battery-view-strategy.png" alt="Battery View Strategy" style="max-height: 20rem;" /></td>
+      <td><img src="{{site.baseurl}}/assets/battery/battery-view-strategy.png" alt="Battery View Strategy" style="max-height: 20rem;" /></td>
     </tr>
   </tbody>
 </table>
@@ -60,4 +60,4 @@ The Strategies are all fully responsive, meaning you can use all of them on Tabl
 
 *Example of Responsiveness with Area Dashboard Strategy:*
 
-<img src="/assets/area/area-strategy-responsive-new.gif" alt="Area Strategy Responsive" style="max-height: 20rem;" />
+<img src="{{site.baseurl}}/assets/area/area-strategy-responsive-new.gif" alt="Area Strategy Responsive" style="max-height: 20rem;" />

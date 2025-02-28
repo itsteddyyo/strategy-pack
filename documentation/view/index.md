@@ -14,7 +14,7 @@ A [View](https://www.home-assistant.io/dashboards/views/){:target="_blank"} is a
 
 Take a look at the example image:
 
-<img src="/assets/view/view.png" alt="View" style="max-height: 20rem;" />
+<img src="{{site.baseurl}}/assets/view/view.png" alt="View" style="max-height: 20rem;" />
 
  - the Dashboard is the Thing in the Sidebar
  - the View is the thing with the red mark inside the Dashboard
