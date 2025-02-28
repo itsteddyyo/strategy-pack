@@ -25,7 +25,8 @@
     </tr>
   </thead>
   <tbody>
-{%- for option in include.options %}
+{%- assign rows = (include.options | deepSort: "annotations.tag", "@deprecated") -%}
+{%- for option in rows %}
     <tr>
     {%- unless include.disable.option -%}
       <td>{{- option.name -}}</td>
