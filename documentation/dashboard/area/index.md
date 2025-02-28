@@ -11,11 +11,11 @@ parent: Dashboard Strategies
 
 Fully configurabe Dashboard with View per Area and auto-populating entities ordered in Grids.
 
-![Area Strategy](/strategy-pack/assets/area/area-strategy.gif "Area Strategy")
+<img src="{{site.baseurl}}/assets/area/area-strategy.gif" alt="Area Strategy" style="max-height: 20rem;" />
  
 The dashboard was designed to be fully responsive! You can absolutely use this also on tablets or phones!
 
-![Area Strategy Responsive](/strategy-pack/assets/area/area-strategy-responsive-new.gif "Area Strategy Responsive")
+<img src="{{site.baseurl}}/assets/area/area-strategy-responsive-new.gif" alt="Area Strategy Responsive" style="max-height: 20rem;" />
 
 The Dashboard contains all entities assigned to the Area selected in the Navigation (either via device or entity itself) that are not hidden or disabled.
 
@@ -44,7 +44,7 @@ This Dashboard Strategy generates multiple Views. One per Area configured in you
 {: .note }
 > You may not be able to tell it generates multiple Views because all but one are made invisible in the top menu.
 >
-> ![Top Menu](/strategy-pack/assets/area/area-strategy-top-menu.png "Top Menu")
+> <img src="{{site.baseurl}}/assets/area/area-strategy-top-menu.png" alt="Top Menu" style="max-height: 20rem;" />
 >
 > This is because the navigation is meant to be made with the left-sided navigation menu.
 

@@ -52,13 +52,13 @@ You can find it [here](https://github.com/itsteddyyo/strategy-pack/blob/main/src
 
 The Area Cards shows only device_type: occupancy as an alarm icon and temperature as info.
 
-![Area Card](/strategy-pack/assets/area/area-strategy-navigation.png "Area Card")
+<img src="{{site.baseurl}}/assets/area/area-strategy-navigation.png" alt="Area Card" style="max-height: 20rem;" />
 
 There are 3 Tabs.
 
 1. Control is for entities that can be interacted with (think media_players, buttons, selects, etc.).
 
-![Control](/strategy-pack/assets/area/area-strategy-main-control.png "Control")
+<img src="{{site.baseurl}}/assets/area/area-strategy-main-control.png" alt="Control" style="max-height: 20rem;" />
 
 There are Rows for:
 
@@ -76,7 +76,7 @@ There are Rows for:
 
 2. Stats is for "read-only" entities like binary_sensors and sensors.
 
-![Stats](/strategy-pack/assets/area/area-strategy-main-stats.png "Stats")
+<img src="{{site.baseurl}}/assets/area/area-strategy-main-stats.png" alt="Stats" style="max-height: 20rem;" />
 
 There are Rows for:
 
@@ -86,7 +86,7 @@ There are Rows for:
 
 3. Camera is for Camera-Streams.
 
-![Camera](/strategy-pack/assets/area/area-strategy-main-camera.png "Camera")
+<img src="{{site.baseurl}}/assets/area/area-strategy-main-camera.png" alt="Camera" style="max-height: 20rem;" />
 
 There are Rows for:
 

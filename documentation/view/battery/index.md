@@ -11,7 +11,7 @@ parent: View Strategies
 
 View Strategy with one page for all battery entities.
 
-![Battery View Strategy](/strategy-pack/assets/battery/battery-view-strategy.png "Battery View Strategy")
+<img src="{{site.baseurl}}/assets/battery/battery-view-strategy.png" alt="Battery View Strategy" style="max-height: 20rem;" />
 
 {% include usage.md type=type %}
 
