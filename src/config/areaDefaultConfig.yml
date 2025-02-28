@@ -128,9 +128,10 @@ tabs:
             filter:
                 include:
                     - type: domain
-                      value: switch
-                    - type: domain
-                      value: input_boolean
+                      comparator: in
+                      value: 
+                        - switch
+                        - input_boolean
           - title: Select
             card:
                 type: tile
@@ -141,9 +142,10 @@ tabs:
             filter:
                 include:
                     - type: domain
-                      value: select
-                    - type: domain
-                      value: input_select
+                      comparator: in
+                      value: 
+                        - select
+                        - input_select
           - title: Button
             card:
                 type: tile
@@ -152,9 +154,10 @@ tabs:
             filter:
                 include:
                     - type: domain
-                      value: button
-                    - type: domain
-                      value: scene
+                      comparator: in
+                      value: 
+                        - button
+                        - scene
           - title: Number
             card:
                 type: tile
