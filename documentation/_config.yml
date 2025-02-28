@@ -13,3 +13,6 @@ callouts:
     note:
         title: Note
         color: purple
+    warn:
+        title: Warn
+        color: yellow

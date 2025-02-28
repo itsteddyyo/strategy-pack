@@ -22,8 +22,7 @@ tabs:
     - title: Control
       icon: mdi:button-pointer
       rows:
-          - domain: alarm_control_panel
-            title: Alarm
+          - title: Alarm
             card:
                 type: tile
                 entity: $entity
@@ -37,8 +36,11 @@ tabs:
                           - armed_custom_bypass
                           - disarmed
                 <<: *actions-info-ref
-          - domain: media_player
-            title: Media
+            filter:
+                include:
+                    - type: domain
+                      value: alarm_control_panel
+          - title: Media
             card:
                 type: custom:mushroom-media-player-card
                 entity: $entity
@@ -51,8 +53,11 @@ tabs:
                 media_controls:
                     - play_pause_stop
                 <<: *actions-toggle-ref
-          - domain: light
-            title: Light
+            filter:
+                include:
+                    - type: domain
+                      value: media_player
+          - title: Light
             card:
                 type: tile
                 entity: $entity
@@ -60,8 +65,11 @@ tabs:
                     - type: light-brightness
                     - type: light-color-temp
                 <<: *actions-toggle-ref
-          - domain: fan
-            title: Fan
+            filter:
+                include:
+                    - type: domain
+                      value: light
+          - title: Fan
             card:
                 type: tile
                 entity: $entity
@@ -70,8 +78,11 @@ tabs:
                     - type: fan-preset-modes
                       style: icons
                 <<: *actions-toggle-ref
-          - domain: humidifier
-            title: Humidifier
+            filter:
+                include:
+                    - type: domain
+                      value: fan
+          - title: Humidifier
             card:
                 type: tile
                 entity: $entity
@@ -79,16 +90,22 @@ tabs:
                     - type: target-humidity
                     - type: humidifier-toggle
                 <<: *actions-toggle-ref
-          - domain: cover
-            title: Cover
+            filter:
+                include:
+                    - type: domain
+                      value: humidifier
+          - title: Cover
             card:
                 type: tile
                 entity: $entity
                 features:
                     - type: cover-open-close
                 <<: *actions-info-ref
-          - domain: vacuum
-            title: Vacuum
+            filter:
+                include:
+                    - type: domain
+                      value: cover
+          - title: Vacuum
             card:
                 type: tile
                 entity: $entity
@@ -98,35 +115,47 @@ tabs:
                           - start_pause
                           - return_home
                 <<: *actions-info-ref
-          - domain:
-                - switch
-                - input_boolean
-            title: Switch
+            filter:
+                include:
+                    - type: domain
+                      value: vacuum
+          - title: Switch
             card:
                 type: tile
                 entity: $entity
                 <<: [*simple-tile-ref, *actions-toggle-ref]
                 color: amber
-          - domain:
-                - select
-                - input_select
-            title: Select
+            filter:
+                include:
+                    - type: domain
+                      value: switch
+                    - type: domain
+                      value: input_boolean
+          - title: Select
             card:
                 type: tile
                 entity: $entity
                 features:
                     - type: select-options
                 <<: [*simple-tile-ref, *actions-info-ref]
-          - domain:
-                - button
-                - scene
-            title: Button
+            filter:
+                include:
+                    - type: domain
+                      value: select
+                    - type: domain
+                      value: input_select
+          - title: Button
             card:
                 type: tile
                 entity: $entity
                 <<: [*simple-tile-ref, *actions-toggle-ref]
-          - domain: number
-            title: Number
+            filter:
+                include:
+                    - type: domain
+                      value: button
+                    - type: domain
+                      value: scene
+          - title: Number
             card:
                 type: tile
                 entity: $entity
@@ -134,12 +163,22 @@ tabs:
                     - type: numeric-input
                       style: slider
                 <<: [*simple-tile-ref, *actions-info-ref]
+            filter:
+                include:
+                    - type: domain
+                      value: number
     - title: Stats
       icon: mdi:chart-line
       rows:
-          - domain: binary_sensor
-            title: Alert
+          - title: Alert
+            card:
+                type: tile
+                entity: $entity
+                <<: [*simple-tile-ref, *actions-info-ref]
             filter:
+                include:
+                    - type: domain
+                      value: binary_sensor
                 exclude:
                     - type: attribute
                       value:
@@ -149,36 +188,24 @@ tabs:
                       value:
                           key: device_class
                           value: occupancy
-            card:
-                type: tile
-                entity: $entity
-                <<: [*simple-tile-ref, *actions-info-ref]
-          - domain: sensor
-            title: Sensor
-            filter:
-                exclude:
-                    - type: attribute
-                      value:
-                          key: device_class
-                          value: battery
-                    - type: state
-                      comparator: is_numeric
+          - title: Sensor
             card:
                 type: tile
                 entity: $entity
                 <<: [*simple-tile-ref, *actions-info-ref]
                 hide_state: false
-          - domain: sensor
-            title: Graphs
             filter:
+                include:
+                    - type: domain
+                      value: sensor
                 exclude:
                     - type: attribute
                       value:
                           key: device_class
                           value: battery
-                include:
                     - type: state
                       comparator: is_numeric
+          - title: Graphs
             card:
                 type: custom:mini-graph-card
                 entities:
@@ -214,14 +241,28 @@ tabs:
                           fill: {{COLOR}};
                           stroke: {{COLOR}};
                         }
+            filter:
+                include:
+                    - type: domain
+                      value: sensor
+                    - type: state
+                      comparator: is_numeric
+                exclude:
+                    - type: attribute
+                      value:
+                          key: device_class
+                          value: battery
     - title: Camera
       icon: mdi:camera
       rows:
-          - domain: camera
-            card:
+          - card:
                 type: picture-entity
                 entity: $entity
                 <<: *actions-info-ref
+            filter:
+                include:
+                    - type: domain
+                      value: camera
 areaCardConfig:
     aspect_ratio: 35:15
     alert_classes:

@@ -24,8 +24,9 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
     /**
      * @description
      * Domain or Array of domains the entity must belong to.
+     * @deprecated 2.0.0
      * @remarks
-     * Is deprecated (will be removed in a future release) and will internally be converted to a <a href="#filter" target="_blank">include filter</a>
+     * <a href="#filter" target="_blank">Include filter</a> should be used from now on.
      * @example
      * ```yaml
      * domain:
@@ -33,7 +34,7 @@ export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
      *   - media_player
      * ```
      */
-    domain: string | Array<string>;
+    domain?: string | Array<string>;
     /**
      * @description
      * Title shown over Grid. Will not be rendered when not set.
@@ -74,18 +75,19 @@ export interface TabConfig {
      * ```yaml
      * rows:
      *   - title: test
-     *     domain: media_player
      *     card:
      *       type: tile
-     *     filter: #Filter Config here
-     *   - ~Switches
+     *     filter:
+     *       include:
+     *          - type: domain
+     *            value: media_player
      *   - title: test2
-     *     domain: sensor
      *     card:
      *       type: tile
-     *     filter: #Filter Config here
-     *   - ~Buttons
-     *   - ~Alerts
+     *     filter:
+     *       include:
+     *          - type: domain
+     *            value: sensor
      * ```
      */
     rows: Array<RowConfig | string>;
@@ -352,11 +354,6 @@ class AreaViewStrategy extends HTMLTemplateElement {
                                 type: FilterType.area,
                                 value: currentArea.area_id,
                             },
-                            {
-                                type: FilterType.domain,
-                                comparator: Array.isArray(curr.domain) ? Comparator.in : Comparator.equal,
-                                value: curr.domain,
-                            },
                         ],
                         exclude: [
                             {
@@ -373,7 +370,22 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     },
                 };
 
-                const merged = mergeWith({}, baseFilter, cloneDeep(curr), arrayCustomizer);
+                let merged = mergeWith({}, baseFilter, cloneDeep(curr), arrayCustomizer);
+
+                if (!!curr.domain) {
+                    const domainFilter: Pick<RowConfig, "filter"> = {
+                        filter: {
+                            include: [
+                                {
+                                    type: FilterType.domain,
+                                    comparator: Array.isArray(curr.domain) ? Comparator.in : Comparator.equal,
+                                    value: curr.domain,
+                                },
+                            ],
+                        },
+                    };
+                    merged = mergeWith({}, domainFilter, merged, arrayCustomizer);
+                }
 
                 let usedEntities = entities.filter(createRowFilter(merged, hass));
 
