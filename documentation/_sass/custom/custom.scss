@@ -1,0 +1,29 @@
+$nav-width: 4rem !default;
+$nav-width-md: 3rem !default;
+
+.site-nav, .site-header, .site-footer {
+    width: 100%;
+}
+
+.side-bar {
+    @include mq(lg) {
+        width: $nav-width;
+        min-width: $nav-width;
+    }
+}
+  
+.main {
+    @include mq(lg) {
+        margin-left: $nav-width;
+        margin-right: 30px;
+        max-width: 1920px;
+    }
+}
+
+.side-bar + .main {
+    @include mq(lg) {
+        margin-left: $nav-width;
+        margin-right: 30px;
+        max-width: 1920px;
+    }
+}
