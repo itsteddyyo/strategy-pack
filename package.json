@@ -1,6 +1,6 @@
 {
   "name": "@itsteddyyo/strategy-pack",
-  "version": "1.4.1-beta.3",
+  "version": "1.4.1",
   "type": "module",
   "files": [
     "dist"
