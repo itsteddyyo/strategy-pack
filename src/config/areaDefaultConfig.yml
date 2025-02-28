@@ -216,6 +216,31 @@ tabs:
                 font_size: 50
                 font_size_header: 12
                 <<: *actions-info-ref
+                card_mod:
+                    style: |
+                        .header {
+                          max-width: 80%;
+                        }
+                        .line--rect,
+                        .fill--rect,
+                        .line--points {
+                          {% set COLOR = 'grey' %}
+                          {% if state_attr(config.entities[0].entity,'device_class') in ['date', 'timestamp', 'irradiance', 'distance', 'duration', 'illuminance', 'enum', 'monetary'] %} 
+                            {% set COLOR = 'grey' %}
+                          {% elif state_attr(config.entities[0].entity,'device_class') in ['apparent_power', 'battery', 'current', 'energy', 'energy_storage', 'power_factor', 'power', 'voltage'] %} 
+                            {% set COLOR = 'yellow' %}
+                          {% elif state_attr(config.entities[0].entity,'device_class') in ['aqi', 'sulphur_dioxide', 'volatile_organic_compounds', 'volatile_organic_compounds_parts', 'atmospheric_pressure', 'carbon_dioxide', 'carbon_monoxide', 'nitrogen_dioxide', 'gas', 'nitrogen_monoxide', 'nitrous_oxide', 'ozone', 'pm1', 'pm10', 'pm25'] %} 
+                            {% set COLOR = 'green' %}
+                          {% elif state_attr(config.entities[0].entity,'device_class') in ['pressure', 'reactive_power', 'speed', 'temperature', 'weight', 'wind_speed'] %} 
+                            {% set COLOR = 'orangered' %}
+                          {% elif state_attr(config.entities[0].entity,'device_class') in ['moisture', 'ph', 'precipitation', 'precipitation_intensity', 'humidity', 'water', 'volume', 'volume_storage'] %} 
+                            {% set COLOR = 'royalblue' %}
+                          {% elif state_attr(config.entities[0].entity,'device_class') in ['data_rate', 'data_size', 'signal_strength', 'frequency', 'sound_pressure'] %}
+                            {% set COLOR = 'orange' %}
+                          {% endif %}            
+                          fill: {{COLOR}};
+                          stroke: {{COLOR}};
+                        }
             filter:
                 include:
                     - type: domain
@@ -227,3 +252,29 @@ tabs:
                       value:
                           key: device_class
                           value: battery
+    - title: Camera
+      icon: mdi:camera
+      rows:
+          - card:
+                type: picture-entity
+                entity: $entity
+                <<: *actions-info-ref
+            filter:
+                include:
+                    - type: domain
+                      value: camera
+areaCardConfig:
+    aspect_ratio: 35:15
+    alert_classes:
+        - occupancy
+    sensor_classes:
+        - temperature
+areaColors:
+    - rgba(42,72,100,0.3)
+    - rgba(234,162,33,0.3)
+    - rgba(214,64,92,0.3)
+    - rgba(190,70,178,0.3)
+    - rgba(145,142,80,0.3)
+    - rgba(12,162,121,0.3)
+    - rgba(76,159,171,0.3)
+    - rgba(147,72,26,0.3)
