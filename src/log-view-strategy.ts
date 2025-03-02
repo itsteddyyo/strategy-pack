@@ -2,7 +2,9 @@ import { HomeAssistant, LovelaceCardConfig, LovelaceViewConfig } from "custom-ca
 
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { createRowFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, ManualConfigObject, RowFilterConfig } from "./util/types";
+import { CUSTOM_ELEMENT_VIEW, DeepPartial, ManualConfigObject, RowFilterConfig } from "./util/types";
+import { notNil } from "./util/helper";
+import typia from "typia";
 
 export interface LogPreset extends RowFilterConfig {
     /**
@@ -53,6 +55,19 @@ export interface LogViewOptions {
     presets: Array<LogPreset>;
 }
 
+export const mergeStrategyConfig = (...configs: Array<DeepPartial<LogViewOptions> | undefined>): LogViewOptions => {
+    const localMerge = configs.filter(notNil).reduce((prev, curr) => {
+        return { ...prev, ...curr };
+    });
+
+    if (!typia.is<LogViewOptions>(localMerge)) {
+        const state = typia.validate<LogViewOptions>(localMerge);
+        throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+    } 
+
+    return localMerge;
+};
+
 class LogViewStrategy extends HTMLTemplateElement {
     static async generate(
         viewConfig: ManualConfigObject<"custom:log-view-strategy", LogViewOptions>,
@@ -62,7 +77,7 @@ class LogViewStrategy extends HTMLTemplateElement {
         const config = {
             ...userConfig,
         };
-        const { presets } = config;
+        const { presets } = mergeStrategyConfig(config);
 
         if (!presets) throw Error("presets not defined!");
 

@@ -14,10 +14,12 @@
     }
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "typia": "^8.0.0"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.1",
+    "@ryoppippi/unplugin-typia": "^1.2.0",
     "@types/lodash": "^4.17.15",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.4.0",

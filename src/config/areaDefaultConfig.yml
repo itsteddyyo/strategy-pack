@@ -17,267 +17,317 @@ anchors:
           hide_state: true
           color: primary
 
-minColumnWidth: 200
-tabs:
+global:
+    minCardWidth: 200
+    filter:
+        exclude:
+            - type: disabled_by
+              comparator: match
+              value: .*
+            - type: hidden_by
+              comparator: match
+              value: .*
+grids:
+    - id: control_alarm
+      title: Alarm
+      filter:
+          include:
+              - type: domain
+                value: alarm_control_panel
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: alarm-modes
+                modes:
+                    - armed_home
+                    - armed_away
+                    - armed_night
+                    - armed_vacation
+                    - armed_custom_bypass
+                    - disarmed
+          <<: *actions-info-ref
+    - id: control_media
+      title: Media
+      filter:
+          include:
+              - type: domain
+                value: media_player
+      card:
+          type: custom:mushroom-media-player-card
+          entity: $entity
+          use_media_artwork: true
+          show_volume_level: true
+          use_media_info: false
+          collapsible_controls: true
+          volume_controls:
+              - volume_set
+          media_controls:
+              - play_pause_stop
+          <<: *actions-toggle-ref
+    - id: control_light
+      title: Light
+      filter:
+          include:
+              - type: domain
+                value: light
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: light-brightness
+              - type: light-color-temp
+          <<: *actions-toggle-ref
+    - id: control_fan
+      title: Fan
+      filter:
+          include:
+              - type: domain
+                value: fan
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: fan-speed
+              - type: fan-preset-modes
+                style: icons
+          <<: *actions-toggle-ref
+    - id: control_humidifier
+      title: Humidifier
+      filter:
+          include:
+              - type: domain
+                value: humidifier
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: target-humidity
+              - type: humidifier-toggle
+          <<: *actions-toggle-ref
+    - id: control_cover
+      title: Cover
+      filter:
+          include:
+              - type: domain
+                value: cover
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: cover-open-close
+          <<: *actions-info-ref
+    - id: control_vacuum
+      title: Vacuum
+      filter:
+          include:
+              - type: domain
+                value: vacuum
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: vacuum-commands
+                commands:
+                    - start_pause
+                    - return_home
+          <<: *actions-info-ref
+    - id: control_switch
+      title: Switch
+      filter:
+          include:
+              - type: domain
+                comparator: in
+                value:
+                    - switch
+                    - input_boolean
+      card:
+          type: tile
+          entity: $entity
+          <<: [*simple-tile-ref, *actions-toggle-ref]
+          color: amber
+    - id: control_select
+      title: Select
+      filter:
+          include:
+              - type: domain
+                comparator: in
+                value:
+                    - select
+                    - input_select
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: select-options
+          <<: [*simple-tile-ref, *actions-info-ref]
+    - id: control_button
+      title: Button
+      filter:
+          include:
+              - type: domain
+                comparator: in
+                value:
+                    - button
+                    - scene
+      card:
+          type: tile
+          entity: $entity
+          <<: [*simple-tile-ref, *actions-toggle-ref]
+    - id: control_number
+      title: Number
+      filter:
+          include:
+              - type: domain
+                value: number
+      card:
+          type: tile
+          entity: $entity
+          features:
+              - type: numeric-input
+                style: slider
+          <<: [*simple-tile-ref, *actions-info-ref]
+    - id: stats_alert
+      title: Alert
+      filter:
+          include:
+              - type: domain
+                value: binary_sensor
+          exclude:
+              - type: attribute
+                value:
+                    key: device_class
+                    value: motion
+              - type: attribute
+                value:
+                    key: device_class
+                    value: occupancy
+      card:
+          type: tile
+          entity: $entity
+          <<: [*simple-tile-ref, *actions-info-ref]
+    - id: stats_sensor
+      title: Sensor
+      filter:
+          include:
+              - type: domain
+                value: sensor
+          exclude:
+              - type: attribute
+                value:
+                    key: device_class
+                    value: battery
+              - type: state
+                comparator: is_numeric
+      card:
+          type: tile
+          entity: $entity
+          <<: [*simple-tile-ref, *actions-info-ref]
+          hide_state: false
+    - id: stats_graphs
+      title: Graphs
+      filter:
+          include:
+              - type: domain
+                value: sensor
+              - type: state
+                comparator: is_numeric
+          exclude:
+              - type: attribute
+                value:
+                    key: device_class
+                    value: battery
+      card:
+          type: custom:mini-graph-card
+          entities:
+              - $entity
+          align_header: left
+          align_icon: left
+          align_state: center
+          font_size: 50
+          font_size_header: 12
+          <<: *actions-info-ref
+          card_mod:
+              style: |-
+                  .header {
+                    max-width: 80%;
+                  }
+                  .line--rect,
+                  .fill--rect,
+                  .line--points {
+                    {% set COLOR = 'grey' %}
+                    {% if state_attr(config.entities[0],'device_class') in ['date', 'timestamp', 'irradiance', 'distance', 'duration', 'illuminance', 'enum', 'monetary'] %} 
+                      {% set COLOR = 'grey' %}
+                    {% elif state_attr(config.entities[0],'device_class') in ['apparent_power', 'battery', 'current', 'energy', 'energy_storage', 'power_factor', 'power', 'voltage'] %} 
+                      {% set COLOR = 'yellow' %}
+                    {% elif state_attr(config.entities[0],'device_class') in ['aqi', 'sulphur_dioxide', 'volatile_organic_compounds', 'volatile_organic_compounds_parts', 'atmospheric_pressure', 'carbon_dioxide', 'carbon_monoxide', 'nitrogen_dioxide', 'gas', 'nitrogen_monoxide', 'nitrous_oxide', 'ozone', 'pm1', 'pm10', 'pm25'] %} 
+                      {% set COLOR = 'green' %}
+                    {% elif state_attr(config.entities[0],'device_class') in ['pressure', 'reactive_power', 'speed', 'temperature', 'weight', 'wind_speed'] %} 
+                      {% set COLOR = 'orangered' %}
+                    {% elif state_attr(config.entities[0],'device_class') in ['moisture', 'ph', 'precipitation', 'precipitation_intensity', 'humidity', 'water', 'volume', 'volume_storage'] %} 
+                      {% set COLOR = 'royalblue' %}
+                    {% elif state_attr(config.entities[0],'device_class') in ['data_rate', 'data_size', 'signal_strength', 'frequency', 'sound_pressure'] %}
+                      {% set COLOR = 'orange' %}
+                    {% endif %}
+                    fill: {{COLOR}};
+                    stroke: {{COLOR}};
+                  }
+    - id: camera_camera
+      filter:
+          include:
+              - type: domain
+                value: camera
+      card:
+          type: picture-entity
+          entity: $entity
+          <<: *actions-info-ref
+gridMergeStrategy: replace
+navigation:
+    id: area
+    minCardWidth: 300
+    card:
+        type: area
+        area: $area
+        navigation_path: $area#main
+        aspect_ratio: 35:15
+        alert_classes:
+            - occupancy
+        sensor_classes:
+            - temperature
+        card_mod:
+            style: |
+                {% set colors = [
+                  "rgba(42,72,100,0.3)",
+                  "rgba(234,162,33,0.3)",
+                  "rgba(214,64,92,0.3)",
+                  "rgba(190,70,178,0.3)",
+                  "rgba(145,142,80,0.3)",
+                  "rgba(12,162,121,0.3)",
+                  "rgba(76,159,171,0.3)",
+                  "rgba(147,72,26,0.3)",
+                ] %} 
+                {% set color = colors[$index%(colors|length)] %}
+
+                {% if '$area' != '$currArea' %}
+                hui-image {
+                  opacity: 0.3;
+                }
+                div.navigate {
+                    background-color: {{color}};
+                }
+                {% endif %}
+                `
+    filter:
+        exclude:
+            - type: label
+              value: hidden
+main:
     - title: Control
       icon: mdi:button-pointer
-      rows:
-          - title: Alarm
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: alarm-modes
-                      modes:
-                          - armed_home
-                          - armed_away
-                          - armed_night
-                          - armed_vacation
-                          - armed_custom_bypass
-                          - disarmed
-                <<: *actions-info-ref
-            filter:
-                include:
-                    - type: domain
-                      value: alarm_control_panel
-          - title: Media
-            card:
-                type: custom:mushroom-media-player-card
-                entity: $entity
-                use_media_artwork: true
-                show_volume_level: true
-                use_media_info: false
-                collapsible_controls: true
-                volume_controls:
-                    - volume_set
-                media_controls:
-                    - play_pause_stop
-                <<: *actions-toggle-ref
-            filter:
-                include:
-                    - type: domain
-                      value: media_player
-          - title: Light
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: light-brightness
-                    - type: light-color-temp
-                <<: *actions-toggle-ref
-            filter:
-                include:
-                    - type: domain
-                      value: light
-          - title: Fan
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: fan-speed
-                    - type: fan-preset-modes
-                      style: icons
-                <<: *actions-toggle-ref
-            filter:
-                include:
-                    - type: domain
-                      value: fan
-          - title: Humidifier
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: target-humidity
-                    - type: humidifier-toggle
-                <<: *actions-toggle-ref
-            filter:
-                include:
-                    - type: domain
-                      value: humidifier
-          - title: Cover
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: cover-open-close
-                <<: *actions-info-ref
-            filter:
-                include:
-                    - type: domain
-                      value: cover
-          - title: Vacuum
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: vacuum-commands
-                      commands:
-                          - start_pause
-                          - return_home
-                <<: *actions-info-ref
-            filter:
-                include:
-                    - type: domain
-                      value: vacuum
-          - title: Switch
-            card:
-                type: tile
-                entity: $entity
-                <<: [*simple-tile-ref, *actions-toggle-ref]
-                color: amber
-            filter:
-                include:
-                    - type: domain
-                      comparator: in
-                      value: 
-                        - switch
-                        - input_boolean
-          - title: Select
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: select-options
-                <<: [*simple-tile-ref, *actions-info-ref]
-            filter:
-                include:
-                    - type: domain
-                      comparator: in
-                      value: 
-                        - select
-                        - input_select
-          - title: Button
-            card:
-                type: tile
-                entity: $entity
-                <<: [*simple-tile-ref, *actions-toggle-ref]
-            filter:
-                include:
-                    - type: domain
-                      comparator: in
-                      value: 
-                        - button
-                        - scene
-          - title: Number
-            card:
-                type: tile
-                entity: $entity
-                features:
-                    - type: numeric-input
-                      style: slider
-                <<: [*simple-tile-ref, *actions-info-ref]
-            filter:
-                include:
-                    - type: domain
-                      value: number
+      match: control.*
     - title: Stats
       icon: mdi:chart-line
-      rows:
-          - title: Alert
-            card:
-                type: tile
-                entity: $entity
-                <<: [*simple-tile-ref, *actions-info-ref]
-            filter:
-                include:
-                    - type: domain
-                      value: binary_sensor
-                exclude:
-                    - type: attribute
-                      value:
-                          key: device_class
-                          value: motion
-                    - type: attribute
-                      value:
-                          key: device_class
-                          value: occupancy
-          - title: Sensor
-            card:
-                type: tile
-                entity: $entity
-                <<: [*simple-tile-ref, *actions-info-ref]
-                hide_state: false
-            filter:
-                include:
-                    - type: domain
-                      value: sensor
-                exclude:
-                    - type: attribute
-                      value:
-                          key: device_class
-                          value: battery
-                    - type: state
-                      comparator: is_numeric
-          - title: Graphs
-            card:
-                type: custom:mini-graph-card
-                entities:
-                    - $entity
-                align_header: left
-                align_icon: left
-                align_state: center
-                font_size: 50
-                font_size_header: 12
-                <<: *actions-info-ref
-                card_mod:
-                    style: |
-                        .header {
-                          max-width: 80%;
-                        }
-                        .line--rect,
-                        .fill--rect,
-                        .line--points {
-                          {% set COLOR = 'grey' %}
-                          {% if state_attr(config.entities[0].entity,'device_class') in ['date', 'timestamp', 'irradiance', 'distance', 'duration', 'illuminance', 'enum', 'monetary'] %} 
-                            {% set COLOR = 'grey' %}
-                          {% elif state_attr(config.entities[0].entity,'device_class') in ['apparent_power', 'battery', 'current', 'energy', 'energy_storage', 'power_factor', 'power', 'voltage'] %} 
-                            {% set COLOR = 'yellow' %}
-                          {% elif state_attr(config.entities[0].entity,'device_class') in ['aqi', 'sulphur_dioxide', 'volatile_organic_compounds', 'volatile_organic_compounds_parts', 'atmospheric_pressure', 'carbon_dioxide', 'carbon_monoxide', 'nitrogen_dioxide', 'gas', 'nitrogen_monoxide', 'nitrous_oxide', 'ozone', 'pm1', 'pm10', 'pm25'] %} 
-                            {% set COLOR = 'green' %}
-                          {% elif state_attr(config.entities[0].entity,'device_class') in ['pressure', 'reactive_power', 'speed', 'temperature', 'weight', 'wind_speed'] %} 
-                            {% set COLOR = 'orangered' %}
-                          {% elif state_attr(config.entities[0].entity,'device_class') in ['moisture', 'ph', 'precipitation', 'precipitation_intensity', 'humidity', 'water', 'volume', 'volume_storage'] %} 
-                            {% set COLOR = 'royalblue' %}
-                          {% elif state_attr(config.entities[0].entity,'device_class') in ['data_rate', 'data_size', 'signal_strength', 'frequency', 'sound_pressure'] %}
-                            {% set COLOR = 'orange' %}
-                          {% endif %}            
-                          fill: {{COLOR}};
-                          stroke: {{COLOR}};
-                        }
-            filter:
-                include:
-                    - type: domain
-                      value: sensor
-                    - type: state
-                      comparator: is_numeric
-                exclude:
-                    - type: attribute
-                      value:
-                          key: device_class
-                          value: battery
+      match: stats.*
     - title: Camera
       icon: mdi:camera
-      rows:
-          - card:
-                type: picture-entity
-                entity: $entity
-                <<: *actions-info-ref
-            filter:
-                include:
-                    - type: domain
-                      value: camera
-areaCardConfig:
-    aspect_ratio: 35:15
-    alert_classes:
-        - occupancy
-    sensor_classes:
-        - temperature
-areaColors:
-    - rgba(42,72,100,0.3)
-    - rgba(234,162,33,0.3)
-    - rgba(214,64,92,0.3)
-    - rgba(190,70,178,0.3)
-    - rgba(145,142,80,0.3)
-    - rgba(12,162,121,0.3)
-    - rgba(76,159,171,0.3)
-    - rgba(147,72,26,0.3)
+      match: camera.*

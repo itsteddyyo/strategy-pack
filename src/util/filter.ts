@@ -1,10 +1,11 @@
 import { HomeAssistant } from "custom-card-helpers";
-import { EntityRegistryEntry } from "../homeassistant/entity_registry";
 import { Comparator, FilterType, RowFilterConfig } from "./types";
+import { EntityRegistryEntry } from "../homeassistant/entity_registry";
 import { DeviceRegistryEntry } from "../homeassistant/device_registry";
+import { AreaRegistryEntry } from "../homeassistant/area_registry";
 
 export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
-    return (entity: EntityRegistryEntry) => {
+    return (element: EntityRegistryEntry | AreaRegistryEntry) => {
         let ret = true;
 
         if (!!row.filter) {
@@ -15,7 +16,7 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
                     return false;
                 }
                 try {
-                    return filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                    return filterValue[filter.type](element, hass, filter.value, filter.comparator || Comparator.equal);
                 } catch (e: unknown) {
                     console.error(e);
                     return false;
@@ -28,7 +29,7 @@ export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {
                     return false;
                 }
                 try {
-                    return !filterValue[filter.type](entity, hass, filter.value, filter.comparator || Comparator.equal);
+                    return !filterValue[filter.type](element, hass, filter.value, filter.comparator || Comparator.equal);
                 } catch (e: unknown) {
                     console.error(e);
                     return false;
@@ -81,64 +82,80 @@ export const compare = (comparator: Comparator, a: unknown, b: unknown) => {
     }
 };
 
-export const filterValue: Record<FilterType, (entity: EntityRegistryEntry, hass: HomeAssistant, value: unknown, comparator: Comparator) => boolean> =
-    {
-        entity: (entity, hass, value, comparator) => {
-            const entityId = entity.entity_id;
-            return compare(comparator, entityId, value);
-        },
-        domain: (entity, hass, value, comparator) => {
-            const domain = entity.entity_id.split(".")[0];
-            return compare(comparator, domain, value);
-        },
-        area: (entity, hass, value, comparator) => {
-            const device_area = !!entity.device_id ? ((hass as any).devices as Record<string, DeviceRegistryEntry>)[entity.device_id]?.area_id : null;
-            const area = entity.area_id || device_area;
-            return compare(comparator, area, value);
-        },
-        device: (entity, hass, value, comparator) => {
-            const deviceId = entity.device_id;
-            return compare(comparator, deviceId, value);
-        },
-        integration: (entity, hass, value, comparator) => {
-            const integration = entity.platform;
-            return compare(comparator, integration, value);
-        },
-        label: (entity, hass, value, comparator) => {
-            const labels = entity.labels;
-            return labels.map((label) => compare(comparator, label, value)).indexOf(true) > 0;
-        },
-        state: (entity, hass, value, comparator) => {
-            const state = hass.states[entity.entity_id]?.state;
-            return compare(comparator, state, value);
-        },
-        attribute: (entity, hass, value, comparator) => {
-            const attributes = hass.states[entity.entity_id]?.attributes;
-            const isValueFormat = (val: unknown): val is { key: string | number; value: unknown } => {
-                return !!value && typeof value === "object" && value.hasOwnProperty("key") && value.hasOwnProperty("value");
-            };
-            if (isValueFormat(value)) {
-                if (!!attributes && attributes.hasOwnProperty(value.key)) {
-                    return compare(comparator, attributes[value.key], value.value);
-                } else {
-                    console.warn(`${value.key} does not exist on ${entity.entity_id}`);
-                    return false;
-                }
+export const isArea = (element: EntityRegistryEntry | AreaRegistryEntry): element is AreaRegistryEntry => {
+    return "floor_id" in element;
+};
+
+export const filterValue: Record<
+    FilterType,
+    (element: EntityRegistryEntry | AreaRegistryEntry, hass: HomeAssistant, value: unknown, comparator: Comparator) => boolean
+> = {
+    entity: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'entity' not supported for areas");
+        const entityId = element.entity_id;
+        return compare(comparator, entityId, value);
+    },
+    domain: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'domain' not supported for areas");
+        const domain = element.entity_id.split(".")[0];
+        return compare(comparator, domain, value);
+    },
+    area: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'area' not supported for areas");
+        const device_area = !!element.device_id ? ((hass as any).devices as Record<string, DeviceRegistryEntry>)[element.device_id]?.area_id : null;
+        const area = element.area_id || device_area;
+        return compare(comparator, area, value);
+    },
+    device: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'device' not supported for areas");
+        const deviceId = element.device_id;
+        return compare(comparator, deviceId, value);
+    },
+    integration: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'integration' not supported for areas");
+        const integration = element.platform;
+        return compare(comparator, integration, value);
+    },
+    label: (element, hass, value, comparator) => {
+        const labels = element.labels;
+        return labels.map((label) => compare(comparator, label, value)).indexOf(true) > -1;
+    },
+    state: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'state' not supported for areas");
+        const state = hass.states[element.entity_id]?.state;
+        return compare(comparator, state, value);
+    },
+    attribute: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'attribute' not supported for areas");
+        const attributes = hass.states[element.entity_id]?.attributes;
+        const isValueFormat = (val: unknown): val is { key: string | number; value: unknown } => {
+            return !!value && typeof value === "object" && value.hasOwnProperty("key") && value.hasOwnProperty("value");
+        };
+        if (isValueFormat(value)) {
+            if (!!attributes && attributes.hasOwnProperty(value.key)) {
+                return compare(comparator, attributes[value.key], value.value);
             } else {
-                console.warn("value is not defined correctly");
+                console.warn(`${value.key} does not exist on ${element.entity_id}`);
                 return false;
             }
-        },
-        disabled_by: (entity, hass, value, comparator) => {
-            const disabledBy = entity.disabled_by;
-            return compare(comparator, disabledBy, value);
-        },
-        hidden_by: (entity, hass, value, comparator) => {
-            const hiddenBy = entity.hidden_by;
-            return compare(comparator, hiddenBy, value);
-        },
-        entity_category: (entity, hass, value, comparator) => {
-            const entityCategory = entity.entity_category;
-            return compare(comparator, entityCategory, value);
-        },
-    };
+        } else {
+            console.warn("value is not defined correctly");
+            return false;
+        }
+    },
+    disabled_by: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'disabled_by' not supported for areas");
+        const disabledBy = element.disabled_by;
+        return compare(comparator, disabledBy, value);
+    },
+    hidden_by: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'hidden_by' not supported for areas");
+        const hiddenBy = element.hidden_by;
+        return compare(comparator, hiddenBy, value);
+    },
+    entity_category: (element, hass, value, comparator) => {
+        if (isArea(element)) throw Error("filter 'entity_category' not supported for areas");
+        const entityCategory = element.entity_category;
+        return compare(comparator, entityCategory, value);
+    },
+};

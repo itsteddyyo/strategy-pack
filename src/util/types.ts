@@ -239,6 +239,19 @@ export enum Comparator {
     is_numeric = "is_numeric",
 }
 
+export enum GridMergeStrategy {
+    /**
+     * @description
+     * Add new grids to existing configuration. Edit existing configuration options by specifying gridId instead of id.
+     */
+    replace = "replace",
+    /**
+     * @description
+     * Reset existing configuration when specifying own grids.
+     */
+    reset = "reset",
+}
+
 export interface FilterConfig {
     /**
      * @description
@@ -290,6 +303,7 @@ export interface RowFilterConfig {
         exclude?: Array<FilterConfig>;
         include?: Array<FilterConfig>;
     };
+    sort?: Array<unknown>;
 }
 
 export interface GridStrategyCardConfig {
@@ -309,10 +323,77 @@ export interface GridStrategyCardConfig {
     card: LovelaceCardConfig;
 }
 
-export interface BaseGridOptions {
+export interface BaseRowOptions extends RowFilterConfig, GridStrategyCardConfig {
     /**
      * @description
-     * Minimal Column Width in the Grid = The Minimal Width of the Cards.
+     * Id used for referencing grid
+     * @example
+     * ```yaml
+     * id: test
+     * ```
+     */
+    id: string;
+    /**
+     * @description
+     * Title shown over the Grid
+     * @example
+     * ```yaml
+     * title: Test
+     * ```
+     */
+    title?: string;
+    /**
+     * @description
+     * Position of the grid if there`s multiple. 0 if not specified.
+     * @example
+     * ```yaml
+     * position: 1
+     * ```
+     */
+    position?: number;
+    /**
+     * @description
+     * Minimal Card Width in the Grid.
+     * @defaultValue
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L1" target="_blank">set for area-dashboard-strategy</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for all other strategies</a><br />
+     * @example
+     * ```yaml
+     * minCardWidth: 300
+     * ```
+     */
+    minCardWidth: number;
+    /**
+     * @description
+     * You can set a card to be used for a specific entity. Overwrites default card config
+     * @example
+     * ```yaml
+     * replace:
+     *   button.test:
+     *     type: entity
+     *     entities:
+     *       - $entity
+     * ```
+     */
+    replace?: Record<string, GridStrategyCardConfig>;
+}
+
+export interface BaseRowRefOptions extends DeepPartial<BaseRowOptions> {
+    /**
+     * @description
+     * Reference to existing grid
+     * @example
+     * ```yaml
+     * gridId: test
+     * ```
+     */
+    gridId: string;
+}
+
+export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
+    /**
+     * @description
+     * TODO
      * @defaultValue
      * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L1" target="_blank">set for area-dashboard-strategy</a><br />
      * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for all other strategies</a><br />
@@ -321,10 +402,10 @@ export interface BaseGridOptions {
      * minColumnWidth: 300
      * ```
      */
-    minColumnWidth: number;
+    global?: DeepPartial<BaseRowOptions>;
     /**
      * @description
-     * You can set a card to be used for a specific entity. Overwrites default card config
+     * TODO
      * @example
      * ```yaml
      * replaceCards:
@@ -334,12 +415,23 @@ export interface BaseGridOptions {
      *       - $entity
      * ```
      */
-    replaceCards?: Record<string, GridStrategyCardConfig>;
+    grids: Array<T>;
+    gridMergeStrategy: GridMergeStrategy;
 }
 
+export type DeepPartial<T> = {
+    [K in keyof T]?: T[K] extends Function
+      ? T[K] // Keep functions but make them optional
+      : T[K] extends Array<infer U>
+        ? Array<DeepPartial<U>> // Recursively process array elements
+        : T[K] extends object
+          ? DeepPartial<T[K]> // Recursively process nested objects
+          : T[K]; // Keep primitives as they are
+  };
+  
 export interface ManualConfigObject<T extends string, C> {
     type: T;
-    config?: C;
+    config?: DeepPartial<C>;
 }
 
 export interface GridViewConfig<T extends string, C extends BaseGridOptions> extends ManualConfigObject<T, C> {}

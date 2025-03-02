@@ -1,1 +1,10 @@
-minColumnWidth: 300
+global:
+    minCardWidth: 300
+    filter:
+        exclude:
+            - type: disabled_by
+              comparator: match
+              value: .*
+            - type: hidden_by
+              comparator: match
+              value: .*
