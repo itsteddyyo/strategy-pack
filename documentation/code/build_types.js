@@ -3,8 +3,6 @@ import fs from "fs";
 const jsonContent = fs.readFileSync(".typedoc/typedoc.json", "utf-8");
 const typedoc = JSON.parse(jsonContent);
 
-debugger;
-
 const json = Object.values(typedoc.files.entries).reduce((prev, curr) => {
     prev[curr] = getMergedDocumentationForFile(typedoc, curr);
     return prev;
