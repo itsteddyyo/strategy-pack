@@ -421,14 +421,14 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
 
 export type DeepPartial<T> = {
     [K in keyof T]?: T[K] extends Function
-      ? T[K] // Keep functions but make them optional
-      : T[K] extends Array<infer U>
-        ? Array<DeepPartial<U>> // Recursively process array elements
-        : T[K] extends object
-          ? DeepPartial<T[K]> // Recursively process nested objects
-          : T[K]; // Keep primitives as they are
-  };
-  
+        ? T[K] // Keep functions but make them optional
+        : T[K] extends Array<infer U>
+          ? Array<DeepPartial<U>> // Recursively process array elements
+          : T[K] extends object
+            ? DeepPartial<T[K]> // Recursively process nested objects
+            : T[K]; // Keep primitives as they are
+};
+
 export interface ManualConfigObject<T extends string, C> {
     type: T;
     config?: DeepPartial<C>;

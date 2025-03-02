@@ -4,25 +4,33 @@ import { mergeWith } from "lodash";
 import { arrayCustomizer, notNil } from "./helper";
 import typia from "typia";
 
-export const mergeConfig = (...conf: Array<DeepPartial<BaseGridOptions> | undefined>): Omit<BaseGridOptions<BaseRowOptions>, "global" | "gridMergeStrategy"> => {
+export const mergeConfig = (
+    ...conf: Array<DeepPartial<BaseGridOptions> | undefined>
+): Omit<BaseGridOptions<BaseRowOptions>, "global" | "gridMergeStrategy"> => {
     const configs = conf?.filter(notNil);
     const localMerge = configs.filter(notNil).reduce((prev, curr) => {
         return { ...prev, ...curr };
     });
     localMerge.global = configs
-    .map((c) => c.global)
-    .filter(notNil)
-    .reduce((prev, curr) => {
-        return { ...prev, ...curr };
-    });
-    
+        .map((c) => c.global)
+        .filter(notNil)
+        .reduce((prev, curr) => {
+            return { ...prev, ...curr };
+        });
+
     //grids are tested later as global will be need to be merged in first
     if (!typia.is<Omit<BaseGridOptions, "grids">>(localMerge)) {
         const state = typia.validate<BaseGridOptions>(localMerge);
         throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
-    } 
+    }
 
-    const grids = localMerge.gridMergeStrategy == GridMergeStrategy.reset ? configs.map(c => c.grids).filter(notNil).slice(-1)[0] : configs.flatMap((c) => c.grids).filter(notNil);
+    const grids =
+        localMerge.gridMergeStrategy == GridMergeStrategy.reset
+            ? configs
+                  .map((c) => c.grids)
+                  .filter(notNil)
+                  .slice(-1)[0]
+            : configs.flatMap((c) => c.grids).filter(notNil);
     const resolvedGrids = grids.reduce(
         (prev, curr) => {
             if (typia.is<BaseRowRefOptions>(curr)) {
@@ -40,7 +48,7 @@ export const mergeConfig = (...conf: Array<DeepPartial<BaseGridOptions> | undefi
                 if (!typia.is<BaseRowOptions>(grid)) {
                     const state = typia.validate<BaseRowOptions>(grid);
                     throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
-                } 
+                }
                 prev[grid.id] = grid;
             }
             return prev;
@@ -53,19 +61,19 @@ export const mergeConfig = (...conf: Array<DeepPartial<BaseGridOptions> | undefi
     if (!typia.is<BaseGridOptions<BaseRowOptions>>(localMerge)) {
         const state = typia.validate<BaseGridOptions<BaseRowOptions>>(localMerge);
         throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
-    } 
+    }
 
     return localMerge;
-}
+};
 
 export const createGrid = (
     gridConfig: BaseRowOptions,
     elements: Array<Record<string, any>>,
-    replaceConf: { placeholder: string; key: string, replaces?: Array<[string, string]> } = { placeholder: "$entity", key: "entity_id" },
+    replaceConf: { placeholder: string; key: string; replaces?: Array<[string, string]> } = { placeholder: "$entity", key: "entity_id" },
 ): Array<LovelaceCardConfig> => {
     const returnCards: Array<LovelaceCardConfig> = [];
     const gridCards: Array<LovelaceCardConfig> = [];
-Object.entries
+    Object.entries;
     elements.forEach((element, index) => {
         const card = (gridConfig.replace || {})[element[replaceConf.key]]?.card || gridConfig.card;
         const resolvedCard = Object.entries(card)
@@ -77,10 +85,10 @@ Object.entries
                 const stringVal = JSON.stringify(val);
                 let newStringVal = stringVal.replace(replaceConf.placeholder, element[replaceConf.key]);
                 newStringVal = newStringVal.replace("$index", index.toString());
-                if(replaceConf.replaces) {
+                if (replaceConf.replaces) {
                     replaceConf.replaces.forEach(([key, val]) => {
                         newStringVal = newStringVal.replace(key, val);
-                    })
+                    });
                 }
                 return [key, JSON.parse(newStringVal)];
             });

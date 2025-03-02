@@ -63,7 +63,7 @@ export const mergeStrategyConfig = (...configs: Array<DeepPartial<LogViewOptions
     if (!typia.is<LogViewOptions>(localMerge)) {
         const state = typia.validate<LogViewOptions>(localMerge);
         throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
-    } 
+    }
 
     return localMerge;
 };

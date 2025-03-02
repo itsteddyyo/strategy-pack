@@ -124,21 +124,25 @@ export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig 
     strategy: AreaViewConfig;
 }
 
-export const mergeStrategyConfig = (...configs: Array<DeepPartial<AreaStrategyOptions> | undefined>): Omit<AreaStrategyOptions, keyof BaseGridOptions> => {
+export const mergeStrategyConfig = (
+    ...configs: Array<DeepPartial<AreaStrategyOptions> | undefined>
+): Omit<AreaStrategyOptions, keyof BaseGridOptions> => {
     const localMerge = configs.filter(notNil).reduce((prev, curr) => {
         return { ...prev, ...curr };
     });
 
-    localMerge.navigation = configs.map(c => c?.navigation).filter(notNil).reduce((prev, curr) => {
-        return { ...prev, ...curr };
-    });
-
+    localMerge.navigation = configs
+        .map((c) => c?.navigation)
+        .filter(notNil)
+        .reduce((prev, curr) => {
+            return { ...prev, ...curr };
+        });
 
     if (!typia.is<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge)) {
         const state = typia.validate<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge);
         throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
-    } 
-    
+    }
+
     return localMerge;
 };
 
@@ -163,7 +167,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
                     entities,
                     areas,
                 },
-                config: {...dashboardConfig.config, area: area.area_id},
+                config: { ...dashboardConfig.config, area: area.area_id },
             },
             title: area.name,
             path: area.area_id,
@@ -184,7 +188,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
     static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
         const { meta } = viewConfig;
         const area = viewConfig.config?.area;
-        const config = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, viewConfig.config)
+        const config = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
         const { main, navigation, topCards } = config;
         const { grids } = mergeConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
 
