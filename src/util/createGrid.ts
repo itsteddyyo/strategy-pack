@@ -73,7 +73,6 @@ export const createGrid = (
 ): Array<LovelaceCardConfig> => {
     const returnCards: Array<LovelaceCardConfig> = [];
     const gridCards: Array<LovelaceCardConfig> = [];
-    Object.entries;
     elements.forEach((element, index) => {
         const card = (gridConfig.replace || {})[element[replaceConf.key]]?.card || gridConfig.card;
         const resolvedCard = Object.entries(card)
