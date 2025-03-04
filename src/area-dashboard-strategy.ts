@@ -3,12 +3,12 @@ import { HomeAssistant, LovelaceCardConfig, LovelaceConfig, LovelaceViewConfig }
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
-import { createRowFilter } from "./util/filter";
+import { createRowFilter, createRowSort } from "./util/filter";
 import { arrayCustomizer, notNil } from "./util/helper";
 import {
     CUSTOM_ELEMENT_DASHBOARD,
     CUSTOM_ELEMENT_VIEW,
-    FilterType,
+    ValueType,
     BaseGridOptions,
     ManualConfigObject,
     BaseRowOptions,
@@ -158,7 +158,9 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
         const strategyConfig = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, dashboardConfig?.config);
 
-        const usedAreas = areas.filter(createRowFilter(strategyConfig.navigation, hass));
+        const filter = createRowFilter(strategyConfig.navigation, hass);
+        const sort = createRowSort(strategyConfig.navigation, hass);
+        const usedAreas = areas.filter(filter).sort(sort);
 
         const areaViews: Array<HomeAssistantConfigAreaStrategyView> = usedAreas.map((area, index) => ({
             strategy: {
@@ -207,7 +209,9 @@ class AreaViewStrategy extends HTMLTemplateElement {
             areas = loadedMeta[1];
         }
 
-        const usedAreas = areas.filter(createRowFilter(config.navigation, hass));
+        const filter = createRowFilter(navigation, hass);
+        const sort = createRowSort(navigation, hass);
+        const usedAreas = areas.filter(filter).sort(sort);
         const currentArea = usedAreas.find((a) => a.area_id == area);
 
         if (!currentArea) throw Error("No area defined");
@@ -234,7 +238,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         filter: {
                             include: [
                                 {
-                                    type: FilterType.area,
+                                    type: ValueType.area,
                                     value: currentArea.area_id,
                                 },
                             ],
@@ -244,7 +248,8 @@ class AreaViewStrategy extends HTMLTemplateElement {
                     const merge = mergeWith({}, baseFilter, cloneDeep(grid), arrayCustomizer);
 
                     const filter = createRowFilter(merge, hass);
-                    const filteredEntities = entities.filter(filter);
+                    const sort = createRowSort(merge, hass);
+                    const filteredEntities = entities.filter(filter).sort(sort);
                     return createGrid(grid, filteredEntities);
                 });
                 if (tabElements.length > 0) {

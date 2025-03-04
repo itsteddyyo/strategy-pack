@@ -9,8 +9,8 @@ default: true
 {% endcapture %}
 
 {% assign filter_config = site.data.types['src/util/types.ts'].FilterConfig %}
-{% assign filter_type = site.data.types['src/util/types.ts'].FilterType %}
-{% assign comparator = site.data.types['src/util/types.ts'].Comparator %}
+{% assign filter_type = site.data.types['src/util/types.ts'].ValueType %}
+{% assign comparator = site.data.types['src/util/types.ts'].FilterComparator %}
 {% assign disable_default = disable_default | fromYAML %}
 {% assign disable_most = disable_most | fromYAML %}
 

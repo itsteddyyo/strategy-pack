@@ -27,6 +27,16 @@ global:
             - type: hidden_by
               comparator: match
               value: .*
+            - type: label
+              config:
+                  label: hidden
+              value: hidden
+    sort:
+        - type: label
+          config:
+              label: sort_.*
+        - type: integration
+        - type: entity
 grids:
     - id: control_alarm
       title: Alarm
@@ -195,13 +205,13 @@ grids:
                 value: binary_sensor
           exclude:
               - type: attribute
-                value:
+                config:
                     key: device_class
-                    value: motion
+                value: motion
               - type: attribute
-                value:
+                config:
                     key: device_class
-                    value: occupancy
+                value: occupancy
       card:
           type: tile
           entity: $entity
@@ -214,9 +224,9 @@ grids:
                 value: sensor
           exclude:
               - type: attribute
-                value:
+                config:
                     key: device_class
-                    value: battery
+                value: battery
               - type: state
                 comparator: is_numeric
       card:
@@ -234,9 +244,9 @@ grids:
                 comparator: is_numeric
           exclude:
               - type: attribute
-                value:
+                config:
                     key: device_class
-                    value: battery
+                value: battery
       card:
           type: custom:mini-graph-card
           entities:
@@ -320,7 +330,13 @@ navigation:
     filter:
         exclude:
             - type: label
+              config:
+                  label: hidden
               value: hidden
+    sort:
+        - type: label
+          config:
+              label: sort_.*
 main:
     - title: Control
       icon: mdi:button-pointer

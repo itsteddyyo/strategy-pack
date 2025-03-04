@@ -3,7 +3,7 @@ import { LovelaceCardConfig } from "custom-card-helpers";
 export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-";
 export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-";
 
-export enum FilterType {
+export enum ValueType {
     /**
      * @description
      * Filter on the entity_id of the entity.
@@ -145,7 +145,7 @@ export enum FilterType {
     entity_category = "entity_category",
 }
 
-export enum Comparator {
+export enum FilterComparator {
     /**
      * @description
      * Check if the selected type value of the entity and the passed value are equal.
@@ -239,6 +239,11 @@ export enum Comparator {
     is_numeric = "is_numeric",
 }
 
+export enum SortComparator {
+    ascending = "ascending",
+    descending = "descending",
+}
+
 export enum GridMergeStrategy {
     /**
      * @description
@@ -252,6 +257,11 @@ export enum GridMergeStrategy {
     reset = "reset",
 }
 
+export interface TypeConfig {
+    key?: string;
+    label?: string;
+}
+
 export interface FilterConfig {
     /**
      * @description
@@ -259,14 +269,15 @@ export interface FilterConfig {
      * @example
      * type: state
      */
-    type: FilterType;
+    type: ValueType;
+    config?: TypeConfig;
     /**
      * @description
      * The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)
      * @example
      * comparator: equal
      */
-    comparator?: Comparator;
+    comparator?: FilterComparator;
     /**
      * @description
      * The user specified value
@@ -274,6 +285,12 @@ export interface FilterConfig {
      * value: on
      */
     value?: unknown;
+}
+
+export interface SortConfig {
+    type: ValueType;
+    config?: TypeConfig;
+    comparator?: SortComparator;
 }
 
 export interface RowFilterConfig {
@@ -303,7 +320,10 @@ export interface RowFilterConfig {
         exclude?: Array<FilterConfig>;
         include?: Array<FilterConfig>;
     };
-    sort?: Array<unknown>;
+}
+
+export interface RowSortConfig {
+    sort?: Array<SortConfig>;
 }
 
 export interface GridStrategyCardConfig {
@@ -323,7 +343,7 @@ export interface GridStrategyCardConfig {
     card: LovelaceCardConfig;
 }
 
-export interface BaseRowOptions extends RowFilterConfig, GridStrategyCardConfig {
+export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStrategyCardConfig {
     /**
      * @description
      * Id used for referencing grid
@@ -418,6 +438,8 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     grids: Array<T>;
     gridMergeStrategy: GridMergeStrategy;
 }
+
+export type MakeRequired<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: T[P] };
 
 export type DeepPartial<T> = {
     [K in keyof T]?: T[K] extends Function
