@@ -34,7 +34,7 @@ global:
     sort:
         - type: label
           config:
-              label: sort_.*
+              label: ^sort_\\d+$
         - type: integration
         - type: entity
 grids:
@@ -336,14 +336,14 @@ navigation:
     sort:
         - type: label
           config:
-              label: sort_.*
+              label: ^sort_\\d+$
 main:
     - title: Control
       icon: mdi:button-pointer
-      match: control.*
+      match: ^control_.*$
     - title: Stats
       icon: mdi:chart-line
-      match: stats.*
+      match: ^stats_.*$
     - title: Camera
       icon: mdi:camera
-      match: camera.*
+      match: ^camera_.*$
