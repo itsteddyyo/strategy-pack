@@ -75,6 +75,8 @@ export enum ValueType {
      * @example
      * ```yaml
      * - type: label
+     *   config:
+     *     label: ^sort_\\d+$
      *   comparator: equal
      *   value: sort_1
      * ```
@@ -100,9 +102,9 @@ export enum ValueType {
      * ```yaml
      * - type: attribute
      *   comparator: equal
-     *   value:
+     *   config:
      *     key: volume
-     *     value: 100
+     *   value: 100
      * ```
      */
     attribute = "attribute",
@@ -166,7 +168,7 @@ export enum FilterComparator {
      * ```yaml
      * - type: entity
      *   comparator: match
-     *   value: .*_occupancy
+     *   value: ^.*_occupancy$
      * ```
      */
     match = "match",
@@ -240,14 +242,36 @@ export enum FilterComparator {
 }
 
 export enum SortComparator {
+    /**
+     * @description
+     * Sort the grid ascending.
+     * @example
+     * ```yaml
+     * - type: integration
+     *   comparator: ascending
+     * ```
+     */
     ascending = "ascending",
+    /**
+     * @description
+     * Sort the grid descending.
+     * @example
+     * ```yaml
+     * - type: label
+     *   config:
+     *     label: ^sort_\\d+$
+     *   comparator: descending
+     * ```
+     */
     descending = "descending",
 }
 
 export enum GridMergeStrategy {
     /**
      * @description
-     * Add new grids to existing configuration. Edit existing configuration options by specifying gridId instead of id.
+     * Add new grids to existing configuration.
+     * @remarks
+     * Edit existing configuration options by specifying gridId instead of id.
      */
     replace = "replace",
     /**
@@ -262,18 +286,31 @@ export interface TypeConfig {
     label?: string;
 }
 
-export interface FilterConfig {
+export interface ValueConfig {
     /**
      * @description
-     * The type of filter to determine the value or just specify the filter
+     * The type of filter to determine the value from the enitity/area.
      * @example
      * type: state
      */
     type: ValueType;
-    config?: TypeConfig;
     /**
      * @description
-     * The comparator to use to compare the left value (the value in the entity described by the type) and the right value (the user specified value)
+     * Extra configuration options for the filter type.
+     * @remark
+     * Only required and applied for label/attribute!
+     * @example
+     * type: state
+     */
+    config?: TypeConfig;
+}
+
+export interface FilterConfig extends ValueConfig {
+    /**
+     * @description
+     * Compare method for value 1 (extracted from entity/area) and value 2 (specified by user)
+     * @defaultValue
+     * equal
      * @example
      * comparator: equal
      */
@@ -281,24 +318,32 @@ export interface FilterConfig {
     /**
      * @description
      * The user specified value
+     * @remark
+     * Not needed for is_numeric and is_null
      * @example
      * value: on
      */
     value?: unknown;
 }
 
-export interface SortConfig {
-    type: ValueType;
-    config?: TypeConfig;
+export interface SortConfig extends ValueConfig {
+    /**
+     * @description
+     * Compare method used for sorting all entities/areas by their respective extracted values
+     * @defaultValue
+     * ascending
+     * @example
+     * comparator: ascending
+     */
     comparator?: SortComparator;
 }
 
 export interface RowFilterConfig {
     /**
      * @description
-     * Define include and exclude function for more fine-grained control of entities selected for row than only domain.
+     * Controls which entities/areas get displayed in the grid.
      * @remarks
-     * A entity needs to match all include filters to be included but it needs only to match one of the exclude filters to be excluded!
+     * Must match all include filters to be included. Needs to match only one exclude filter to be excluded.
      * @example
      * ```yaml
      * filter:
@@ -323,15 +368,34 @@ export interface RowFilterConfig {
 }
 
 export interface RowSortConfig {
+    /**
+     * @description
+     * Controls the order of the entities in the grid
+     * @example
+     * ```yaml
+     * sort:
+     *   - type: integration
+     *   - type: label
+     *     config:
+     *       label: ^sort_\\d+$
+     *     comparator: descending
+     *   - type: attribute
+     *     config:
+     *       key: device_class
+     *     comparator: ascending
+     * ```
+     */
     sort?: Array<SortConfig>;
 }
 
 export interface GridStrategyCardConfig {
     /**
      * @description
-     * The cardConfig of the card that should be rendered for every entity in the grid. You can use all cards you would normally use in your dashboard!
+     * The config for the card that should be rendered for every entity in the grid.
      * @remarks
-     * You can insert the entityId of the entity with the $entity variable which will be replaced in the whole object by the entities entity_id.
+     * You can use all cards you would normally use in your dashboard!
+     * @remarks
+     * Insert the entity/area with the $entity/$area variable. It will replaced in the whole card config by the respective id.
      * @example
      * ```yaml
      * card:
@@ -346,7 +410,9 @@ export interface GridStrategyCardConfig {
 export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStrategyCardConfig {
     /**
      * @description
-     * Id used for referencing grid
+     * id used for referencing grid
+     * @remark
+     * Use this id in gridId for overwriting grid!
      * @example
      * ```yaml
      * id: test
@@ -355,7 +421,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     id: string;
     /**
      * @description
-     * Title shown over the Grid
+     * title shown over the grid
      * @example
      * ```yaml
      * title: Test
@@ -364,7 +430,8 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     title?: string;
     /**
      * @description
-     * Position of the grid if there`s multiple. 0 if not specified.
+     * position of the grid in the list of grids. 0 if not specified.
+     * @remark lower numbers come first
      * @example
      * ```yaml
      * position: 1
@@ -373,10 +440,10 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     position?: number;
     /**
      * @description
-     * Minimal Card Width in the Grid.
+     * minimal card width in the grid
      * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L1" target="_blank">set for area-dashboard-strategy</a><br />
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for all other strategies</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L21" target="_blank">set for area-dashboard-strategy</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L2" target="_blank">set for grid-view-strategy</a><br />
      * @example
      * ```yaml
      * minCardWidth: 300
@@ -385,7 +452,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     minCardWidth: number;
     /**
      * @description
-     * You can set a card to be used for a specific entity. Overwrites default card config
+     * You can set a card to be used for a specific entity/area. Overwrites grid card config
      * @example
      * ```yaml
      * replace:
@@ -401,7 +468,9 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
 export interface BaseRowRefOptions extends DeepPartial<BaseRowOptions> {
     /**
      * @description
-     * Reference to existing grid
+     * reference to existing grid
+     * @remark
+     * Use this id in gridId for overwriting grid!
      * @example
      * ```yaml
      * gridId: test
@@ -413,29 +482,75 @@ export interface BaseRowRefOptions extends DeepPartial<BaseRowOptions> {
 export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     /**
      * @description
-     * TODO
+     * global grid config that gets merged with every entry in grids
+     * @remark
+     * Only partial config required
+     * @remark
+     * config here and individual grid config needs to satisfy every required field
      * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L1" target="_blank">set for area-dashboard-strategy</a><br />
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for all other strategies</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L20" target="_blank">set for area-dashboard-strategy</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for grid-view-strategy</a><br />
      * @example
      * ```yaml
-     * minColumnWidth: 300
+     * global:
+     *   minCardWith: 400
+     *   filter:
+     *     exclude:
+     *       - type: integration
+     *         value: mqtt
      * ```
      */
     global?: DeepPartial<BaseRowOptions>;
     /**
      * @description
-     * TODO
+     * list of grids to be shown on the dashboard
+     * @remark
+     * config here and global grid config needs to satisfy every required field
+     * @remark
+     * You can specify "incomplete" configs to overwrite existing grid configs by specifying gridId instead of id
+     * Those two grid configs will then be merged.
      * @example
      * ```yaml
-     * replaceCards:
-     *   button.test:
-     *     type: entity
-     *     entities:
-     *       - $entity
+     * grids:
+     *   - id: test
+     *     title: Test
+     *     filter:
+     *         include:
+     *             - type: domain
+     *               value: alarm_control_panel
+     *     sort:
+     *       - type: integration
+     *         comparator: descending
+     *     card:
+     *         type: tile
+     *         entity: $entity
+     *   - id: test_2
+     *     title: Test2
+     *     minCardWith: 500
+     *     filter:
+     *         include:
+     *             - type: domain
+     *               value: media_player
+     *     card:
+     *         type: custom:mushroom-media-player-card
+     *         entity: $entity
+     *   - gridId: test
+     *     id: newId
+     *     minCardWith: 400
      * ```
      */
     grids: Array<T>;
+    /**
+     * @description
+     * how to merge base config and user config
+     * @defaultValue
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294" target="_blank">set for area-dashboard-strategy</a><br />
+     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L11" target="_blank">set for grid-view-strategy</a><br />
+     * @example
+     * ```yaml
+     * gridMergeStrategy: replace
+     * ```
+     */
     gridMergeStrategy: GridMergeStrategy;
 }
 

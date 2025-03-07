@@ -44,7 +44,7 @@ export interface TabConfig {
      * Which grids should be shown in the tab. Match the id of the grid.
      * @example
      * ```yaml
-     * match: control.*
+     * match: ^control_.*$
      * ```
      */
     match: string;

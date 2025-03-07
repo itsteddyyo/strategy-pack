@@ -40,7 +40,7 @@ export interface LogViewOptions {
      *       include:
      *         - type: entity
      *           comparator: match
-     *           value: binary_sensor\..*_occupancy
+     *           value: ^binary_sensor\..*_occupancy$
      *   - icon: mdi:light-bulb
      *     title: Lights (but not Living Room)
      *     filter:
