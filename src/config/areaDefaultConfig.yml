@@ -35,7 +35,7 @@ global:
     sort:
         - type: label
           config:
-              label: ^sort_\\d+$
+              label: ^sort_\d+$
         - type: integration
         - type: entity
 grids:
@@ -336,7 +336,7 @@ navigation:
     sort:
         - type: label
           config:
-              label: ^sort_\\d+$
+              label: ^sort_\d+$
 main:
     - title: Control
       icon: mdi:button-pointer

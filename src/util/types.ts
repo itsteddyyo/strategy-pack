@@ -76,7 +76,7 @@ export enum ValueType {
      * ```yaml
      * - type: label
      *   config:
-     *     label: ^sort_\\d+$
+     *     label: ^sort_\d+$
      *   comparator: equal
      *   value: sort_1
      * ```
@@ -259,7 +259,7 @@ export enum SortComparator {
      * ```yaml
      * - type: label
      *   config:
-     *     label: ^sort_\\d+$
+     *     label: ^sort_\d+$
      *   comparator: descending
      * ```
      */
@@ -377,7 +377,7 @@ export interface RowSortConfig {
      *   - type: integration
      *   - type: label
      *     config:
-     *       label: ^sort_\\d+$
+     *       label: ^sort_\d+$
      *     comparator: descending
      *   - type: attribute
      *     config:
