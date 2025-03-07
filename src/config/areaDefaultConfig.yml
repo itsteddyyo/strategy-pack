@@ -3,19 +3,20 @@ anchors:
           tap_action:
               action: more-info
           icon_tap_action:
-              action: none
+              action: more-info
           hold_action:
               action: more-info
     - actions-toggle: &actions-toggle-ref
           tap_action:
               action: toggle
           icon_tap_action:
-              action: none
+              action: toggle
           hold_action:
               action: more-info
     - simple-tile: &simple-tile-ref
           hide_state: true
-          color: primary
+          vertical: false
+          features_position: bottom
 
 global:
     minCardWidth: 200
@@ -155,7 +156,6 @@ grids:
           type: tile
           entity: $entity
           <<: [*simple-tile-ref, *actions-toggle-ref]
-          color: amber
     - id: control_select
       title: Select
       filter:
