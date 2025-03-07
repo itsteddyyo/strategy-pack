@@ -8,3 +8,4 @@ global:
             - type: hidden_by
               comparator: match
               value: .*
+gridMergeStrategy: reset
