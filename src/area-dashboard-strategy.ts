@@ -333,7 +333,13 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         },
                         card: {
                             type: "vertical-stack",
-                            cards: tabElements,
+                            cards: [
+                                {
+                                    type: "custom:gap-card",
+                                    height: 20,
+                                },
+                                ...tabElements,
+                            ],
                         },
                     };
                 } else {
