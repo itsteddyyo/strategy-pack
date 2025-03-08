@@ -130,5 +130,7 @@ out
 
 .typedoc
 documentation/_data/types.json
+documentation/Gemfile.lock
+documentation/_site/**/*
 
 dist
