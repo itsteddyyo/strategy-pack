@@ -434,7 +434,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     /**
      * @description
      * position of the grid in the list of grids. 0 if not specified.
-     * @remarks 
+     * @remarks
      * lower numbers come first
      * @example
      * ```yaml
@@ -541,7 +541,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     grids: Array<T>;
     /**
      * @description
-     * how to merge base config and user config 
+     * how to merge base config and user config
      * @link #gridMergeStrategy
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L11
      * @example

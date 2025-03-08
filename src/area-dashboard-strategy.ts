@@ -113,7 +113,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     grids: BaseGridOptions["grids"];
     /**
      * @description
-     * how to merge base config and user config 
+     * how to merge base config and user config
      * @link #gridMergeStrategy
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294
      * @example

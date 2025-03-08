@@ -92,12 +92,13 @@ export const createGrid = (
                 return [key, JSON.parse(newStringVal)];
             });
         gridCards.push({
-            type: "conditional",
-            conditions: [],
-            card: {
-                ...card,
-                ...Object.fromEntries(resolvedCard),
-            },
+            type: "vertical-stack",
+            cards: [
+                {
+                    ...card,
+                    ...Object.fromEntries(resolvedCard),
+                },
+            ],
         });
     });
     if (gridCards.length > 0) {
