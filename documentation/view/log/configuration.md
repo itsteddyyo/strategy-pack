@@ -12,15 +12,7 @@ default: true
 {% assign log_preset = site.data.types['src/log-view-strategy.ts'].LogPreset %}
 {% assign disable_default = disable_default | fromYAML %}
 
-# Configuration
-
-## Configuration Options
-
-{% include configuration_required_optional.md options=log_view_options %}
-
-{% include table.md options=log_view_options %}
-
-{% include example.md options=log_view_options type="log-view-strategy" %}
+{% include full_configuration.md options=log_view_options type="log-view-strategy" disable=disable_default %}
 
 ## Log Preset
 

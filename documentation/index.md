@@ -43,13 +43,27 @@ And if you don’t like what you get in your Dashboard just read the detailed co
         <pre>
 views:
   - strategy:
-      type: custom:battery-view-strategy
+      type: custom:grid-view-strategy
+      config:
+        grids:
+          - card:
+              type: custom:mini-graph-card
+              entities:
+                  - $entity
+            filter:
+              include:
+                - type: domain
+                  value: sensor
+                - type: attribute
+                  config:
+                    key: device_class
+                  value: battery
     path: battery
     icon: mdi:battery-50
     title: Battery
         </pre>
       </td>
-      <td><img src="{{site.baseurl}}/assets/battery/battery-view-strategy.png" alt="Battery View Strategy" style="max-height: 20rem;" /></td>
+      <td><img src="{{site.baseurl}}/assets/grid/grid-view-strategy-battery-example.png" alt="Grid View Strategy" style="max-height: 20rem;" /></td>
     </tr>
   </tbody>
 </table>

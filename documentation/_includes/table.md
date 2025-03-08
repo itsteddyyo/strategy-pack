@@ -46,12 +46,15 @@
     {%- endunless -%}
     {%- unless include.disable.type -%}
       <td>
-      {%- if option.type.type == "reference" -%}
-        Object
-      {%- elsif option.type.type == "array" -%}
-        Array
+      {%- if option.type.type == "reference" or options.type.type == "array" -%}
+        {%- assign linkArr = option.annotations | where: "tag", "@link" | default([]) -%}
+        {%- if linkArr.size > 0 -%}
+          <a href='{{- linkArr | first | map: "content" -}}'>{{- option.type.type | capitalize -}}</a>
+        {%- else -%}
+          {{- option.type.type | capitalize -}}
+        {%- endif -%}
       {%- else -%}
-        {{- option.type.name -}}
+        {{- option.type.type | capitalize -}}
       {%- endif -%}
       </td>
     {%- endunless -%}
@@ -62,7 +65,11 @@
       <td>
       {%- assign defaultArr = option.annotations | where: "tag", "@defaultValue" | default([]) -%}
       {%- if defaultArr.size > 0 -%}
-        {{- option.annotations | find: "tag", "@defaultValue" | map: "content" -}}
+        {%- if (defaultArr | first | map: "content") contains "http" -%}
+          <a href='{{- defaultArr | first | map: "content" -}}' target="_blank">base config</a>
+        {%- else -%}
+          {{- defaultArr | first | map: "content" -}}
+        {%- endif -%}
       {%- else -%}
         -
       {%- endif -%}

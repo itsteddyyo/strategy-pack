@@ -16,3 +16,6 @@ callouts:
     warn:
         title: Warn
         color: yellow
+compress_html:
+  ignore:
+    envs: all

@@ -290,6 +290,7 @@ export interface ValueConfig {
     /**
      * @description
      * The type of filter to determine the value from the enitity/area.
+     * @link #value-type
      * @example
      * type: state
      */
@@ -297,10 +298,11 @@ export interface ValueConfig {
     /**
      * @description
      * Extra configuration options for the filter type.
-     * @remark
+     * @remarks
      * Only required and applied for label/attribute!
      * @example
-     * type: state
+     * config:
+     *   key: device_class
      */
     config?: TypeConfig;
 }
@@ -309,8 +311,8 @@ export interface FilterConfig extends ValueConfig {
     /**
      * @description
      * Compare method for value 1 (extracted from entity/area) and value 2 (specified by user)
-     * @defaultValue
-     * equal
+     * @link #filter-comparator
+     * @defaultValue equal
      * @example
      * comparator: equal
      */
@@ -318,7 +320,7 @@ export interface FilterConfig extends ValueConfig {
     /**
      * @description
      * The user specified value
-     * @remark
+     * @remarks
      * Not needed for is_numeric and is_null
      * @example
      * value: on
@@ -330,8 +332,8 @@ export interface SortConfig extends ValueConfig {
     /**
      * @description
      * Compare method used for sorting all entities/areas by their respective extracted values
-     * @defaultValue
-     * ascending
+     * @link #sort-comparator
+     * @defaultValue ascending
      * @example
      * comparator: ascending
      */
@@ -342,6 +344,7 @@ export interface RowFilterConfig {
     /**
      * @description
      * Controls which entities/areas get displayed in the grid.
+     * @link #filter-config
      * @remarks
      * Must match all include filters to be included. Needs to match only one exclude filter to be excluded.
      * @example
@@ -371,6 +374,7 @@ export interface RowSortConfig {
     /**
      * @description
      * Controls the order of the entities in the grid
+     * @link #sort-config
      * @example
      * ```yaml
      * sort:
@@ -394,7 +398,6 @@ export interface GridStrategyCardConfig {
      * The config for the card that should be rendered for every entity in the grid.
      * @remarks
      * You can use all cards you would normally use in your dashboard!
-     * @remarks
      * Insert the entity/area with the $entity/$area variable. It will replaced in the whole card config by the respective id.
      * @example
      * ```yaml
@@ -411,7 +414,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     /**
      * @description
      * id used for referencing grid
-     * @remark
+     * @remarks
      * Use this id in gridId for overwriting grid!
      * @example
      * ```yaml
@@ -431,7 +434,8 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     /**
      * @description
      * position of the grid in the list of grids. 0 if not specified.
-     * @remark lower numbers come first
+     * @remarks 
+     * lower numbers come first
      * @example
      * ```yaml
      * position: 1
@@ -441,9 +445,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     /**
      * @description
      * minimal card width in the grid
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L21" target="_blank">set for area-dashboard-strategy</a><br />
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L2" target="_blank">set for grid-view-strategy</a><br />
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L2
      * @example
      * ```yaml
      * minCardWidth: 300
@@ -469,7 +471,7 @@ export interface BaseRowRefOptions extends DeepPartial<BaseRowOptions> {
     /**
      * @description
      * reference to existing grid
-     * @remark
+     * @remarks
      * Use this id in gridId for overwriting grid!
      * @example
      * ```yaml
@@ -483,13 +485,11 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     /**
      * @description
      * global grid config that gets merged with every entry in grids
-     * @remark
+     * @link #grid
+     * @remarks
      * Only partial config required
-     * @remark
      * config here and individual grid config needs to satisfy every required field
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L20" target="_blank">set for area-dashboard-strategy</a><br />
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1" target="_blank">set for grid-view-strategy</a><br />
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1
      * @example
      * ```yaml
      * global:
@@ -504,11 +504,10 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     /**
      * @description
      * list of grids to be shown on the dashboard
-     * @remark
+     * @link #grid
+     * @remarks
      * config here and global grid config needs to satisfy every required field
-     * @remark
-     * You can specify "incomplete" configs to overwrite existing grid configs by specifying gridId instead of id
-     * Those two grid configs will then be merged.
+     * You can specify "incomplete" configs to overwrite existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
      * @example
      * ```yaml
      * grids:
@@ -542,10 +541,9 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     grids: Array<T>;
     /**
      * @description
-     * how to merge base config and user config
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294" target="_blank">set for area-dashboard-strategy</a><br />
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L11" target="_blank">set for grid-view-strategy</a><br />
+     * how to merge base config and user config 
+     * @link #gridMergeStrategy
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L11
      * @example
      * ```yaml
      * gridMergeStrategy: replace

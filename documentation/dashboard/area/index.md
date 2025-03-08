@@ -17,27 +17,7 @@ The dashboard was designed to be fully responsive! You can absolutely use this a
 
 <img src="{{site.baseurl}}/assets/area/area-strategy-responsive-new.gif" alt="Area Strategy Responsive" style="max-height: 20rem;" />
 
-The Dashboard contains all entities assigned to the Area selected in the Navigation (either via device or entity itself) that are not hidden or disabled.
-
-Internally it uses a Filtering System many of the Strategies use to seek out the desired entities.
-The filter it uses would look like this:
-
-```yaml
-include:
-  - type: area
-    value: your area_id
-  - type: domain
-    value: your_domain (for example light)
-exclude:
-  - type: disabled_by
-    comparator: match
-    value: ".*"
-  - type: hidden_by
-    comparator: match
-    value: ".*"
-```
-
-You can add to this base-filter by adding a filter to your configuration. More is explained in the Configuration Page.
+The Dashboard contains all entities assigned to the Area selected in the Navigation (either via device or entity itself).
 
 This Dashboard Strategy generates multiple Views. One per Area configured in your Home Assistant instance.
 
@@ -52,35 +32,31 @@ This Dashboard Strategy generates multiple Views. One per Area configured in you
 
 {% include configuration_required_optional.md options=area_strategy_options %}
 
-Modifications are possible to:
+# UI explained
 
-- the left-sided navigation menu (modifications to the area-card)
-- the tabs in the main area (number of tabs, their names, icons, etc.)
-- the content of the tabs (number of grids, titles, cards in the grids, etc.)
+<img src="{{site.baseurl}}/assets/area/area-strategy-ui-explained.png" alt="UI Explained" style="max-height: 20rem;" />
+
+## 1. Navigation
+
+The Area Cards are forming a navigation menu. You can navigate the Views with a Click on the Area Card on the left Side.
 
 {: .note }
-> If you’re looking to add a single row or tab without changing the whole default configuration, you can do it like this!
->
-> ````yaml
-> strategy:
->   type: custom:area-dashboard-strategy
->   config:
->     tabs:
->       - title: Control
->         icon: mdi:button-pointer
->         rows:
->             - title: Lights
->               filter:
->                   include:
->                       - type: domain
->                         value: light
->               card:
->                   type: tile
->                   entity: $entity
->             - ~Cover
->             - ~Media
->       - ~Control
->       - ~Camera
-> ```
->
-> You can reference Tab and Row entries from the [default config](https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml){:target="_blank"} by just writing '~' + title of Row/Tab. With that you can easily change a single Tab/Row while just referencing the others. No need to copy everthing anymore!
+> If you want the area card to show a background image you need to [upload an image to your area](https://www.home-assistant.io/docs/organizing/areas/#creating-an-area){:target="_blank"}.
+
+## 2. Main
+
+The Entities/Cards are grouped in different tabs.
+
+They should be used to add another logical layer to dashboard apart from the grids and make the dashboard less cluttered.
+
+## 3. Grids
+
+A Tab can contains as many grids of entities as you like. The grids are supposed to represent different domains and their entities.
+
+For example one grid for media_players and another grid for switches.
+
+## 4. Top
+
+The area above the navigation is completly configurable with a slot (of sorts) with the key `topCards`.
+
+That means nothing is displayed there in the default configuration as this is individual.

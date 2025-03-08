@@ -1,12 +1,12 @@
-require 'yaml'
+require 'psych'
 
 module Jekyll
   module YamlFormatter
     def toYAML (input)
-      YAML.dump(input)
+      Psych.dump(input, :indentation => 4)
     end
     def fromYAML (input)
-      YAML.safe_load(input)
+      Psych.safe_load(input)
     end  
   end
 end

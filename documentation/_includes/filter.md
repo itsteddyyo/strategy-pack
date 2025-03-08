@@ -1,18 +1,12 @@
-{% capture disable_default %}
-default: true
-{% endcapture %}
-
 {% capture disable_most %}
 type: true
 required: true
 default: true
 {% endcapture %}
+{% assign disable_most = disable_most | fromYAML %}
 
 {% assign filter_config = site.data.types['src/util/types.ts'].FilterConfig %}
-{% assign filter_type = site.data.types['src/util/types.ts'].ValueType %}
-{% assign comparator = site.data.types['src/util/types.ts'].FilterComparator %}
-{% assign disable_default = disable_default | fromYAML %}
-{% assign disable_most = disable_most | fromYAML %}
+{% assign filter_comparator = site.data.types['src/util/types.ts'].FilterComparator %}
 
 ## Filter
 
@@ -34,18 +28,10 @@ Both accept the same types and syntax.
 
 The filter object looks like this.
 
-{% include table.md options=filter_config disable=disable_default %}
+{% include table.md options=filter_config %}
 
 {% include example.md options=filter_config %}
 
-### Filter Type
-
-These are the options for filter type.
-
-{% include table.md options=filter_type disable=disable_most %}
-
 ### Filter Comparator
 
-These are the options for filter comparator.
-
-{% include table.md options=comparator disable=disable_most %}
+{% include table.md options=filter_comparator disable=disable_most %}

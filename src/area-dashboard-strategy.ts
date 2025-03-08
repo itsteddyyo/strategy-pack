@@ -23,7 +23,7 @@ import typia from "typia";
 export interface TabConfig {
     /**
      * @description
-     * Title shown in the Tab
+     * title shown in the tab
      * @example
      * ```yaml
      * title: Test
@@ -32,7 +32,7 @@ export interface TabConfig {
     title: string;
     /**
      * @description
-     * Icon shown in the Tab
+     * icon shown in the tab
      * @example
      * ```yaml
      * icon: mdi:test
@@ -41,7 +41,9 @@ export interface TabConfig {
     icon: string;
     /**
      * @description
-     * Which grids should be shown in the tab. Match the id of the grid.
+     * Which grids should be shown in this tab. Match the id of the grids with regexp.
+     * @remarks
+     * Regexp can be tested <a href="https://regex101.com/">here</a>
      * @example
      * ```yaml
      * match: ^control_.*$
@@ -53,40 +55,108 @@ export interface TabConfig {
 export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
-     * Tabs shown in the main area. <a href="#tabs" target="_blank">More</a>
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L2" target="_blank">set</a>
+     * global grid config that gets merged with every entry in grids
+     * @link #grid
      * @remarks
-     * You can also reference tab entries from the <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml" target="_blank">default config</a> by just writing '~' + title of tab.
-     * With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - ~Stats instead of whole config
+     * Only partial config required
+     * config here and individual grid config needs to satisfy every required field
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L21
      * @example
      * ```yaml
-     * tabs:
+     * global:
+     *   minCardWith: 400
+     *   filter:
+     *     exclude:
+     *       - type: integration
+     *         value: mqtt
+     * ```
+     */
+    global?: BaseGridOptions["global"];
+    /**
+     * @description
+     * list of grids to be shown on the dashboard
+     * @link #grid
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L41
+     * @remarks
+     * config here and global grid config needs to satisfy every required field
+     * You can specify "incomplete" configs to overwrite existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
+     * @example
+     * ```yaml
+     * grids:
+     *   - id: test
+     *     title: Test
+     *     filter:
+     *         include:
+     *             - type: domain
+     *               value: alarm_control_panel
+     *     sort:
+     *       - type: integration
+     *         comparator: descending
+     *     card:
+     *         type: tile
+     *         entity: $entity
+     *   - id: test_2
+     *     title: Test2
+     *     minCardWith: 500
+     *     filter:
+     *         include:
+     *             - type: domain
+     *               value: media_player
+     *     card:
+     *         type: custom:mushroom-media-player-card
+     *         entity: $entity
+     *   - gridId: test
+     *     id: newId
+     *     minCardWith: 400
+     * ```
+     */
+    grids: BaseGridOptions["grids"];
+    /**
+     * @description
+     * how to merge base config and user config 
+     * @link #gridMergeStrategy
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294
+     * @example
+     * ```yaml
+     * gridMergeStrategy: replace
+     * ```
+     */
+    gridMergeStrategy: BaseGridOptions["gridMergeStrategy"];
+    /**
+     * @description
+     * tabs shown in main area
+     * @link #main
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L340
+     * @example
+     * ```yaml
+     * main:
      *   - label: Test
      *     icon: mdi:test
-     *     rows: #Row Config here
-     *   - ~Camera
-     *   - ~Stats
+     *     match: ^test_.*$
      * ```
      */
     main: Array<TabConfig>;
     /**
      * @description
-     * The config for the area card.
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246" target="_blank">set</a>
+     * Navigation with your areas. Is just another grid config!
+     * @link #grid
      * @remarks
-     * Options type, area, navigation_path are not allowed!
+     * Must have an navigation path that navigates to "$area#main" for strategy to work correctly!
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246
      * @example
      * ```yaml
-     * areaCardConfig:
-     *   aspect_ratio: 1:1
+     * navigation:
+     *   id: area
+     *   card:
+     *     type: area
+     *     area: $area
+     *     navigation_path: $area#main
      * ```
      */
     navigation: BaseRowOptions;
     /**
      * @description
-     * Slot for cards above navigation. <a href="#topCards" target="_blank">More</a>
+     * Slot for cards above navigation
      * @example
      * ```yaml
      * topCards:
@@ -100,11 +170,13 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
      * You can pass any extra views you want on the dashboard.
+     * @link https://www.home-assistant.io/dashboards/views/
      * @example
      * ```yaml
      * extraViews:
      *   - strategy:
-     *       type: custom:battery-view-strategy
+     *       type: custom:grid-view-strategy
+     *       config: ...
      *     icon: mdi:test
      *     path: test
      *     title: Test
