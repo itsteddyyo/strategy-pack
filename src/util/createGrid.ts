@@ -104,11 +104,9 @@ export const createGrid = (
     if (gridCards.length > 0) {
         if (gridConfig.title) {
             returnCards.push({
-                type: "custom:mushroom-title-card",
-                title: gridConfig.title,
-                subtitle_tap_action: {
-                    action: "none",
-                },
+                type: "markdown",
+                text_only: true,
+                content: "## " + gridConfig.title,
             });
         }
         returnCards.push({
