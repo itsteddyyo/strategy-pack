@@ -1,7 +1,13 @@
 import fs from "fs";
+import { parse } from "yaml";
 
-const jsonContent = fs.readFileSync(".typedoc/typedoc.json", "utf-8");
-const typedoc = JSON.parse(jsonContent);
+const areaFile = fs.readFileSync("src/config/areaDefaultConfig.yml", "utf-8");
+const gridFile = fs.readFileSync("src/config/gridDefaultConfig.yml", "utf-8");
+const typedocFile = fs.readFileSync(".typedoc/typedoc.json", "utf-8");
+
+const area = parse(areaFile, { merge: true });
+const grid = parse(gridFile, { merge: true });
+const typedoc = JSON.parse(typedocFile);
 
 debugger;
 
@@ -10,6 +16,8 @@ const json = Object.values(typedoc.files.entries).reduce((prev, curr) => {
     return prev;
 }, {});
 
+fs.writeFileSync("documentation/_data/area.json", JSON.stringify(area), { flag: "wx" });
+fs.writeFileSync("documentation/_data/grid.json", JSON.stringify(grid), { flag: "wx" });
 fs.writeFileSync("documentation/_data/types.json", JSON.stringify(json), { flag: "wx" });
 
 function getMergedDocumentationForFile(json, fileName) {
