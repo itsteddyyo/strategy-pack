@@ -13,7 +13,9 @@ anchors:
               action: toggle
           hold_action:
               action: more-info
-    - simple-tile: &simple-tile-ref
+    - tile: &tile-ref
+          type: tile
+          entity: $entity
           hide_state: true
           vertical: false
           features_position: bottom
@@ -46,8 +48,7 @@ grids:
               - type: domain
                 value: alarm_control_panel
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-info-ref]
           features:
               - type: alarm-modes
                 modes:
@@ -57,7 +58,6 @@ grids:
                     - armed_vacation
                     - armed_custom_bypass
                     - disarmed
-          <<: *actions-info-ref
     - id: control_media
       title: Media
       filter:
@@ -65,6 +65,7 @@ grids:
               - type: domain
                 value: media_player
       card:
+          <<: *actions-toggle-ref
           type: custom:mushroom-media-player-card
           entity: $entity
           use_media_artwork: true
@@ -75,7 +76,6 @@ grids:
               - volume_set
           media_controls:
               - play_pause_stop
-          <<: *actions-toggle-ref
     - id: control_light
       title: Light
       filter:
@@ -83,12 +83,10 @@ grids:
               - type: domain
                 value: light
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-toggle-ref]
           features:
               - type: light-brightness
               - type: light-color-temp
-          <<: *actions-toggle-ref
     - id: control_fan
       title: Fan
       filter:
@@ -96,13 +94,11 @@ grids:
               - type: domain
                 value: fan
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-toggle-ref]
           features:
               - type: fan-speed
               - type: fan-preset-modes
                 style: icons
-          <<: *actions-toggle-ref
     - id: control_humidifier
       title: Humidifier
       filter:
@@ -110,12 +106,10 @@ grids:
               - type: domain
                 value: humidifier
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-toggle-ref]
           features:
               - type: target-humidity
               - type: humidifier-toggle
-          <<: *actions-toggle-ref
     - id: control_cover
       title: Cover
       filter:
@@ -123,11 +117,9 @@ grids:
               - type: domain
                 value: cover
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-info-ref]
           features:
               - type: cover-open-close
-          <<: *actions-info-ref
     - id: control_vacuum
       title: Vacuum
       filter:
@@ -135,14 +127,12 @@ grids:
               - type: domain
                 value: vacuum
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-info-ref]
           features:
               - type: vacuum-commands
                 commands:
                     - start_pause
                     - return_home
-          <<: *actions-info-ref
     - id: control_switch
       title: Switch
       filter:
@@ -153,9 +143,7 @@ grids:
                     - switch
                     - input_boolean
       card:
-          type: tile
-          entity: $entity
-          <<: [*simple-tile-ref, *actions-toggle-ref]
+          <<: [*tile-ref, *actions-toggle-ref]
     - id: control_select
       title: Select
       filter:
@@ -166,11 +154,9 @@ grids:
                     - select
                     - input_select
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-info-ref]
           features:
               - type: select-options
-          <<: [*simple-tile-ref, *actions-info-ref]
     - id: control_button
       title: Button
       filter:
@@ -181,9 +167,7 @@ grids:
                     - button
                     - scene
       card:
-          type: tile
-          entity: $entity
-          <<: [*simple-tile-ref, *actions-toggle-ref]
+          <<: [*tile-ref, *actions-toggle-ref]
     - id: control_number
       title: Number
       filter:
@@ -191,12 +175,10 @@ grids:
               - type: domain
                 value: number
       card:
-          type: tile
-          entity: $entity
+          <<: [*tile-ref, *actions-info-ref]
           features:
               - type: numeric-input
                 style: slider
-          <<: [*simple-tile-ref, *actions-info-ref]
     - id: stats_alert
       title: Alert
       filter:
@@ -207,15 +189,12 @@ grids:
               - type: attribute
                 config:
                     key: device_class
-                value: motion
-              - type: attribute
-                config:
-                    key: device_class
-                value: occupancy
+                comparator: in
+                value:
+                    - motion
+                    - occupancy
       card:
-          type: tile
-          entity: $entity
-          <<: [*simple-tile-ref, *actions-info-ref]
+          <<: [*tile-ref, *actions-info-ref]
     - id: stats_sensor
       title: Sensor
       filter:
@@ -230,9 +209,7 @@ grids:
               - type: state
                 comparator: is_numeric
       card:
-          type: tile
-          entity: $entity
-          <<: [*simple-tile-ref, *actions-info-ref]
+          <<: [*tile-ref, *actions-info-ref]
           hide_state: false
     - id: stats_graphs
       title: Graphs
@@ -248,6 +225,7 @@ grids:
                     key: device_class
                 value: battery
       card:
+          <<: *actions-info-ref
           type: custom:mini-graph-card
           entities:
               - $entity
@@ -256,7 +234,6 @@ grids:
           align_state: center
           font_size: 50
           font_size_header: 12
-          <<: *actions-info-ref
           card_mod:
               style: |-
                   .header {
@@ -288,9 +265,9 @@ grids:
               - type: domain
                 value: camera
       card:
+          <<: *actions-info-ref
           type: picture-entity
           entity: $entity
-          <<: *actions-info-ref
 gridMergeStrategy: replace
 navigation:
     id: area
