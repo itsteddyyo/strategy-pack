@@ -17,14 +17,17 @@ default: true
 
 ## Navigation
 
+The cards shown in the navigation section. This is only another [grid](#grid).
+Instead of $entity this on replaces $area!
+There is also an extra variable $currArea which contains the currently active view/area.
+
 ## Main
 
 The tabs shown in the the main section.
+You can control which grids are shown with the "match"-key which contains a regexp.
 
-Define as many Tabs as you want.
-The Tab will only be shown in the View per Area when it has content.
-
-Example: if the Living Room has a Tab where none of the rows would have entities (like Camera, which has only one row and can easily be empty) the whole Tab is hidden.
+{: .note }
+> The Tab will only be shown in the View per Area when it has content (at least 1 grid with at least 1 card).
 
 {% include table.md options=tab_config disable=disable_default %}
 

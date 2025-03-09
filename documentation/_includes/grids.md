@@ -17,21 +17,13 @@ default: true
 
 {% assign value_type = site.data.types['src/util/types.ts'].ValueType %}
 
-## Grids
-
-### Global
-
-This is a Grid Config which can be partial (= non of the keys are required). This will get merged into all grids and is a way to easily define options that are the same on every grid (like maxCardWith or sort). Those values can then be overwritten in the single grids.
-
-It has the same options as grid but every key is optional.
-
-### Grid Merge Strategy
+## Grid Merge Strategy
 
 The Merge Strategy controls how the "grids"-key gets merged if both the base config of a strategy and the user config contain it.
 
-{% include table.md options=grid_merge_strategy disable=disable_default %}
+{% include table.md options=grid_merge_strategy disable=disable_most %}
 
-### Grid
+## Grid
 
 Every Grid consists the Grid with all the cards for the entities itself and an (optional) title.
 The row is defined by:
@@ -40,7 +32,7 @@ The row is defined by:
 
 {% include example.md options=base_row_options %}
 
-### Grid Overwrites
+#### Grid Overwrites
 
 You can reference grids and overwrite every option easily with gridRef overwrites.
 

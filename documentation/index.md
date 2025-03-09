@@ -16,15 +16,17 @@ More on them in the [Home Assistant Documentation](https://developers.home-assis
 
 ### *What does Strategy Pack do?*
 
-It provides a multitude of these Strategies! There's even some that create whole Dashboards with all your entities neatly displayed!
+It provides a multiple of these Strategies for different use-cases!
 
-But there are also some more specific Strategies if have found a need for in my personal Home Assistant Journey.
+Some create single [Views](view) while others create whole [Dashboards](dashboard)! Click the links to find out what that means.
+
+I have added the current Strategies as i have found a strong need for them in my personal Home Assistant Journey.
 
 And I look forward to adding more. So feel free suggest new ones, or even make your own and submit a Pull Request!
 
 ### *Nice-looking Dashboard and all, but what's special about this?*
 
-The clue is that a Strategy auto-generates everything. Meaning you do not need to list all entities and cards you want in some cumbersome way.
+The clue is that a Strategy auto-generates your views/dashboard based on a config. Meaning you do not need to list all entities and cards you want in some cumbersome way.
 
 You can just let the Strategy work its magic with some few lines of YAML configuration or in some Strategies even no configuration at all!
 
@@ -42,25 +44,54 @@ And if you don’t like what you get in your Dashboard just read the detailed co
       <td>
         <pre>
 views:
-  - strategy:
+  - title: Battery
+    icon: mdi:battery-50
+    path: battery
+    strategy:
       type: custom:grid-view-strategy
       config:
+        global:
+          card:
+            type: custom:mini-graph-card
+            entities:
+              - $entity
+          filter:
+            include:
+              - type: domain
+                value: sensor
+              - type: attribute
+                config:
+                  key: device_class
+                value: battery
         grids:
-          - card:
-              type: custom:mini-graph-card
-              entities:
-                  - $entity
+          - id: other
+            title: Others
+            filter:
+              exclude:
+                - type: integration
+                  comparator: in
+                  value:
+                    - mqtt
+                    - switchbot
+                    - xiaomi_ble
+          - id: zigbee
+            title: Zigbee
             filter:
               include:
-                - type: domain
-                  value: sensor
-                - type: attribute
-                  config:
-                    key: device_class
-                  value: battery
-    path: battery
-    icon: mdi:battery-50
-    title: Battery
+                - type: integration
+                  value: mqtt
+          - id: switchbot
+            title: Switchbot
+            filter:
+              include:
+                - type: integration
+                  value: switchbot
+          - id: plant
+            title: Plant Sensor
+            filter:
+              include:
+                - type: integration
+                  value: xiaomi_ble
         </pre>
       </td>
       <td><img src="{{site.baseurl}}/assets/grid/grid-view-strategy-battery-example.png" alt="Grid View Strategy" style="max-height: 20rem;" /></td>

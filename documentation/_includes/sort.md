@@ -8,7 +8,7 @@ default: true
 {% assign sort_config = site.data.types['src/util/types.ts'].SortConfig %}
 {% assign sort_comparator = site.data.types['src/util/types.ts'].SortComparator %}
 
-## Sort
+### Sort
 
 Sort can can be defined for fine-grained control in which order the entities should be in the grid.
 
@@ -23,6 +23,6 @@ The sort object looks like this.
 
 {% include example.md options=sort_config %}
 
-### Sort Comparator
+#### Sort Comparator
 
 {% include table.md options=sort_comparator disable=disable_most %}

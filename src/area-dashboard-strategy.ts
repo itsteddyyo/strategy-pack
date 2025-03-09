@@ -55,11 +55,10 @@ export interface TabConfig {
 export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
-     * global grid config that gets merged with every entry in grids
+     * global grid config that gets merged with every entry in grids to easily define options that are the same on every grid
      * @link #grid
      * @remarks
-     * Only partial config required
-     * config here and individual grid config needs to satisfy every required field
+     * Only partial config required (global + grids need to satisfy all required fields!)
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L21
      * @example
      * ```yaml
@@ -139,7 +138,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
      * Navigation with your areas. Is just another grid config!
-     * @link #grid
+     * @link #navigation
      * @remarks
      * Must have an navigation path that navigates to "$area#main" for strategy to work correctly!
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246

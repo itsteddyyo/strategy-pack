@@ -59,4 +59,4 @@ For example one grid for media_players and another grid for switches.
 
 The area above the navigation is completly configurable with a slot (of sorts) with the key `topCards`.
 
-That means nothing is displayed there in the default configuration as this is individual.
+That means nothing is displayed there in the base configuration as this is very individual.

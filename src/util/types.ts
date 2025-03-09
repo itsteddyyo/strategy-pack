@@ -272,11 +272,15 @@ export enum GridMergeStrategy {
      * Add new grids to existing configuration.
      * @remarks
      * Edit existing configuration options by specifying gridId instead of id.
+     * @example
+     * gridMergeStrategy: add
      */
-    replace = "replace",
+    add = "add",
     /**
      * @description
      * Reset existing configuration when specifying own grids.
+     * @example
+     * gridMergeStrategy: reset
      */
     reset = "reset",
 }
@@ -339,12 +343,20 @@ export interface SortConfig extends ValueConfig {
      */
     comparator?: SortComparator;
 }
+/**
+ * @description
+ * Controls which entities/areas get displayed in the grid.
+ */
+export interface FilterObject {
+    exclude?: Array<FilterConfig>;
+    include?: Array<FilterConfig>;
+}
 
 export interface RowFilterConfig {
     /**
      * @description
      * Controls which entities/areas get displayed in the grid.
-     * @link #filter-config
+     * @link #filter
      * @remarks
      * Must match all include filters to be included. Needs to match only one exclude filter to be excluded.
      * @example
@@ -364,17 +376,14 @@ export interface RowFilterConfig {
      *       value: living_room
      * ```
      */
-    filter?: {
-        exclude?: Array<FilterConfig>;
-        include?: Array<FilterConfig>;
-    };
+    filter?: FilterObject;
 }
 
 export interface RowSortConfig {
     /**
      * @description
      * Controls the order of the entities in the grid
-     * @link #sort-config
+     * @link #sort
      * @example
      * ```yaml
      * sort:
@@ -397,8 +406,7 @@ export interface GridStrategyCardConfig {
      * @description
      * The config for the card that should be rendered for every entity in the grid.
      * @remarks
-     * You can use all cards you would normally use in your dashboard!
-     * Insert the entity/area with the $entity/$area variable. It will replaced in the whole card config by the respective id.
+     * Insert the entity/area with the $entity/$area variable.
      * @example
      * ```yaml
      * card:
@@ -414,8 +422,6 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     /**
      * @description
      * id used for referencing grid
-     * @remarks
-     * Use this id in gridId for overwriting grid!
      * @example
      * ```yaml
      * id: test
@@ -484,11 +490,10 @@ export interface BaseRowRefOptions extends DeepPartial<BaseRowOptions> {
 export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     /**
      * @description
-     * global grid config that gets merged with every entry in grids
+     * global grid config that gets merged with every entry in grids to easily define options that are the same on every grid
      * @link #grid
      * @remarks
-     * Only partial config required
-     * config here and individual grid config needs to satisfy every required field
+     * Only partial config required (global + grids need to satisfy all required fields!)
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1
      * @example
      * ```yaml
@@ -506,8 +511,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
      * list of grids to be shown on the dashboard
      * @link #grid
      * @remarks
-     * config here and global grid config needs to satisfy every required field
-     * You can specify "incomplete" configs to overwrite existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
+     * Only partial config required (global + grids need to satisfy all required fields!)
      * @example
      * ```yaml
      * grids:

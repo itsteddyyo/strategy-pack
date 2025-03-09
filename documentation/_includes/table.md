@@ -36,7 +36,7 @@
       {{- option.annotations | where: "tag", "@description" | first | map: "content" -}}
       {%- assign deprecatedArr = option.annotations | where: "tag", "@deprecated" | default([]) -%}
       {%- if deprecatedArr.size > 0 -%}
-        <blockquote class="warn"><p>Will be deprecated in: v{{- deprecatedArr | first | map: "content" -}}</p></blockquote>
+        <blockquote class="warn"><p>Will be deprecated in: v{{- deprecatedArr[0].content -}}</p></blockquote>
       {%- endif -%}
       {%- assign remarksArr = option.annotations | where: "tag", "@remarks" | default([]) -%}
       {%- for remark in remarksArr %}
@@ -46,15 +46,15 @@
     {%- endunless -%}
     {%- unless include.disable.type -%}
       <td>
-      {%- if option.type.type == "reference" or options.type.type == "array" -%}
+      {%- if option.type.type == "reference" or option.type.type == "array" -%}
         {%- assign linkArr = option.annotations | where: "tag", "@link" | default([]) -%}
         {%- if linkArr.size > 0 -%}
-          <a href='{{- linkArr | first | map: "content" -}}'>{{- option.type.type | capitalize -}}</a>
+          <a href='{{- linkArr[0].content -}}'>{{- option.type.type | capitalize -}}</a>
         {%- else -%}
           {{- option.type.type | capitalize -}}
         {%- endif -%}
       {%- else -%}
-        {{- option.type.type | capitalize -}}
+        {{- option.type.name -}}
       {%- endif -%}
       </td>
     {%- endunless -%}
@@ -65,10 +65,10 @@
       <td>
       {%- assign defaultArr = option.annotations | where: "tag", "@defaultValue" | default([]) -%}
       {%- if defaultArr.size > 0 -%}
-        {%- if (defaultArr | first | map: "content") contains "http" -%}
-          <a href='{{- defaultArr | first | map: "content" -}}' target="_blank">base config</a>
+        {%- if defaultArr[0].content contains 'https://' -%}
+          <a href='{{- defaultArr[0].content -}}' target="_blank">base config</a>
         {%- else -%}
-          {{- defaultArr | first | map: "content" -}}
+          {{- defaultArr[0].content -}}
         {%- endif -%}
       {%- else -%}
         -
