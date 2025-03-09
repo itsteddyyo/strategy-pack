@@ -115,7 +115,6 @@ export const createGrid = (
             layout: {
                 "grid-template-rows": "auto",
                 "grid-template-columns": `repeat(auto-fit, minmax(${gridConfig.minCardWidth}px, 1fr))`,
-                padding: "0px 10px",
             },
             cards: gridCards,
         });
