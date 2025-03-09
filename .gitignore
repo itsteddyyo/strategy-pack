@@ -129,8 +129,8 @@ out
 .pnp.*
 
 .typedoc
-documentation/_data/types.json
 documentation/Gemfile.lock
+documentation/_data/**/*
 documentation/_site/**/*
 
 dist
