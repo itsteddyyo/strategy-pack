@@ -268,7 +268,7 @@ grids:
           <<: *actions-info-ref
           type: picture-entity
           entity: $entity
-gridMergeStrategy: replace
+gridMergeStrategy: add
 navigation:
     id: area
     minCardWidth: 300

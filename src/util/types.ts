@@ -550,7 +550,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L11
      * @example
      * ```yaml
-     * gridMergeStrategy: replace
+     * gridMergeStrategy: add
      * ```
      */
     gridMergeStrategy: GridMergeStrategy;

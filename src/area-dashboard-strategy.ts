@@ -117,7 +117,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294
      * @example
      * ```yaml
-     * gridMergeStrategy: replace
+     * gridMergeStrategy: add
      * ```
      */
     gridMergeStrategy: BaseGridOptions["gridMergeStrategy"];
