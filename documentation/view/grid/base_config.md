@@ -10,7 +10,10 @@ parent: Grid View Strategy
 
 ## Global
 
-{% include global.md %}
+Everything under the "global" key is defined so you do not to define it again on your grids.
+If you want other options just provide your own "global" key in your config.
+
+Global [Filter](#filter) and [Sort](#sort) are described below.
 
 ### Filter
 
