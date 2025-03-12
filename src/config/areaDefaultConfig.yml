@@ -314,6 +314,7 @@ navigation:
         - type: label
           config:
               label: ^sort_\d+$
+        - type: area
 main:
     - title: Control
       icon: mdi:button-pointer

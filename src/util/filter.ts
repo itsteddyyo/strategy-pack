@@ -162,10 +162,10 @@ export const getValue = (
             const domain = element.entity_id.split(".")[0];
             return domain;
         case ValueType.area:
-            if (isArea(element)) throw Error(`valueType '${valueType}' not supported for areas`);
-            const device_area = !!element.device_id
-                ? ((hass as any).devices as Record<string, DeviceRegistryEntry>)[element.device_id]?.area_id
-                : undefined;
+            const device_area =
+                !isArea(element) && !!element.device_id
+                    ? ((hass as any).devices as Record<string, DeviceRegistryEntry>)[element.device_id]?.area_id
+                    : undefined;
             const area = element.area_id || device_area;
             return area || undefined;
         case ValueType.device:
