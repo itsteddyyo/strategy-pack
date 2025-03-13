@@ -303,7 +303,6 @@ navigation:
                     background-color: {{color}};
                 }
                 {% endif %}
-                `
     filter:
         exclude:
             - type: label
