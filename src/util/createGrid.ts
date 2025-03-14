@@ -75,20 +75,21 @@ export const createGrid = (
     const gridCards: Array<LovelaceCardConfig> = [];
     elements.forEach((element, index) => {
         const card = (gridConfig.replace || {})[element[replaceConf.key]]?.card || gridConfig.card;
+        const replaces = Object.fromEntries([
+            ...(replaceConf.replaces || []),
+            ["$index", index.toString()],
+            [replaceConf.placeholder, element[replaceConf.key] as string],
+        ]);
         const resolvedCard = Object.entries(card)
             .filter(([_key, val]) => {
                 const stringVal = JSON.stringify(val);
-                return stringVal.includes(replaceConf.placeholder) || stringVal.includes("$index");
+                return Object.keys(replaces).some((replace) => stringVal.includes(replace));
             })
             .map(([key, val]) => {
                 const stringVal = JSON.stringify(val);
-                let newStringVal = stringVal.replace(replaceConf.placeholder, element[replaceConf.key]);
-                newStringVal = newStringVal.replace("$index", index.toString());
-                if (replaceConf.replaces) {
-                    replaceConf.replaces.forEach(([key, val]) => {
-                        newStringVal = newStringVal.replace(key, val);
-                    });
-                }
+                const newStringVal = Object.entries(replaces).reduce((prev, curr) => {
+                    return prev.replaceAll(curr[0], curr[1]);
+                }, stringVal);
                 return [key, JSON.parse(newStringVal)];
             });
         gridCards.push({
