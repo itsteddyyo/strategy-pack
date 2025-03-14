@@ -8,7 +8,7 @@ default: true
 {% assign filter_config = site.data.types['src/util/types.ts'].FilterConfig %}
 {% assign filter_comparator = site.data.types['src/util/types.ts'].FilterComparator %}
 
-### Filter
+#### Filter
 
 Filters can be defined for fine-grained control which entities should be matched.
 You can use both include and exclude as keys. Both are optional.
@@ -32,6 +32,6 @@ The filter object looks like this.
 
 {% include example.md options=filter_config %}
 
-#### Filter Comparator
+##### Filter Comparator
 
 {% include table.md options=filter_comparator disable=disable_most %}

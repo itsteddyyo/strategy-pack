@@ -3,12 +3,13 @@
 
 {% include configuration_required_optional.md options=include.options %}
 
-## Full
-{: .no_toc }
+- TOC
+{:toc}
+
+## Strategy Options
 
 {% include table.md options=include.options disable=include.disable %}
 
 {% include example.md options=include.options type=include.type %}
 
-1. TOC
-{:toc}
+## References

@@ -31,6 +31,7 @@ export interface LogViewOptions {
     /**
      * @description
      * The presets for which there will be buttons which load the history of the specified (filtered) entities.
+     * @link #log-preset
      * @example
      * ```yaml
      * presets:

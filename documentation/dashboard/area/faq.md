@@ -7,7 +7,7 @@ parent: Area Dashboard Strategy
 # Frequently Asked Questions
 {: .no_toc }
 
-1. TOC
+- TOC
 {:toc}
 
 ## I want to change the card used in one of the predefined grids.

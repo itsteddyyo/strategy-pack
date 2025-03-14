@@ -14,7 +14,7 @@ default: true
 
 {% include full_configuration.md options=log_view_options type="log-view-strategy" disable=disable_default %}
 
-## Log Preset
+### Log Preset
 
 Defines the Button on the side and which entities will be loaded in the Log Card when the Preset Button is clicked.
 

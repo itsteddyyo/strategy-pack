@@ -17,13 +17,13 @@ default: true
 
 {% assign value_type = site.data.types['src/util/types.ts'].ValueType %}
 
-## Grid Merge Strategy
+### Grid Merge Strategy
 
 The Merge Strategy controls how the "grids"-key gets merged if both the base config of a strategy and the user config contain it.
 
 {% include table.md options=grid_merge_strategy disable=disable_most %}
 
-## Grid
+### Grid
 
 Every Grid consists the Grid with all the cards for the entities itself and an (optional) title.
 The row is defined by:
@@ -32,7 +32,7 @@ The row is defined by:
 
 {% include example.md options=base_row_options %}
 
-#### Grid Overwrites
+##### Grid Overwrites
 
 You can reference grids and overwrite every option easily with gridRef overwrites.
 
@@ -44,7 +44,7 @@ You can reference grids and overwrite every option easily with gridRef overwrite
 
 {% include sort.md %}
 
-### Value Type
+#### Value Type
 
 The value type is used to extract a value from the entity/area.
 

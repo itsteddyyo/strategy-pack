@@ -9,5 +9,5 @@ If you want to change things just overwrite the parts you want to change.
 
 In the end your config and the base config get merged so the strategy has all required configuration options.
 
-1. TOC
+- TOC
 {:toc}

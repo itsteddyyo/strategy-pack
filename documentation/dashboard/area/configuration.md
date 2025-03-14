@@ -15,13 +15,13 @@ default: true
 
 {% include full_configuration.md options=area_strategy_options type="area-dashboard-strategy" %}
 
-## Navigation
+### Navigation
 
 The cards shown in the navigation section. This is only another [grid](#grid).
-Instead of $entity this on replaces $area!
+Instead of $entity this one replaces $area!
 There is also an extra variable $currArea which contains the currently active view/area.
 
-## Main
+### Main
 
 The tabs shown in the the main section.
 You can control which grids are shown with the "match"-key which contains a regexp.

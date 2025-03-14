@@ -8,14 +8,14 @@ parent: Grid View Strategy
 
 {% include base_config.md config="gridDefaultConfig" %}
 
-## Global
+### Global
 
 Everything under the "global" key is defined so you do not to define it again on your grids.
 If you want other options just provide your own "global" key in your config.
 
 Global [Filter](#filter) and [Sort](#sort) are described below.
 
-### Filter
+#### Filter
 
 The base config filters out every entity that has has been hidden or disabled.
 Additionally entities that have a "hidden" label will get filtered out.
@@ -24,7 +24,7 @@ Additionally entities that have a "hidden" label will get filtered out.
 {{ config.global.filter | toYAML }}
 ```
 
-### Sort
+#### Sort
 
 The entities get filtered by multiple "sorts". That means they get sorted by the first of the sort, if they are the same the second, if they are the same again the third and so on.
 
