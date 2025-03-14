@@ -168,6 +168,9 @@ export const getValue = (
                     : undefined;
             const area = element.area_id || device_area;
             return area || undefined;
+        case ValueType.floor:
+            if (!isArea(element)) throw Error(`valueType '${valueType}' not supported for entities`);
+            return element.floor_id || undefined;
         case ValueType.device:
             if (isArea(element)) throw Error(`valueType '${valueType}' not supported for areas`);
             const deviceId = element.device_id;

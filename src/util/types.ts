@@ -56,6 +56,19 @@ export enum ValueType {
     area = "area",
     /**
      * @description
+     * Filter on the floor_id of the area.
+     * @remarks
+     * floor_id not Floor Name or Floor Name! Find at "https://YourHA/config/areas/dashboard". Edit Floor = shows floor_id
+     * @example
+     * ```yaml
+     * - type: floor
+     *   comparator: equal
+     *   value: first_floor
+     * ```
+     */
+    floor = "floor",
+    /**
+     * @description
      * Filter on the integration of the entity.
      * @remarks
      * Needs to be the id of the integration not the name! More on how to find it <a href="https://community.home-assistant.io/t/how-to-get-an-integration-name-for-an-entity/447635">here</a>
