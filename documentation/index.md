@@ -8,11 +8,11 @@ nav_order: 1
 
 ### *First, what are Strategies?*
 
-A strategy is JavaScript code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
+A strategy is a piece of JavaScript code that runs when you open a page that is configured to use it to generate dashboards and views. They make it easy to create auto-populated dashboards with minimal configuration!
 
 You no longer need to painstakingly specify and order every entity and card on your Dashboard with thousands of lines of YAML! 
 
-More on them in the [Home Assistant Documentation](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/){:target="_blank"}.
+For more details, refer to the [Home Assistant Documentation](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/){:target="_blank"}.
 
 ### *What does Strategy Pack do?*
 
@@ -20,13 +20,13 @@ It provides a multiple of these Strategies for different use-cases!
 
 Some create single [Views](view) while others create whole [Dashboards](dashboard)! Click the links to find out what that means.
 
-I have added the current Strategies as i have found a strong need for them in my personal Home Assistant Journey.
+I added these strategies because I found a strong need for them during my personal Home Assistant journey.
 
-And I look forward to adding more. So feel free suggest new ones, or even make your own and submit a Pull Request!
+I look forward to adding more. Feel free to suggest new strategies or even create your own and submit a pull request!
 
 ### *Nice-looking Dashboard and all, but what's special about this?*
 
-The clue is that a Strategy auto-generates your views/dashboard based on a config. Meaning you do not need to list all entities and cards you want in some cumbersome way.
+The clue is that a Strategy auto-generates your views/dashboard based on a config. This means you do not need to manually list every entity and card.
 
 You can just let the Strategy work its magic with some few lines of YAML configuration or in some Strategies even no configuration at all!
 

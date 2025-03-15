@@ -32,9 +32,9 @@ The row is defined by:
 
 {% include example.md options=base_row_options %}
 
-##### Grid Overwrites
+##### Grid Overrides
 
-You can reference grids and overwrite every option easily with gridRef overwrites.
+You can reference grids and override every option easily with gridRef overrides.
 
 {% include table.md options=base_row_ref_options disable=disable_default %}
 

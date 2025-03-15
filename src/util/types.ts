@@ -306,7 +306,7 @@ export interface TypeConfig {
 export interface ValueConfig {
     /**
      * @description
-     * The type of filter to determine the value from the enitity/area.
+     * The type of filter to determine the value from the entity/area.
      * @link #value-type
      * @example
      * type: state
@@ -473,7 +473,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     minCardWidth: number;
     /**
      * @description
-     * You can set a card to be used for a specific entity/area. Overwrites grid card config
+     * You can set a card to be used for a specific entity/area. Overrides grid card config
      * @example
      * ```yaml
      * replace:

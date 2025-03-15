@@ -12,10 +12,10 @@ parent: Get Started
 | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | "battery-view-strategy" was removed<br>"update-view-strategy" was removed            | use "grid-view-strategy" with config ([battery](#battery-view-replacement)/[update](#update-view-replacement))                                                                                                |
 | rows was renamed to grids<br>new required fields for grids<br>domain-key was removed | move "rows" from "tabs" to single "grids"-key + follow new config options - see [Area Dashboard Strategy](/dashboard/area/configuration.html#grid)/[Grid View Strategy](/view/grid/configuration.html#grid)   |
-| reference tab/row with ‘~’ was removed                                               | use grid overwrites for grids - see [Area Dashboard Strategy](/dashboard/area/configuration.html#grid-overwrites)/[Grid View Strategy](/view/grid/configuration.html#grid-overwrites)                         |
+| reference tab/row with ‘~’ was removed                                               | use grid overrides for grids - see [Area Dashboard Strategy](/dashboard/area/configuration.html#grid-overrides)/[Grid View Strategy](/view/grid/configuration.html#grid-overrides)                         |
 | tabs was removed                                                                     | use main + grids - see [Main](/dashboard/area/configuration.html#main)/[Grid](/dashboard/area/configuration.md#grid)                                                                                          |
 | areaColors, areaCardConfig, areaBlacklist were removed                               | can be replicated with [Navigation](/dashboard/area/configuration.html#navigation)                                                                                                                            |
-| minColumnWidth and replaceCards were renamed and moved                               | moved to grid config = use global config + overwrite in grid if you need it - see [Area Dashboard Strategy](/dashboard/area/configuration.html#grid)/[Grid View Strategy](/view/grid/configuration.html#grid) |
+| minColumnWidth and replaceCards were renamed and moved                               | moved to grid config = use global config + override in grid if you need it - see [Area Dashboard Strategy](/dashboard/area/configuration.html#grid)/[Grid View Strategy](/view/grid/configuration.html#grid) |
 
 ## New Features
 
@@ -24,8 +24,8 @@ parent: Get Started
 - [Navigation in Area Dashboard Strategy](/dashboard/area/configuration.html#navigation) now supports all grid features
 - less config with new global config - see
   [Area Dashboard Strategy](/dashboard/area/configuration.html#full)/[Grid View Strategy](/view/grid/configuration.html#full)
-- editing grids now possible with grid overwrites and gridMergeStrategy - see
-  [Area Dashboard Strategy](/dashboard/area/configuration.html#grid-overwrites)/[Grid View Strategy](/view/grid/configuration.html#grid-overwrites)
+- editing grids now possible with grid overrides and gridMergeStrategy - see
+  [Area Dashboard Strategy](/dashboard/area/configuration.html#grid-overrides)/[Grid View Strategy](/view/grid/configuration.html#grid-overrides)
 - replace and width now possible on a per-grids-basis - see
   [Area Dashboard Strategy](/dashboard/area/configuration.html#grid)/[Grid View Strategy](/view/grid/configuration.html#grid)
 - filter/sort by floor now possible - see

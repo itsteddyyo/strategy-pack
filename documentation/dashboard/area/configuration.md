@@ -17,17 +17,17 @@ default: true
 
 ### Navigation
 
-The cards shown in the navigation section. This is only another [grid](#grid).
-Instead of $entity this one replaces $area!
-There is also an extra variable $currArea which contains the currently active view/area.
+The cards displayed in the navigation section are generated like any other [grid](#grid).
+Instead of the "$entity"-string, this section replaces the "$area"-string
+Additionally, an extra variable, $currArea, holds the currently active view/area.
 
 ### Main
 
-The tabs shown in the the main section.
-You can control which grids are shown with the "match"-key which contains a regexp.
+The tabs displayed in the main section containing the grids defined in "grids".
+You can control which grids appear using the "match" key, which accepts a regular expression.
 
 {: .note }
-> The Tab will only be shown in the View per Area when it has content (at least 1 grid with at least 1 card).
+> The tab will only appear in the view if it contains content (at least one grid with at least one card).
 
 {% include table.md options=tab_config disable=disable_default %}
 

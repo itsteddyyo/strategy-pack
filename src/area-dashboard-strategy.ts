@@ -78,7 +78,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L41
      * @remarks
      * config here and global grid config needs to satisfy every required field
-     * You can specify "incomplete" configs to overwrite existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
+     * You can specify "incomplete" configs to override existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
      * @example
      * ```yaml
      * grids:

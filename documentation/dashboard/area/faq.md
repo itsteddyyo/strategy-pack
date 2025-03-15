@@ -12,7 +12,7 @@ parent: Area Dashboard Strategy
 
 ## I want to change the card used in one of the predefined grids
 
-Just use [Grid Overwrites](../configuration#grid-overwrites) like this:
+Just use [Grid Overrides](../configuration#grid-overrides) like this:
 
 ```yaml
 strategy:
@@ -29,7 +29,7 @@ strategy:
 
 As gridId you need to specify the id from the base config!
 
-## I want to replace a card used for a single enitity
+## I want to replace a card used for a single entity
 
 You can use global overrides which would be applied to all grids.
 
@@ -45,7 +45,7 @@ strategy:
           group: true
 ```
 
-If that is problematic for you just use [Grid Overwrites](../configuration#grid-overwrites) like this to apply the replace just to a specific grid:
+If that's not wished for all grids, apply the replace to a specific grid using [Grid Overrides](../configuration#grid-overrides):
 
 ```yaml
 strategy:
@@ -63,7 +63,7 @@ strategy:
 
 ## I want to change the filter for a grid
 
-Just use [Grid Overwrites](../configuration#grid-overwrites) like this:
+Just use [Grid Overrides](../configuration#grid-overrides) like this:
 
 ```yaml
 strategy:
@@ -88,9 +88,9 @@ strategy:
               value: fb1d1e1ee3ac594a9b0883d96a995458
 ```
 
-You need to redefine the global filters as they do not get merged if you have a overwrite to allow for full control!
+Redefine the global filters, as they to allow for full control do not merge with overrides.
 
-## I want to configure everything myself and loose your presets
+## I want to configure everything myself and remove your presets
 
 No problem just use gridMergeStrategy: reset.
 
@@ -102,9 +102,9 @@ strategy:
     grids: <your grids>
 ```
 
-## I want to loose one of the predefined grids
+## I want to remove one of the predefined grids
 
-Just give the grid a filter that filters out everything with [Grid Overwrites](../configuration#grid-overwrites):
+Assign the grid a filter that excludes everything using [Grid Overrides](../configuration#grid-overrides):
 
 ```yaml
 strategy:
@@ -122,7 +122,7 @@ strategy:
 
 ## I want to add my own grid above yours
 
-Add your own [Grid](../configuration#grid) with the position-key like this:
+Add your own [Grid](../configuration#grid) with the "position"-key:
 
 ```yaml
 strategy:
@@ -141,11 +141,11 @@ strategy:
               value: climate
 ```
 
-You do not need to redefine the global filters here because you are defining a grid not a grid overwrite!
+You don't need to redefine the global filters here because you are defining a new grid, not an override.
 
-## I want to loose the colors in the navigation cards
+## I want to remove the colors in the navigation cards
 
-Overwrite the card in [Navigation](../configuration#navigation).
+Override the card in [Navigation](../configuration#navigation).
 
 ```yaml
 strategy:
@@ -166,7 +166,7 @@ strategy:
             {% endif %}
 ```
 
-Or like this if you want to loose all style:
+Or like this if you want to remove all style:
 
 ```yaml
 strategy:

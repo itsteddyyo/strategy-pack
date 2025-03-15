@@ -6,30 +6,29 @@ nav_order: 2
 
 # Dashboard Strategies
 
-View Strategies are Strategies that generate a single View.
+Dashboard Strategies are strategies that generate both a dashboard and the views within it.
 
 ### *What is a Dashboard?*
 
-A [Dashboard](https://www.home-assistant.io/dashboards/){:target="_blank"} is a Page in the Navbar you can navigate to where you can customize the Layout, Cards you want, etc.
+A [Dashboard](https://www.home-assistant.io/dashboards/){:target="_blank"} is a page in the navbar that you can navigate to, where you can customize its layout, cards, and other elements.
 
 Take a look at the example image:
 
 <img src="{{site.baseurl}}/assets/dashboard/dashboard.png" alt="Dashboard" style="max-height: 20rem;" />
 
- - the Dashboard is the Thing in the Sidebar with the red mark
- - the Views are the Things inside the Dashboard with the orange mark
+- The dashboard is the element in the sidebar marked in red
+- The views are the pages inside the dashboard marked in orange
 
-A Dashboard Strategy generates the Dashboard and the Views in it.
+A Dashboard Strategy generates both the dashboard and the views contained within it.
 
-### *How do i generate a Dashboard with a Dashboard Strategy?*
+### *How do I generate a Dashboard with a Dashboard Strategy?*
 
-You just write YAML like in the following example.
+Simply write YAML as shown in the following example.
 
 ```yaml
 strategy:
   type: custom:example-dashboard-strategy
-  #The Config for this dashboard dependant on the view; nothing to do with HA Config
+  # The configuration for this dashboard (dependent on the view; not related to HA configuration)
   config: config for this dashboard
-#The Home Assistant View Options like:
-##Currently i think there are none for dashboards
+# Home Assistant view options (currently, there are none for dashboards)
 ```
