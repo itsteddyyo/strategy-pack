@@ -137,9 +137,10 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     main: Array<TabConfig>;
     /**
      * @description
-     * Navigation with your areas. Is just another grid config!
+     * navigation area for selecting view
      * @link #navigation
      * @remarks
+     * Will not get merged with global!
      * Must have an navigation path that navigates to "$area#main" for strategy to work correctly!
      * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246
      * @example
