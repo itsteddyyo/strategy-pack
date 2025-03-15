@@ -279,8 +279,6 @@ navigation:
         aspect_ratio: 35:15
         alert_classes:
             - occupancy
-        sensor_classes:
-            - temperature
         card_mod:
             style: |
                 {% set colors = [
