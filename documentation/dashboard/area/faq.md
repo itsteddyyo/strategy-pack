@@ -10,7 +10,7 @@ parent: Area Dashboard Strategy
 - TOC
 {:toc}
 
-## I want to change the card used in one of the predefined grids.
+## I want to change the card used in one of the predefined grids
 
 Just use [Grid Overwrites](../configuration#grid-overwrites) like this:
 
@@ -29,7 +29,7 @@ strategy:
 
 As gridId you need to specify the id from the base config!
 
-## I want to replace a card used for a single enitity.
+## I want to replace a card used for a single enitity
 
 You can use global overrides which would be applied to all grids.
 
@@ -61,7 +61,7 @@ strategy:
             group: true
 ```
 
-## I want to change the filter for a grid.
+## I want to change the filter for a grid
 
 Just use [Grid Overwrites](../configuration#grid-overwrites) like this:
 
@@ -90,7 +90,7 @@ strategy:
 
 You need to redefine the global filters as they do not get merged if you have a overwrite to allow for full control!
 
-## I want to configure everything myself and loose your presets!
+## I want to configure everything myself and loose your presets
 
 No problem just use gridMergeStrategy: reset.
 
@@ -102,7 +102,25 @@ strategy:
     grids: <your grids>
 ```
 
-## I want to add my own grid above yours!
+## I want to loose one of the predefined grids
+
+Just give the grid a filter that filters out everything with [Grid Overwrites](../configuration#grid-overwrites):
+
+```yaml
+strategy:
+  type: custom:area-dashboard-strategy
+  config:
+    #gridMergeStrategy: add #needs to be set but is default anyway
+    grids:
+      - gridId: control_media
+        filter:
+          exclude:
+            - type: entity
+              comparator: match
+              value: .*
+```
+
+## I want to add my own grid above yours
 
 Add your own [Grid](../configuration#grid) with the position-key like this:
 
@@ -125,7 +143,7 @@ strategy:
 
 You do not need to redefine the global filters here because you are defining a grid not a grid overwrite!
 
-## I want to loose the colors in the navigation cards!
+## I want to loose the colors in the navigation cards
 
 Overwrite the card in [Navigation](../configuration#navigation).
 
