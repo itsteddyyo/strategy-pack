@@ -19,10 +19,10 @@ parent: Get Started
 
 ## New Features
 
-- Sorting in grids now possible - see
+- Sorting in grids is now possible - see
   [Area Dashboard Strategy](/dashboard/area/configuration.html#sort)/[Grid View Strategy](/view/grid/configuration.html#sort)
 - [Navigation in Area Dashboard Strategy](/dashboard/area/configuration.html#navigation) now supports all grid features
-- less config with new global config - see
+- Reduced configuration with new global config - see
   [Area Dashboard Strategy](/dashboard/area/configuration.html#full)/[Grid View Strategy](/view/grid/configuration.html#full)
 - editing grids now possible with grid overrides and gridMergeStrategy - see
   [Area Dashboard Strategy](/dashboard/area/configuration.html#grid-overrides)/[Grid View Strategy](/view/grid/configuration.html#grid-overrides)
@@ -35,7 +35,7 @@ parent: Get Started
 ## Bug Fixes
 
 - card_mod should work again in grids
-- replacement bug with multiple $entities should now work
+- replacement bug with multiple "$entity" uses should now work
 - multiple small improvements
 
 ## Attachments
