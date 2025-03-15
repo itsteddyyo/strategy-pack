@@ -34,7 +34,7 @@ The row is defined by:
 
 ##### Grid Overrides
 
-You can reference grids and override every option easily with gridRef overrides.
+You can reference grids and override every option easily with gridId overrides.
 
 {% include table.md options=base_row_ref_options disable=disable_default %}
 
