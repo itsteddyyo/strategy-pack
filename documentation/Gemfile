@@ -17,6 +17,7 @@ gem "just-the-docs", "~> 0.10.1"
 #group :jekyll_plugins do
 #  gem "jekyll-feed", "~> 0.12"
 #end
+gem "psych", "~> 5.2.3"
 
 # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
 # and associated library.

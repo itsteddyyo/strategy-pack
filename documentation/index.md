@@ -8,23 +8,25 @@ nav_order: 1
 
 ### *First, what are Strategies?*
 
-A strategy is JavaScript code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
+A strategy is a piece of JavaScript code that runs when you open a page that is configured to use it to generate dashboards and views. They make it easy to create auto-populated dashboards with minimal configuration!
 
 You no longer need to painstakingly specify and order every entity and card on your Dashboard with thousands of lines of YAML! 
 
-More on them in the [Home Assistant Documentation](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/){:target="_blank"}.
+For more details, refer to the [Home Assistant Documentation](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/){:target="_blank"}.
 
 ### *What does Strategy Pack do?*
 
-It provides a multitude of these Strategies! There's even some that create whole Dashboards with all your entities neatly displayed!
+It provides a multiple of these Strategies for different use-cases!
 
-But there are also some more specific Strategies if have found a need for in my personal Home Assistant Journey.
+Some create single [Views](view) while others create whole [Dashboards](dashboard)! Click the links to find out what that means.
 
-And I look forward to adding more. So feel free suggest new ones, or even make your own and submit a Pull Request!
+I added these strategies because I found a strong need for them during my personal Home Assistant journey.
+
+I look forward to adding more. Feel free to suggest new strategies or even create your own and submit a pull request!
 
 ### *Nice-looking Dashboard and all, but what's special about this?*
 
-The clue is that a Strategy auto-generates everything. Meaning you do not need to list all entities and cards you want in some cumbersome way.
+The clue is that a Strategy auto-generates your views/dashboard based on a config. This means you do not need to manually list every entity and card.
 
 You can just let the Strategy work its magic with some few lines of YAML configuration or in some Strategies even no configuration at all!
 
@@ -42,14 +44,57 @@ And if you don’t like what you get in your Dashboard just read the detailed co
       <td>
         <pre>
 views:
-  - strategy:
-      type: custom:battery-view-strategy
-    path: battery
+  - title: Battery
     icon: mdi:battery-50
-    title: Battery
+    path: battery
+    strategy:
+      type: custom:grid-view-strategy
+      config:
+        global:
+          card:
+            type: custom:mini-graph-card
+            entities:
+              - $entity
+          filter:
+            include:
+              - type: domain
+                value: sensor
+              - type: attribute
+                config:
+                  key: device_class
+                value: battery
+        grids:
+          - id: other
+            title: Others
+            filter:
+              exclude:
+                - type: integration
+                  comparator: in
+                  value:
+                    - mqtt
+                    - switchbot
+                    - xiaomi_ble
+          - id: zigbee
+            title: Zigbee
+            filter:
+              include:
+                - type: integration
+                  value: mqtt
+          - id: switchbot
+            title: Switchbot
+            filter:
+              include:
+                - type: integration
+                  value: switchbot
+          - id: plant
+            title: Plant Sensor
+            filter:
+              include:
+                - type: integration
+                  value: xiaomi_ble
         </pre>
       </td>
-      <td><img src="{{site.baseurl}}/assets/battery/battery-view-strategy.png" alt="Battery View Strategy" style="max-height: 20rem;" /></td>
+      <td><img src="{{site.baseurl}}/assets/grid/grid-view-strategy-battery-example.png" alt="Grid View Strategy" style="max-height: 20rem;" /></td>
     </tr>
   </tbody>
 </table>

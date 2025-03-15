@@ -3,53 +3,27 @@ import { HomeAssistant, LovelaceCardConfig, LovelaceConfig, LovelaceViewConfig }
 import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { AreaRegistryEntry } from "./homeassistant/area_registry";
 
-import { createRowFilter } from "./util/filter";
-import { arrayCustomizer, labelSort, notNil } from "./util/helper";
+import { createRowFilter, createRowSort } from "./util/filter";
+import { arrayCustomizer, notNil } from "./util/helper";
 import {
     CUSTOM_ELEMENT_DASHBOARD,
     CUSTOM_ELEMENT_VIEW,
-    FilterType,
-    Comparator,
-    GridStrategyCardConfig,
-    RowFilterConfig,
+    ValueType,
     BaseGridOptions,
     ManualConfigObject,
+    BaseRowOptions,
+    DeepPartial,
 } from "./util/types";
 
 import defaultConfig from "./config/areaDefaultConfig.yml";
-import { createGrid } from "./util/createGrid";
-import { cloneDeep, isString, mergeWith } from "lodash";
-
-export interface RowConfig extends GridStrategyCardConfig, RowFilterConfig {
-    /**
-     * @description
-     * Domain or Array of domains the entity must belong to.
-     * @deprecated 2.0.0
-     * @remarks
-     * <a href="#filter" target="_blank">Include filter</a> should be used from now on.
-     * @example
-     * ```yaml
-     * domain:
-     *   - button
-     *   - media_player
-     * ```
-     */
-    domain?: string | Array<string>;
-    /**
-     * @description
-     * Title shown over Grid. Will not be rendered when not set.
-     * @example
-     * ```yaml
-     * title: Buttons
-     * ```
-     */
-    title?: string;
-}
+import { createGrid, mergeConfig } from "./util/createGrid";
+import { cloneDeep, mergeWith } from "lodash";
+import typia from "typia";
 
 export interface TabConfig {
     /**
      * @description
-     * Title shown in the Tab
+     * title shown in the tab
      * @example
      * ```yaml
      * title: Test
@@ -58,7 +32,7 @@ export interface TabConfig {
     title: string;
     /**
      * @description
-     * Icon shown in the Tab
+     * icon shown in the tab
      * @example
      * ```yaml
      * icon: mdi:test
@@ -67,94 +41,121 @@ export interface TabConfig {
     icon: string;
     /**
      * @description
-     * The grid rows definition of the tab. <a href="#contentrows" target="_blank">More</a>
+     * Which grids should be shown in this tab. Match the id of the grids with regexp.
      * @remarks
-     * You can also reference row entries from the <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml" target="_blank">default config</a> by just writing '~' + title of row.
-     * With that you can easily change a single row while just referencing the other without the need to copy the whole config. Example: - ~Buttons instead of whole config
+     * Regexp can be tested <a href="https://regex101.com/">here</a>
      * @example
      * ```yaml
-     * rows:
-     *   - title: test
-     *     card:
-     *       type: tile
-     *     filter:
-     *       include:
-     *          - type: domain
-     *            value: media_player
-     *   - title: test2
-     *     card:
-     *       type: tile
-     *     filter:
-     *       include:
-     *          - type: domain
-     *            value: sensor
+     * match: ^control_.*$
      * ```
      */
-    rows: Array<RowConfig | string>;
+    match: string;
 }
 
 export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
-     * Tabs shown in the main area. <a href="#tabs" target="_blank">More</a>
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L2" target="_blank">set</a>
+     * global grid config that gets merged with every entry in grids to easily define options that are the same on every grid
+     * @link #grid
      * @remarks
-     * You can also reference tab entries from the <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml" target="_blank">default config</a> by just writing '~' + title of tab.
-     * With that you can easily change a single tab while just referencing the other without the need to copy the whole config. Example: - ~Stats instead of whole config
+     * Only partial config required (global + grids need to satisfy all required fields!)
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L21
      * @example
      * ```yaml
-     * tabs:
+     * global:
+     *   minCardWith: 400
+     *   filter:
+     *     exclude:
+     *       - type: integration
+     *         value: mqtt
+     * ```
+     */
+    global?: BaseGridOptions["global"];
+    /**
+     * @description
+     * list of grids to be shown on the dashboard
+     * @link #grid
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L41
+     * @remarks
+     * config here and global grid config needs to satisfy every required field
+     * You can specify "incomplete" configs to override existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
+     * @example
+     * ```yaml
+     * grids:
+     *   - id: test
+     *     title: Test
+     *     filter:
+     *         include:
+     *             - type: domain
+     *               value: alarm_control_panel
+     *     sort:
+     *       - type: integration
+     *         comparator: descending
+     *     card:
+     *         type: tile
+     *         entity: $entity
+     *   - id: test_2
+     *     title: Test2
+     *     minCardWith: 500
+     *     filter:
+     *         include:
+     *             - type: domain
+     *               value: media_player
+     *     card:
+     *         type: custom:mushroom-media-player-card
+     *         entity: $entity
+     *   - gridId: test
+     *     id: newId
+     *     minCardWith: 400
+     * ```
+     */
+    grids: BaseGridOptions["grids"];
+    /**
+     * @description
+     * how to merge base config and user config
+     * @link #gridMergeStrategy
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294
+     * @example
+     * ```yaml
+     * gridMergeStrategy: add
+     * ```
+     */
+    gridMergeStrategy: BaseGridOptions["gridMergeStrategy"];
+    /**
+     * @description
+     * tabs shown in main area
+     * @link #main
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L340
+     * @example
+     * ```yaml
+     * main:
      *   - label: Test
      *     icon: mdi:test
-     *     rows: #Row Config here
-     *   - ~Camera
-     *   - ~Stats
+     *     match: ^test_.*$
      * ```
      */
-    tabs: Array<TabConfig | string>;
+    main: Array<TabConfig>;
     /**
      * @description
-     * Overlay Colors for navigation area. Must be in the form of a rgba css-value. rgb defines the color and the a-channel defines transparency.
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L253" target="_blank">set</a>
+     * Navigation with your areas. Is just another grid config!
+     * @link #navigation
      * @remarks
-     * The colors get repeated when you have more areas than colors. Leave empty for no overlay.
+     * Must have an navigation path that navigates to "$area#main" for strategy to work correctly!
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246
      * @example
      * ```yaml
-     * areaColors:
-     *   - rgba(0,0,0,0.5)
+     * navigation:
+     *   id: area
+     *   card:
+     *     type: area
+     *     area: $area
+     *     navigation_path: $area#main
      * ```
      */
-    areaColors: Array<string>;
+    navigation: BaseRowOptions;
     /**
      * @description
-     * The config for the area card.
-     * @defaultValue
-     * <a href="https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246" target="_blank">set</a>
-     * @remarks
-     * Options type, area, navigation_path are not allowed!
-     * @example
-     * ```yaml
-     * areaCardConfig:
-     *   aspect_ratio: 1:1
-     * ```
-     */
-    areaCardConfig: Exclude<LovelaceCardConfig, "type">;
-    /**
-     * @description
-     * Which areas should be ignored (no views generated/not shown in navigation)
-     * @example
-     * ```yaml
-     * areaBlacklist:
-     *   - living_room
-     *   - bathroom
-     * ```
-     */
-    areaBlacklist?: Array<string>;
-    /**
-     * @description
-     * Slot for cards above navigation. <a href="#topCards" target="_blank">More</a>
+     * Slot for cards above navigation
      * @example
      * ```yaml
      * topCards:
@@ -168,11 +169,13 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     /**
      * @description
      * You can pass any extra views you want on the dashboard.
+     * @link https://www.home-assistant.io/dashboards/views/
      * @example
      * ```yaml
      * extraViews:
      *   - strategy:
-     *       type: custom:battery-view-strategy
+     *       type: custom:grid-view-strategy
+     *       config: ...
      *     icon: mdi:test
      *     path: test
      *     title: Test
@@ -192,6 +195,28 @@ export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig 
     strategy: AreaViewConfig;
 }
 
+export const mergeStrategyConfig = (
+    ...configs: Array<DeepPartial<AreaStrategyOptions> | undefined>
+): Omit<AreaStrategyOptions, keyof BaseGridOptions> => {
+    const localMerge = configs.filter(notNil).reduce((prev, curr) => {
+        return { ...prev, ...curr };
+    });
+
+    localMerge.navigation = configs
+        .map((c) => c?.navigation)
+        .filter(notNil)
+        .reduce((prev, curr) => {
+            return { ...prev, ...curr };
+        });
+
+    if (!typia.is<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge)) {
+        const state = typia.validate<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge);
+        throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+    }
+
+    return localMerge;
+};
+
 class AreaDashboardStrategy extends HTMLTemplateElement {
     static async generate(
         dashboardConfig: ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions>,
@@ -202,11 +227,11 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
             hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
         ]);
 
-        const usedAreas = areas
-            .filter((area) => {
-                return !dashboardConfig.config?.areaBlacklist || dashboardConfig.config.areaBlacklist.indexOf(area.area_id) == -1;
-            })
-            .sort(labelSort);
+        const strategyConfig = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, dashboardConfig?.config);
+
+        const filter = createRowFilter(strategyConfig.navigation, hass);
+        const sort = createRowSort(strategyConfig.navigation, hass);
+        const usedAreas = areas.filter(filter).sort(sort);
 
         const areaViews: Array<HomeAssistantConfigAreaStrategyView> = usedAreas.map((area, index) => ({
             strategy: {
@@ -215,11 +240,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
                     entities,
                     areas,
                 },
-                config: {
-                    ...(defaultConfig as AreaStrategyOptions),
-                    ...(dashboardConfig.config || {}),
-                    area: area.area_id,
-                },
+                config: { ...dashboardConfig.config, area: area.area_id },
             },
             title: area.name,
             path: area.area_id,
@@ -238,9 +259,11 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
 class AreaViewStrategy extends HTMLTemplateElement {
     static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-        const { config: preMergedConfig, meta } = viewConfig;
-        const config = { ...(defaultConfig as AreaStrategyOptions), ...preMergedConfig };
-        const { area, tabs, minColumnWidth, replaceCards, topCards, areaColors, areaCardConfig, areaBlacklist } = config;
+        const { meta } = viewConfig;
+        const area = viewConfig.config?.area;
+        const config = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
+        const { main, navigation, topCards } = config;
+        const { grids } = mergeConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
 
         let entities = Array<EntityRegistryEntry>();
         let areas = Array<AreaRegistryEntry>();
@@ -257,160 +280,49 @@ class AreaViewStrategy extends HTMLTemplateElement {
             areas = loadedMeta[1];
         }
 
-        entities = [...entities].sort(labelSort);
-        areas = [...areas].sort(labelSort);
-
-        const usedAreas = areas.filter((area) => {
-            return !areaBlacklist || areaBlacklist.indexOf(area.area_id) == -1;
-        });
-        const currentArea = areas.find((a) => a.area_id == area);
+        const filter = createRowFilter(navigation, hass);
+        const sort = createRowSort(navigation, hass);
+        const usedAreas = areas.filter(filter).sort(sort);
+        const currentArea = usedAreas.find((a) => a.area_id == area);
 
         if (!currentArea) throw Error("No area defined");
 
-        const gridTemplate: LovelaceCardConfig = {
+        const navCards = createGrid(navigation, usedAreas, { placeholder: "$area", key: "area_id", replaces: [["$currArea", currentArea.area_id]] });
+
+        const navigationCard: LovelaceCardConfig = {
             type: "vertical-stack",
             cards: [
+                ...(topCards || []),
+                ...navCards,
                 {
-                    type: "custom:layout-card",
-                    layout_type: "custom:grid-layout",
-                    layout: {
-                        "grid-template-rows": "auto",
-                        "grid-template-columns": "repeat(auto-fit, minmax(300px, 1fr))",
-                    },
-                    cards: [],
+                    type: "custom:gap-card",
+                    height: 60,
                 },
             ],
         };
 
-        const navigationCard = usedAreas.reduce((prev, curr, index) => {
-            const areaCard = {
-                ...areaCardConfig,
-                type: "area",
-                area: curr.area_id,
-                navigation_path: `${curr.area_id}#main`,
-            };
-
-            const styles = [
-                `
-                hui-image {
-                    opacity: 0.3;
-                }`,
-            ];
-
-            if (areaColors.length > 0) {
-                styles.push(`
-                    div.navigate {
-                        background-color: ${areaColors[index % areaColors.length]};
-                    }`);
-            }
-
-            prev.cards[0].cards.push({
-                type: "conditional",
-                conditions: [
-                    {
-                        condition: "screen",
-                        media_query: "(max-width: 1000px)",
-                    },
-                ],
-                card: {
-                    ...areaCard,
-                    card_mod: {
-                        style: styles.join("\r\n"),
-                    },
-                },
-            });
-
-            prev.cards[0].cards.push({
-                type: "conditional",
-                conditions: [
-                    {
-                        condition: "screen",
-                        media_query: "(min-width: 1001px)",
-                    },
-                ],
-                card:
-                    curr.area_id == currentArea.area_id
-                        ? areaCard
-                        : {
-                              ...areaCard,
-                              card_mod: {
-                                  style: styles.join("\r\n"),
-                              },
-                          },
-            });
-
-            return prev;
-        }, gridTemplate);
-
-        navigationCard.cards = [...(topCards || []), ...navigationCard.cards];
-
-        const createTabElements = (tabRows: Array<RowConfig>) =>
-            tabRows.reduce((prev, curr) => {
-                //convert domain to include filter
-                const baseFilter: Pick<RowConfig, "filter"> = {
-                    filter: {
-                        include: [
-                            {
-                                type: FilterType.area,
-                                value: currentArea.area_id,
-                            },
-                        ],
-                        exclude: [
-                            {
-                                type: FilterType.disabled_by,
-                                comparator: Comparator.match,
-                                value: ".*",
-                            },
-                            {
-                                type: FilterType.hidden_by,
-                                comparator: Comparator.match,
-                                value: ".*",
-                            },
-                        ],
-                    },
-                };
-
-                let merged = mergeWith({}, baseFilter, cloneDeep(curr), arrayCustomizer);
-
-                if (!!curr.domain) {
-                    const domainFilter: Pick<RowConfig, "filter"> = {
+        const generatedTabs = main
+            .map((tab) => {
+                const tabGrids = grids.filter((grid) => new RegExp(tab.match).test(grid.id));
+                const tabElements = tabGrids.flatMap((grid) => {
+                    const baseFilter: Pick<BaseRowOptions, "filter"> = {
                         filter: {
                             include: [
                                 {
-                                    type: FilterType.domain,
-                                    comparator: Array.isArray(curr.domain) ? Comparator.in : Comparator.equal,
-                                    value: curr.domain,
+                                    type: ValueType.area,
+                                    value: currentArea.area_id,
                                 },
                             ],
                         },
                     };
-                    merged = mergeWith({}, domainFilter, merged, arrayCustomizer);
-                }
 
-                let usedEntities = entities.filter(createRowFilter(merged, hass));
+                    const merge = mergeWith({}, baseFilter, cloneDeep(grid), arrayCustomizer);
 
-                const gridCards = createGrid(usedEntities, merged, minColumnWidth, curr.title, replaceCards);
-                prev.push(...gridCards);
-
-                return prev;
-            }, Array<LovelaceCardConfig>());
-
-        const resolveStringLink =
-            (arr: Array<unknown>) =>
-            <T extends RowConfig | TabConfig | string>(item: T) => {
-                const resolvedTab = isString(item)
-                    ? (arr as Array<Exclude<T, string>>).find((defaultTab) => "~" + defaultTab.title === item)
-                    : (item as Exclude<T, string>);
-                return resolvedTab;
-            };
-
-        const generatedTabs = tabs
-            .map(resolveStringLink((defaultConfig as AreaStrategyOptions).tabs))
-            .filter(notNil)
-            .map((tab) => {
-                const tabElements = createTabElements(
-                    tab.rows.map(resolveStringLink((defaultConfig.tabs as Array<TabConfig>).flatMap((t) => t.rows))).filter(notNil),
-                );
+                    const filter = createRowFilter(merge, hass);
+                    const sort = createRowSort(merge, hass);
+                    const filteredEntities = entities.filter(filter).sort(sort);
+                    return createGrid(grid, filteredEntities);
+                });
                 if (tabElements.length > 0) {
                     return {
                         attributes: {
@@ -420,7 +332,13 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         },
                         card: {
                             type: "vertical-stack",
-                            cards: tabElements,
+                            cards: [
+                                {
+                                    type: "custom:gap-card",
+                                    height: 20,
+                                },
+                                ...tabElements,
+                            ],
                         },
                     };
                 } else {
@@ -454,16 +372,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         entity: "hash",
                         default: "default",
                         states: {
-                            "": {
-                                type: "vertical-stack",
-                                cards: [
-                                    navigationCard,
-                                    {
-                                        type: "custom:gap-card",
-                                        height: 60,
-                                    },
-                                ],
-                            },
+                            "": navigationCard,
                             default: {
                                 type: "vertical-stack",
                                 cards: [

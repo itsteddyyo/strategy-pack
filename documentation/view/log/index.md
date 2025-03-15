@@ -16,8 +16,3 @@ View Strategy with one page for displaying accumulated log entries for fully con
 {% include usage.md type=type %}
 
 {% include configuration_required_optional.md options=log_view_options %}
-
-Modifications are possible to:
-
-- the number of log presets
-- the entities included in the single presets

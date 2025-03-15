@@ -1,1 +1,22 @@
-minColumnWidth: 300
+global:
+    minCardWidth: 300
+    filter:
+        exclude:
+            - type: disabled_by
+              comparator: match
+              value: .*
+            - type: hidden_by
+              comparator: match
+              value: .*
+            - type: label
+              config:
+                  label: hidden
+              value: hidden
+    sort:
+        - type: label
+          config:
+              label: ^sort_\d+$
+        - type: area
+        - type: integration
+        - type: entity
+gridMergeStrategy: reset

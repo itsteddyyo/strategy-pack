@@ -2,30 +2,11 @@
 layout: page
 title: Configuration
 parent: Grid View Strategy
+nav_order: 1
 ---
 
-{% capture disable_default %}
-default: true
-{% endcapture %}
+{% assign base_grid_options = site.data.types['src/util/types.ts'].BaseGridOptions %}
 
-{% assign grid_view_options = site.data.types['src/grid-view-strategy.ts'].GridViewOptions %}
-{% assign row_config = site.data.types['src/grid-view-strategy.ts'].RowConfig %}
-{% assign disable_default = disable_default | fromYAML %}
+{% include full_configuration.md options=base_grid_options type="grid-view-strategy" %}
 
-# Configuration
-
-## Configuration Options
-
-{% include configuration_required_optional.md options=grid_view_options %}
-
-{% include table.md options=grid_view_options %}
-
-{% include example.md options=grid_view_options type="grid-view-strategy" %}
-
-{% include rows.md %}
-
-{% include table.md options=row_config disable=disable_default %}
-
-{% include example.md options=row_config %}
-
-{% include filter.md %}
+{% include grids.md %}

@@ -12,17 +12,9 @@ default: true
 {% assign log_preset = site.data.types['src/log-view-strategy.ts'].LogPreset %}
 {% assign disable_default = disable_default | fromYAML %}
 
-# Configuration
+{% include full_configuration.md options=log_view_options type="log-view-strategy" disable=disable_default %}
 
-## Configuration Options
-
-{% include configuration_required_optional.md options=log_view_options %}
-
-{% include table.md options=log_view_options %}
-
-{% include example.md options=log_view_options type="log-view-strategy" %}
-
-## Log Preset
+### Log Preset
 
 Defines the Button on the side and which entities will be loaded in the Log Card when the Preset Button is clicked.
 

@@ -15,7 +15,7 @@
 >Take a look at the Configuration Documentation for the required options!
 {% else %}
 {: .note }
->This Strategy has a sensible default configuration, which is the one i myself use!
+>This Strategy has a sensible base configuration, which is the one i myself use!
 >
 >You can start without configuring anything. If you want to change something take a look at the Configuration Documentation.
 {% endif %}

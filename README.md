@@ -4,7 +4,7 @@
 
 This is a collection of [Home Assistant Strategies](https://developers.home-assistant.io/docs/frontend/custom-ui/custom-strategy/).
 
-A strategy is Javascript code that gets executed to create Dashboards and Views automatically. They make it easy to have auto-populated Dashboards with next to no configuration!
+A strategy is a piece of JavaScript code that runs when you open a page that is configured to use it to generate dashboards and views. They make it easy to create auto-populated dashboards with minimal configuration!
 
 ## Example
 
