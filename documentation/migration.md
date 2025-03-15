@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Migration
+title: Migration from v1
 parent: Get Started
 ---
 
