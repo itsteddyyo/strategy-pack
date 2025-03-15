@@ -1,5 +1,6 @@
 name: Pull Request Labels
 permissions:
+    contents: read
     issues: read
     pull-requests: write
 on:
@@ -31,6 +32,7 @@ jobs:
                   configuration-path: .github/labeler.yml
                   enable-versioned-regex: 0
                   sync-labels: 1
+                  include-title: 1
             - name: Identify Labels
               id: identitfy-labels
               uses: snnaplab/get-labels-action@v1
