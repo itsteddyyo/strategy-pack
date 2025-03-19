@@ -69,7 +69,8 @@ Areas with a label "hidden" get filtered out.
 They get sorted like this:
 
 1. label: sorted by a label matching the regexp = a label called Sort:1, Sort:2, Sort:3, ...
-2. area: the id of the area
+2. floor: the id of the floor
+3. area: the id of the area
 
 ```yaml
 {{ config.navigation | toYAML }}

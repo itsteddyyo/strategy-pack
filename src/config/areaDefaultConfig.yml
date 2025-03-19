@@ -311,6 +311,7 @@ navigation:
         - type: label
           config:
               label: ^sort_\d+$
+        - type: floor
         - type: area
 main:
     - title: Control
