@@ -12,7 +12,7 @@ parent: Area Dashboard Strategy
 
 ## I want to change the card used in one of the predefined grids
 
-Just use [Grid Overrides](../configuration#grid-overrides) like this:
+Just use [Grid Overrides](/dashboard/area/configuration#grid-overrides) like this:
 
 ```yaml
 strategy:
@@ -45,7 +45,7 @@ strategy:
           group: true
 ```
 
-If that's not wished for all grids, apply the replace to a specific grid using [Grid Overrides](../configuration#grid-overrides):
+If that's not wished for all grids, apply the replace to a specific grid using [Grid Overrides](/dashboard/area/configuration#grid-overrides):
 
 ```yaml
 strategy:
@@ -63,7 +63,7 @@ strategy:
 
 ## I want to change the filter for a grid
 
-Just use [Grid Overrides](../configuration#grid-overrides) like this:
+Just use [Grid Overrides](/dashboard/area/configuration#grid-overrides) like this:
 
 ```yaml
 strategy:
@@ -104,7 +104,7 @@ strategy:
 
 ## I want to remove one of the predefined grids
 
-Assign the grid a filter that excludes everything using [Grid Overrides](../configuration#grid-overrides):
+Assign the grid a filter that excludes everything using [Grid Overrides](/dashboard/area/configuration#grid-overrides):
 
 ```yaml
 strategy:
@@ -122,7 +122,7 @@ strategy:
 
 ## I want to add my own grid above yours
 
-Add your own [Grid](../configuration#grid) with the "position"-key:
+Add your own [Grid](/dashboard/area/configuration#grid) with the "position"-key:
 
 ```yaml
 strategy:
@@ -145,7 +145,7 @@ You don't need to redefine the global filters here because you are defining a ne
 
 ## I want to remove the colors in the navigation cards
 
-Override the card in [Navigation](../configuration#navigation).
+Override the card in [Navigation](/dashboard/area/configuration#navigation).
 
 ```yaml
 strategy:
