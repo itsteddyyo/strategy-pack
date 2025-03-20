@@ -29,14 +29,18 @@ example configurations.
 
 ## New Features
 
-- **Grid Sorting:** You can now sort items within grids ([#area-dashboard](#area-dashboard) / [#grid-view](#grid-view)).
-- **Enhanced Navigation:** Navigation in the Area Dashboard now supports all grid features ([#navigation](#navigation)).
-- **Simplified Global Configuration:** A new global config reduces overall setup complexity ([#area-dashboard](#area-dashboard) /
-  [#grid-view](#grid-view)).
-- **Grid Editing:** Modify grids using grid overrides and `gridMergeStrategy` ([#area-dashboard](#area-dashboard) / [#grid-view](#grid-view)).
-- **New Customizations per Grid:** You can now set `replace` and width on each grid individually ([#area-dashboard](#area-dashboard) /
-  [#grid-view](#grid-view)).
-- **Value-Type Floor:** Added capability to filter or sort by floor ([#area-dashboard](#area-dashboard) / [#grid-view](#grid-view)).
+- **Grid Sorting:** You can now sort items within grids - see
+  [area-dashboard-strategy]({{site.baseurl}}/dashboard/area/configuration.html#sort)/[grid-view-strategy]({{site.baseurl}}/view/grid/configuration.html#sort)
+- **Enhanced Navigation:** Navigation in the Area Dashboard now supports all grid features - see
+  [area-dashboard-strategy]({{site.baseurl}}/dashboard/area/configuration.html#navigation)
+- **Simplified Global Configuration:** A new global config reduces overall setup complexity - see
+  [area-dashboard-strategy]({{site.baseurl}}/dashboard/area/configuration.html#global)/[grid-view-strategy]({{site.baseurl}}/view/grid/configuration.html#global)
+- **Grid Editing:** Modify grids using grid overrides and `gridMergeStrategy` - see
+  [area-dashboard-strategy]({{site.baseurl}}/dashboard/area/configuration.html#grid-merge-strategy)/[grid-view-strategy]({{site.baseurl}}/view/grid/configuration.html#grid-merge-strategy)
+- **New Customizations per Grid:** You can now set `replace` and width on each grid individually - see
+  [area-dashboard-strategy]({{site.baseurl}}/dashboard/area/configuration.html#grid)/[grid-view-strategy]({{site.baseurl}}/view/grid/configuration.html#grid)
+- **Value-Type Floor:** Added capability to filter or sort by floor - see
+  [area-dashboard-strategy]({{site.baseurl}}/dashboard/area/configuration.html#value-type)/[grid-view-strategy]({{site.baseurl}}/view/grid/configuration.html#value-type)
 - **Improved Error Messages:** Error messages are now more descriptive and helpful.
 
 ---
