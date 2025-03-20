@@ -102,3 +102,57 @@ strategy:
                       - type: integration
                         value: xiaomi_ble
 ```
+
+### Update View Replacement
+
+This example shows how to replace the old update view configuration using `grid-view-strategy`:
+
+```yaml
+strategy:
+    type: custom:grid-view-strategy
+    config:
+    global:
+        card:
+            type: tile
+            entity: $entity
+            hide_state: true
+            features:
+                - type: update-actions
+                  backup: ask
+    grids:
+        - id: other
+          title: Others
+          filter:
+              exclude:
+                  - type: integration
+                    comparator: in
+                    value:
+                        - unifi
+                        - hacs
+                        - esphome
+                        - mqtt
+        - id: unifi
+          title: Unifi
+          filter:
+              include:
+                  - type: integration
+                    value: unifi
+        - id: hacs
+          title: HACS
+          filter:
+              include:
+                  - type: integration
+                    value: hacs
+        - id: esphome
+          title: ESPHome
+          filter:
+              include:
+                  - type: integration
+                    value: esphome
+        - id: zigbee
+          title: Zigbee
+          filter:
+              include:
+                  - type: integration
+                    value: mqtt
+```
