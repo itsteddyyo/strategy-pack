@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "typia": "^8.1.1"
+    "typia": "^9.1.1"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.1",
