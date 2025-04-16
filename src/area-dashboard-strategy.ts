@@ -15,7 +15,7 @@ import {
     DeepPartial,
 } from "./util/types";
 
-import defaultConfig from "./config/areaDefaultConfig.yml";
+import defaultConfig from "./config/areaDefaultConfig.yaml";
 import { createGrid, mergeConfig } from "./util/createGrid";
 import { cloneDeep, mergeWith } from "lodash";
 import typia from "typia";
@@ -59,7 +59,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @link #grid
      * @remarks
      * Only partial config required (global + grids need to satisfy all required fields!)
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L21
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yaml#L21
      * @example
      * ```yaml
      * global:
@@ -75,7 +75,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @description
      * list of grids to be shown on the dashboard
      * @link #grid
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L41
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yaml#L41
      * @remarks
      * config here and global grid config needs to satisfy every required field
      * You can specify "incomplete" configs to override existing grid configs by specifying gridId instead of id. Those two grid configs will then be merged.
@@ -114,7 +114,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @description
      * how to merge base config and user config
      * @link #gridMergeStrategy
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L294
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yaml#L294
      * @example
      * ```yaml
      * gridMergeStrategy: add
@@ -125,7 +125,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @description
      * tabs shown in main area
      * @link #main
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L340
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yaml#L340
      * @example
      * ```yaml
      * main:
@@ -142,7 +142,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      * @remarks
      * Will not get merged with global!
      * Must have an navigation path that navigates to "$area#main" for strategy to work correctly!
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yml#L246
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/areaDefaultConfig.yaml#L246
      * @example
      * ```yaml
      * navigation:

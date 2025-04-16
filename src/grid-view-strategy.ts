@@ -4,7 +4,7 @@ import { EntityRegistryEntry } from "./homeassistant/entity_registry";
 import { createRowFilter, createRowSort } from "./util/filter";
 import { CUSTOM_ELEMENT_VIEW, BaseGridOptions, GridViewConfig, BaseRowOptions } from "./util/types";
 import { createGrid, mergeConfig } from "./util/createGrid";
-import defaultConfig from "./config/gridDefaultConfig.yml";
+import defaultConfig from "./config/gridDefaultConfig.yaml";
 
 class GridViewStrategy extends HTMLTemplateElement {
     static async generate(

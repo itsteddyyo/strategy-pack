@@ -3,7 +3,7 @@
 
 The base config is written as yaml. This should make it easy to make your own changes because it is written exactly as you would in your dashboard.
 
-You can find it [here](https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/{{- include.config -}}.yml){:target="_blank"}.
+You can find it [here](https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/{{- include.config -}}.yaml){:target="_blank"}.
 
 If you want to change things just override the parts you want to change.
 

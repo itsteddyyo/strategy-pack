@@ -1,8 +1,8 @@
 import fs from "fs";
 import { parse } from "yaml";
 
-const areaFile = fs.readFileSync("src/config/areaDefaultConfig.yml", "utf-8");
-const gridFile = fs.readFileSync("src/config/gridDefaultConfig.yml", "utf-8");
+const areaFile = fs.readFileSync("src/config/areaDefaultConfig.yaml", "utf-8");
+const gridFile = fs.readFileSync("src/config/gridDefaultConfig.yaml", "utf-8");
 const typedocFile = fs.readFileSync(".typedoc/typedoc.json", "utf-8");
 
 const area = parse(areaFile, { merge: true });

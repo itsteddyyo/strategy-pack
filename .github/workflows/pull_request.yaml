@@ -29,7 +29,7 @@ jobs:
               uses: github/issue-labeler@v3.4
               with:
                   repo-token: ${{ github.token }}
-                  configuration-path: .github/labeler.yml
+                  configuration-path: .github/labeler.yaml
                   enable-versioned-regex: 0
                   sync-labels: 1
                   include-title: 1

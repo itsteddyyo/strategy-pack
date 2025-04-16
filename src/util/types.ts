@@ -464,7 +464,7 @@ export interface BaseRowOptions extends RowFilterConfig, RowSortConfig, GridStra
     /**
      * @description
      * minimal card width in the grid
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L2
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yaml#L2
      * @example
      * ```yaml
      * minCardWidth: 300
@@ -507,7 +507,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
      * @link #grid
      * @remarks
      * Only partial config required (global + grids need to satisfy all required fields!)
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L1
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yaml#L1
      * @example
      * ```yaml
      * global:
@@ -560,7 +560,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
      * @description
      * how to merge base config and user config
      * @link #gridMergeStrategy
-     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yml#L11
+     * @defaultValue https://github.com/itsteddyyo/strategy-pack/blob/main/src/config/gridDefaultConfig.yaml#L11
      * @example
      * ```yaml
      * gridMergeStrategy: add
