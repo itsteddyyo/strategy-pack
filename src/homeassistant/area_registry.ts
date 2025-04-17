@@ -1,5 +1,5 @@
-import { DeviceRegistryEntry } from "./device_registry";
-import { EntityRegistryEntry } from "./entity_registry";
+import {DeviceRegistryEntry} from "./device_registry";
+import {EntityRegistryEntry} from "./entity_registry";
 
 export interface AreaRegistryEntry {
     area_id: string;

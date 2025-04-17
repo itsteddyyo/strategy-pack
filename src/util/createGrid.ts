@@ -1,7 +1,7 @@
-import { LovelaceCardConfig } from "custom-card-helpers";
-import { BaseGridOptions, BaseRowOptions, BaseRowRefOptions, DeepPartial, GridMergeStrategy } from "./types";
-import { mergeWith } from "lodash";
-import { arrayCustomizer, notNil } from "./helper";
+import {LovelaceCardConfig} from "custom-card-helpers";
+import {BaseGridOptions, BaseRowOptions, BaseRowRefOptions, DeepPartial, GridMergeStrategy} from "./types";
+import {mergeWith} from "lodash";
+import {arrayCustomizer, notNil} from "./helper";
 import typia from "typia";
 
 export const mergeConfig = (
@@ -9,13 +9,13 @@ export const mergeConfig = (
 ): Omit<BaseGridOptions<BaseRowOptions>, "global" | "gridMergeStrategy"> => {
     const configs = conf?.filter(notNil);
     const localMerge = configs.filter(notNil).reduce((prev, curr) => {
-        return { ...prev, ...curr };
+        return {...prev, ...curr};
     });
     localMerge.global = configs
         .map((c) => c.global)
         .filter(notNil)
         .reduce((prev, curr) => {
-            return { ...prev, ...curr };
+            return {...prev, ...curr};
         });
 
     //grids are tested later as global will be need to be merged in first
@@ -69,7 +69,7 @@ export const mergeConfig = (
 export const createGrid = (
     gridConfig: BaseRowOptions,
     elements: Array<Record<string, any>>,
-    replaceConf: { placeholder: string; key: string; replaces?: Array<[string, string]> } = { placeholder: "$entity", key: "entity_id" },
+    replaceConf: {placeholder: string; key: string; replaces?: Array<[string, string]>} = {placeholder: "$entity", key: "entity_id"},
 ): Array<LovelaceCardConfig> => {
     const returnCards: Array<LovelaceCardConfig> = [];
     const gridCards: Array<LovelaceCardConfig> = [];

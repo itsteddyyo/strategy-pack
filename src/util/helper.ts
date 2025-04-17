@@ -1,5 +1,5 @@
-import { castArray } from "lodash";
-import { DeepPartial } from "./types";
+import {castArray} from "lodash";
+import {DeepPartial} from "./types";
 import typia from "typia";
 
 export function notNil<T>(val: T | null | undefined): val is T {

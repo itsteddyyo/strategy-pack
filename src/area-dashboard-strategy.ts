@@ -1,10 +1,10 @@
-import { HomeAssistant, LovelaceCardConfig, LovelaceConfig, LovelaceViewConfig } from "custom-card-helpers";
+import {HomeAssistant, LovelaceCardConfig, LovelaceConfig, LovelaceViewConfig} from "custom-card-helpers";
 
-import { EntityRegistryEntry } from "./homeassistant/entity_registry";
-import { AreaRegistryEntry } from "./homeassistant/area_registry";
+import {EntityRegistryEntry} from "./homeassistant/entity_registry";
+import {AreaRegistryEntry} from "./homeassistant/area_registry";
 
-import { createRowFilter, createRowSort } from "./util/filter";
-import { arrayCustomizer, notNil } from "./util/helper";
+import {createRowFilter, createRowSort} from "./util/filter";
+import {arrayCustomizer, notNil} from "./util/helper";
 import {
     CUSTOM_ELEMENT_DASHBOARD,
     CUSTOM_ELEMENT_VIEW,
@@ -16,8 +16,8 @@ import {
 } from "./util/types";
 
 import defaultConfig from "./config/areaDefaultConfig.yaml";
-import { createGrid, mergeConfig } from "./util/createGrid";
-import { cloneDeep, mergeWith } from "lodash";
+import {createGrid, mergeConfig} from "./util/createGrid";
+import {cloneDeep, mergeWith} from "lodash";
 import typia from "typia";
 
 export interface TabConfig {
@@ -185,7 +185,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     extraViews?: Array<LovelaceViewConfig>;
 }
 
-export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & { area: string }> {
+export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & {area: string}> {
     meta?: {
         entities: Array<EntityRegistryEntry>;
         areas: Array<AreaRegistryEntry>;
@@ -200,14 +200,14 @@ export const mergeStrategyConfig = (
     ...configs: Array<DeepPartial<AreaStrategyOptions> | undefined>
 ): Omit<AreaStrategyOptions, keyof BaseGridOptions> => {
     const localMerge = configs.filter(notNil).reduce((prev, curr) => {
-        return { ...prev, ...curr };
+        return {...prev, ...curr};
     });
 
     localMerge.navigation = configs
         .map((c) => c?.navigation)
         .filter(notNil)
         .reduce((prev, curr) => {
-            return { ...prev, ...curr };
+            return {...prev, ...curr};
         });
 
     if (!typia.is<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge)) {
@@ -224,8 +224,8 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
         hass: HomeAssistant,
     ): Promise<LovelaceConfig> {
         const [entities, areas] = await Promise.all([
-            hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
-            hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
+            hass.callWS<Array<EntityRegistryEntry>>({type: "config/entity_registry/list"}),
+            hass.callWS<Array<AreaRegistryEntry>>({type: "config/area_registry/list"}),
         ]);
 
         const strategyConfig = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, dashboardConfig?.config);
@@ -241,7 +241,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
                     entities,
                     areas,
                 },
-                config: { ...dashboardConfig.config, area: area.area_id },
+                config: {...dashboardConfig.config, area: area.area_id},
             },
             title: area.name,
             path: area.area_id,
@@ -260,11 +260,11 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
 class AreaViewStrategy extends HTMLTemplateElement {
     static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-        const { meta } = viewConfig;
+        const {meta} = viewConfig;
         const area = viewConfig.config?.area;
         const config = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
-        const { main, navigation, topCards } = config;
-        const { grids } = mergeConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
+        const {main, navigation, topCards} = config;
+        const {grids} = mergeConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
 
         let entities = Array<EntityRegistryEntry>();
         let areas = Array<AreaRegistryEntry>();
@@ -274,8 +274,8 @@ class AreaViewStrategy extends HTMLTemplateElement {
             areas = meta.areas;
         } else {
             const loadedMeta = await Promise.all([
-                hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" }),
-                hass.callWS<Array<AreaRegistryEntry>>({ type: "config/area_registry/list" }),
+                hass.callWS<Array<EntityRegistryEntry>>({type: "config/entity_registry/list"}),
+                hass.callWS<Array<AreaRegistryEntry>>({type: "config/area_registry/list"}),
             ]);
             entities = loadedMeta[0];
             areas = loadedMeta[1];
@@ -288,7 +288,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
 
         if (!currentArea) throw Error("No area defined");
 
-        const navCards = createGrid(navigation, usedAreas, { placeholder: "$area", key: "area_id", replaces: [["$currArea", currentArea.area_id]] });
+        const navCards = createGrid(navigation, usedAreas, {placeholder: "$area", key: "area_id", replaces: [["$currArea", currentArea.area_id]]});
 
         const navigationCard: LovelaceCardConfig = {
             type: "vertical-stack",
@@ -402,7 +402,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         }`,
                                         },
                                         chips: [
-                                            { type: "spacer" },
+                                            {type: "spacer"},
                                             {
                                                 type: "template",
                                                 icon: "mdi:home",
@@ -412,7 +412,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                                                     navigation_path: window.location.pathname,
                                                 },
                                             },
-                                            { type: "spacer" },
+                                            {type: "spacer"},
                                         ],
                                     },
                                     {

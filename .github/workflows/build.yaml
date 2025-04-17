@@ -1,6 +1,6 @@
 name: Build
 permissions:
-  contents: read
+    contents: read
 on:
     push:
 jobs:

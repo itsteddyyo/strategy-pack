@@ -1,11 +1,12 @@
 <!--- This project only accepts pull requests related to open issues -->
 <!--- The only exception are purely technical Improvements ((Performance Improvements, Stability Improvements, Build Changes, GH Workflow Changes, etc.)) -->
 <!--- Keep in mind this is probably (around 90%) not what you want and is mainly only for maintainers of the project -->
+
 ## Technical Changes
 
 <!--- You need to check this checkbox for the correct workflow if your change is purely technical -->
 
--   [ ] 🛠 Purely Technical Changes (Performance Improvements, Stability Improvements, etc.)
+- [ ] 🛠 Purely Technical Changes (Performance Improvements, Stability Improvements, etc.)
 
 ## OR
 
@@ -15,9 +16,11 @@
 <!--- If fixing a bug, please open a "Bug" issue describing it with steps to reproduce -->
 <!--- Please link to the issue here -->
 
-This PR fixes or closes issue: 
+This PR fixes or closes issue:
+
 <!--- One PR can fix multiple issues (only one feature but maybe multiple bugs as side effect). -->
 <!--- Copy as many times as you need. -->
+
 fixes #
 
 ## Breaking
@@ -27,7 +30,7 @@ fixes #
 <!--- Or does it change what is happening in the 'end product' dashboard of the users? -->
 <!--- Or anything else? -->
 
--   [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)
+- [ ] ⚠️ Breaking change (fix or feature that would cause existing functionality to change)
 
 ## Example
 
@@ -45,11 +48,11 @@ Only fill out if applicable
 
 ### Development (Check all)
 
--   [ ] My code follows the code style of this project (I used the Prettier config).
--   [ ] I have tested the change locally.
+- [ ] My code follows the code style of this project (I used the Prettier config).
+- [ ] I have tested the change locally.
 
 ### Documentation (Pick one)
 
--   [ ] I have checked that the documentation will update automatically from my code (npm run typedoc).
--   [ ] I have manually updated the documentation accordingly (files in /src/doc_snippets!).
--   [ ] My change requires no changes to the documentation.
+- [ ] I have checked that the documentation will update automatically from my code (npm run typedoc).
+- [ ] I have manually updated the documentation accordingly (files in /src/doc_snippets!).
+- [ ] My change requires no changes to the documentation.

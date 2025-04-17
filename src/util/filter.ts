@@ -1,8 +1,8 @@
-import { HomeAssistant } from "custom-card-helpers";
-import { FilterComparator, SortComparator, ValueType, RowFilterConfig, FilterConfig, RowSortConfig, TypeConfig, MakeRequired } from "./types";
-import { EntityRegistryEntry } from "../homeassistant/entity_registry";
-import { DeviceRegistryEntry } from "../homeassistant/device_registry";
-import { AreaRegistryEntry } from "../homeassistant/area_registry";
+import {HomeAssistant} from "custom-card-helpers";
+import {FilterComparator, SortComparator, ValueType, RowFilterConfig, FilterConfig, RowSortConfig, TypeConfig, MakeRequired} from "./types";
+import {EntityRegistryEntry} from "../homeassistant/entity_registry";
+import {DeviceRegistryEntry} from "../homeassistant/device_registry";
+import {AreaRegistryEntry} from "../homeassistant/area_registry";
 import typia from "typia";
 
 export const createRowFilter = (row: RowFilterConfig, hass: HomeAssistant) => {

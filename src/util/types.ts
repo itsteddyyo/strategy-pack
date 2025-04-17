@@ -1,4 +1,4 @@
-import { LovelaceCardConfig } from "custom-card-helpers";
+import {LovelaceCardConfig} from "custom-card-helpers";
 
 export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-";
 export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-";
@@ -569,7 +569,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
     gridMergeStrategy: GridMergeStrategy;
 }
 
-export type MakeRequired<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: T[P] };
+export type MakeRequired<T, K extends keyof T> = Omit<T, K> & {[P in K]-?: T[P]};
 
 export type DeepPartial<T> = {
     [K in keyof T]?: T[K] extends Function

@@ -1,4 +1,4 @@
-import type { EntityRegistryDisplayEntry, EntityRegistryEntry } from "./entity_registry";
+import type {EntityRegistryDisplayEntry, EntityRegistryEntry} from "./entity_registry";
 
 export interface DeviceRegistryEntry {
     id: string;

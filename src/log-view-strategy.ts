@@ -1,9 +1,9 @@
-import { HomeAssistant, LovelaceCardConfig, LovelaceViewConfig } from "custom-card-helpers";
+import {HomeAssistant, LovelaceCardConfig, LovelaceViewConfig} from "custom-card-helpers";
 
-import { EntityRegistryEntry } from "./homeassistant/entity_registry";
-import { createRowFilter } from "./util/filter";
-import { CUSTOM_ELEMENT_VIEW, DeepPartial, ManualConfigObject, RowFilterConfig } from "./util/types";
-import { notNil } from "./util/helper";
+import {EntityRegistryEntry} from "./homeassistant/entity_registry";
+import {createRowFilter} from "./util/filter";
+import {CUSTOM_ELEMENT_VIEW, DeepPartial, ManualConfigObject, RowFilterConfig} from "./util/types";
+import {notNil} from "./util/helper";
 import typia from "typia";
 
 export interface LogPreset extends RowFilterConfig {
@@ -58,7 +58,7 @@ export interface LogViewOptions {
 
 export const mergeStrategyConfig = (...configs: Array<DeepPartial<LogViewOptions> | undefined>): LogViewOptions => {
     const localMerge = configs.filter(notNil).reduce((prev, curr) => {
-        return { ...prev, ...curr };
+        return {...prev, ...curr};
     });
 
     if (!typia.is<LogViewOptions>(localMerge)) {
@@ -73,16 +73,16 @@ class LogViewStrategy extends HTMLTemplateElement {
     static async generate(
         viewConfig: ManualConfigObject<"custom:log-view-strategy", LogViewOptions>,
         hass: HomeAssistant,
-    ): Promise<LovelaceViewConfig & { type: "masonry" | "panel" | "sidebar" }> {
-        const { config: userConfig } = viewConfig;
+    ): Promise<LovelaceViewConfig & {type: "masonry" | "panel" | "sidebar"}> {
+        const {config: userConfig} = viewConfig;
         const config = {
             ...userConfig,
         };
-        const { presets } = mergeStrategyConfig(config);
+        const {presets} = mergeStrategyConfig(config);
 
         if (!presets) throw Error("presets not defined!");
 
-        const [entities] = await Promise.all([hass.callWS<Array<EntityRegistryEntry>>({ type: "config/entity_registry/list" })]);
+        const [entities] = await Promise.all([hass.callWS<Array<EntityRegistryEntry>>({type: "config/entity_registry/list"})]);
 
         const verticalStack: LovelaceCardConfig = {
             type: "vertical-stack",
