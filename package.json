@@ -15,16 +15,16 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "typia": "^9.3.0"
+    "typia": "^9.3.1"
   },
   "devDependencies": {
     "@modyfi/vite-plugin-yaml": "^1.1.1",
-    "@ryoppippi/unplugin-typia": "^2.6.2",
-    "@types/lodash": "^4.17.16",
+    "@ryoppippi/unplugin-typia": "^2.6.4",
+    "@types/lodash": "^4.17.17",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.5.0",
     "prettier": "^3.5.3",
-    "typedoc": "^0.28.4",
+    "typedoc": "^0.28.5",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "yaml": "^2.8.0"
