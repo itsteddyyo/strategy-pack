@@ -149,8 +149,21 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      *   id: area
      *   card:
      *     type: area
+     *     display_type: picture
      *     area: $area
      *     navigation_path: $area#main
+     *     aspect_ratio: 40:15
+     *     alert_classes:
+     *       - occupancy
+     *     sensor_classes:
+     *       - temperature
+     *       - humidity
+     *     features_position: inline
+     *     features:
+     *       - type: area-controls
+     *         controls:
+     *           - light
+     *           - fan
      * ```
      */
     navigation: BaseRowOptions;
