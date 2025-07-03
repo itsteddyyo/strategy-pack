@@ -155,9 +155,21 @@ strategy:
         navigation:
             card:
                 type: area
+                display_type: picture
                 area: $area
                 navigation_path: $area#main
-                aspect_ratio: 35:15
+                aspect_ratio: 40:15
+                alert_classes:
+                    - occupancy
+                sensor_classes:
+                    - temperature
+                    - humidity
+                features_position: inline
+                features:
+                    - type: area-controls
+                      controls:
+                          - light
+                          - fan
                 card_mod:
                     style: |
                         {% if '$area' != '$currArea' %}
@@ -176,7 +188,19 @@ strategy:
         navigation:
             card:
                 type: area
+                display_type: picture
                 area: $area
                 navigation_path: $area#main
-                aspect_ratio: 35:15
+                aspect_ratio: 40:15
+                alert_classes:
+                    - occupancy
+                sensor_classes:
+                    - temperature
+                    - humidity
+                features_position: inline
+                features:
+                    - type: area-controls
+                      controls:
+                          - light
+                          - fan
 ```
