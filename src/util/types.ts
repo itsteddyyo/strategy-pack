@@ -548,7 +548,7 @@ export interface BaseGridOptions<T = BaseRowOptions | BaseRowRefOptions> {
      *             - type: domain
      *               value: media_player
      *     card:
-     *         type: custom:mushroom-media-player-card
+     *         type: tile
      *         entity: $entity
      *   - gridId: test
      *     id: newId

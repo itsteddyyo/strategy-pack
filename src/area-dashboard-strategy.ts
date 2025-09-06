@@ -102,7 +102,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
      *             - type: domain
      *               value: media_player
      *     card:
-     *         type: custom:mushroom-media-player-card
+     *         type: tile
      *         entity: $entity
      *   - gridId: test
      *     id: newId

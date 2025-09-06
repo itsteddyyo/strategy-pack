@@ -65,17 +65,11 @@ grids:
               - type: domain
                 value: media_player
       card:
-          <<: *actions-toggle-ref
-          type: custom:mushroom-media-player-card
-          entity: $entity
-          use_media_artwork: true
-          show_volume_level: true
-          use_media_info: false
-          collapsible_controls: true
-          volume_controls:
-              - volume_set
-          media_controls:
-              - play_pause_stop
+          <<: [*tile-ref, *actions-toggle-ref]
+          show_entity_picture: true
+          features:
+              - type: media-player-volume-slider
+              - type: media-player-playback
     - id: control_light
       title: Light
       filter:
