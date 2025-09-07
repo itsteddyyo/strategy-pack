@@ -32,10 +32,6 @@ Assistant instance directly.
 
   [![Open in HACS at your Home Assistant instance.][hacsBadge]][tabbedCardHacs]
 
-- [Mushroom Cards][mushroomCards]
-
-  [![Open in HACS at your Home Assistant instance.][hacsBadge]][mushroomCardsHacs]
-
 - [Mini Graph Card][miniGraphCard]
 
   [![Open in HACS at your Home Assistant instance.][hacsBadge]][miniGraphCardHacs]
@@ -104,12 +100,10 @@ If you do not see the Resources menu, you will need to enable _Advanced Mode_ in
 [layoutCard]: https://github.com/thomasloven/lovelace-layout-card
 [stateSwitch]: https://github.com/thomasloven/lovelace-state-switch
 [tabbedCard]: https://github.com/kinghat/tabbed-card
-[mushroomCards]: https://github.com/piitaya/lovelace-mushroom
 [miniGraphCard]: https://github.com/kalkih/mini-graph-card
 
 [cardModHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-card-mod
 [layoutCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-layout-card
 [stateSwitchHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=thomasloven&repository=lovelace-state-switch
 [tabbedCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kinghat&repository=tabbed-card
-[mushroomCardsHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=piitaya&repository=lovelace-mushroom
 [miniGraphCardHacs]: https://my.home-assistant.io/redirect/hacs_repository/?owner=kalkih&repository=mini-graph-card
