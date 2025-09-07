@@ -397,6 +397,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                                         show_name: false,
                                         show_state: false,
                                         show_icon: true,
+                                        icon_height: "40px",
                                         tap_action: {
                                             action: "navigate",
                                             navigation_path: window.location.pathname,
@@ -409,7 +410,7 @@ class AreaViewStrategy extends HTMLTemplateElement {
                         }
                         :host {
                             width: 100%;
-                            height: 100px;
+                            height: 80px;
                             z-index: 2;
                             position: fixed;
                             bottom: 0;
