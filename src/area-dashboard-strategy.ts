@@ -392,41 +392,37 @@ class AreaViewStrategy extends HTMLTemplateElement {
                                 cards: [
                                     mainCard,
                                     {
-                                        type: "custom:mushroom-chips-card",
+                                        type: "button",
+                                        icon: "mdi:home",
+                                        show_name: false,
+                                        show_state: false,
+                                        show_icon: true,
+                                        icon_height: "40px",
+                                        tap_action: {
+                                            action: "navigate",
+                                            navigation_path: window.location.pathname,
+                                        },
                                         card_mod: {
                                             style: `
-                        ha-card { --chip-background: none; }
+                        ha-card { 
+                            background: var(--app-header-background-color);
+                            padding: 0 !important;
+                        }
                         :host {
-                          --chip-icon-size: 1em !important;
-                          z-index: 2;
-                          width: 100%;
-                          position: fixed;
-                          bottom: 0;
-                          margin: 0 !important;
-                          padding: 20px;
-                          background: var(--app-header-background-color);
-                          left: 50%;
-                          transform: translateX(-50%);
+                            width: 100%;
+                            height: 80px;
+                            z-index: 2;
+                            position: fixed;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
                         }
                         @media (min-width: 1001px) {
-                          :host {
-                            display: none;
-                          }
+                            :host {
+                                display: none;
+                            }
                         }`,
                                         },
-                                        chips: [
-                                            {type: "spacer"},
-                                            {
-                                                type: "template",
-                                                icon: "mdi:home",
-                                                icon_height: "40px",
-                                                tap_action: {
-                                                    action: "navigate",
-                                                    navigation_path: window.location.pathname,
-                                                },
-                                            },
-                                            {type: "spacer"},
-                                        ],
                                     },
                                     {
                                         type: "custom:gap-card",
