@@ -198,12 +198,7 @@ export interface AreaStrategyOptions extends BaseGridOptions {
     extraViews?: Array<LovelaceViewConfig>;
 }
 
-export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & {area: string}> {
-    meta?: {
-        entities: Array<EntityRegistryEntry>;
-        areas: Array<AreaRegistryEntry>;
-    };
-}
+export interface AreaViewConfig extends ManualConfigObject<"custom:area-view-strategy", AreaStrategyOptions & {area: string}> {}
 
 export interface HomeAssistantConfigAreaStrategyView extends LovelaceViewConfig {
     strategy: AreaViewConfig;
@@ -236,10 +231,7 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
         dashboardConfig: ManualConfigObject<"custom:area-dashboard-strategy", AreaStrategyOptions>,
         hass: HomeAssistant,
     ): Promise<LovelaceConfig> {
-        const [entities, areas] = await Promise.all([
-            hass.callWS<Array<EntityRegistryEntry>>({type: "config/entity_registry/list"}),
-            hass.callWS<Array<AreaRegistryEntry>>({type: "config/area_registry/list"}),
-        ]);
+        const [areas] = await Promise.all([hass.callWS<Array<AreaRegistryEntry>>({type: "config/area_registry/list"})]);
 
         const strategyConfig = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, dashboardConfig?.config);
 
@@ -250,10 +242,6 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
         const areaViews: Array<HomeAssistantConfigAreaStrategyView> = usedAreas.map((area, index) => ({
             strategy: {
                 type: "custom:area-view-strategy",
-                meta: {
-                    entities,
-                    areas,
-                },
                 config: {...dashboardConfig.config, area: area.area_id},
             },
             title: area.name,
@@ -273,7 +261,6 @@ class AreaDashboardStrategy extends HTMLTemplateElement {
 
 class AreaViewStrategy extends HTMLTemplateElement {
     static async generate(viewConfig: AreaViewConfig, hass: HomeAssistant): Promise<LovelaceViewConfig> {
-        const {meta} = viewConfig;
         const area = viewConfig.config?.area;
         const config = mergeStrategyConfig(defaultConfig as AreaStrategyOptions, viewConfig.config);
         const {main, navigation, topCards} = config;
@@ -282,17 +269,12 @@ class AreaViewStrategy extends HTMLTemplateElement {
         let entities = Array<EntityRegistryEntry>();
         let areas = Array<AreaRegistryEntry>();
 
-        if (!!meta) {
-            entities = meta.entities;
-            areas = meta.areas;
-        } else {
-            const loadedMeta = await Promise.all([
-                hass.callWS<Array<EntityRegistryEntry>>({type: "config/entity_registry/list"}),
-                hass.callWS<Array<AreaRegistryEntry>>({type: "config/area_registry/list"}),
-            ]);
-            entities = loadedMeta[0];
-            areas = loadedMeta[1];
-        }
+        const loadedMeta = await Promise.all([
+            hass.callWS<Array<EntityRegistryEntry>>({type: "config/entity_registry/list"}),
+            hass.callWS<Array<AreaRegistryEntry>>({type: "config/area_registry/list"}),
+        ]);
+        entities = loadedMeta[0];
+        areas = loadedMeta[1];
 
         const filter = createRowFilter(navigation, hass);
         const sort = createRowSort(navigation, hass);
