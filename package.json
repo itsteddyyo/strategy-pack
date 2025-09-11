@@ -26,7 +26,7 @@
     "prettier": "^3.6.2",
     "typedoc": "^0.28.10",
     "typescript": "^5.8.3",
-    "vite": "^7.1.1",
+    "vite": "^7.1.5",
     "yaml": "^2.8.1"
   },
   "scripts": {
