@@ -1,10 +1,6 @@
 name: "Auto Assign"
 on:
     pull_request:
-        types:
-            - opened
-            - reopened
-            - ready_for_review
 permissions:
     contents: "write"
     pull-requests: "write"
