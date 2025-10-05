@@ -1,0 +1,7 @@
+addReviewers: true
+reviewers:
+    - itsteddyyo
+addAssignees: author
+skipKeywords:
+    - wip
+    - draft
