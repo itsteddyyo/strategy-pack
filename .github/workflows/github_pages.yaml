@@ -17,7 +17,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
             - name: Install
               run: npm ci
             - name: Generate types.json
@@ -42,7 +42,7 @@ jobs:
               env:
                   JEKYLL_ENV: production
             - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
+              uses: actions/upload-pages-artifact@v4
               with:
                   path: documentation/_site/
     deploy:
