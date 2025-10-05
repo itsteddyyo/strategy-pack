@@ -52,7 +52,7 @@ jobs:
                     exit 1
                   fi
             - name: Copy Labels
-              uses: michalvankodev/copy-issue-labels@v1.2.1
+              uses: michalvankodev/copy-issue-labels@v1.3.0
               with:
                   repo-token: ${{ secrets.GITHUB_TOKEN }}
                   custom-keywords: |
