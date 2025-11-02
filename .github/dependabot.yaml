@@ -3,7 +3,8 @@ updates:
     - package-ecosystem: github-actions
       directory: /
       schedule:
-          interval: weekly
+          interval: cron
+          cronjob: "0 0 * * 5"
       groups:
           updates-major:
               update-types:
@@ -19,7 +20,8 @@ updates:
     - package-ecosystem: npm
       directory: /
       schedule:
-          interval: weekly
+          interval: cron
+          cronjob: "0 0 * * 5"
       groups:
           updates-major:
               update-types:
