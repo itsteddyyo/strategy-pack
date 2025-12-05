@@ -23,7 +23,7 @@
     "@types/lodash": "^4.17.21",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^9.6.0",
-    "prettier": "^3.7.1",
+    "prettier": "^3.7.4",
     "typedoc": "^0.28.15",
     "typescript": "^5.8.3",
     "vite": "^7.2.4",
