@@ -139,7 +139,7 @@ export const compare = <T extends FilterComparator | SortComparator = FilterComp
                 return !isNaN(a_number) as FilterResult<T>;
         }
     }
-    throw Error(`comparator '${comparator}' not implement`);
+    throw Error(`comparator '${comparator}' not implemented`);
 };
 
 export const isArea = (element: EntityRegistryEntry | AreaRegistryEntry): element is AreaRegistryEntry => {
