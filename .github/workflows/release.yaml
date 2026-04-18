@@ -17,7 +17,7 @@ jobs:
             - name: Build
               run: npm run build
             - name: Release
-              uses: softprops/action-gh-release@v2
+              uses: softprops/action-gh-release@v3
               with:
                   prerelease: ${{ contains(github.ref, 'beta') }}
                   make_latest: ${{ ! contains(github.ref, 'beta') }}
