@@ -27,7 +27,7 @@
     "typedoc": "^0.28.15",
     "typescript": "^5.9.3",
     "vite": "^8.0.8",
-    "yaml": "^2.8.2"
+    "yaml": "^2.8.3"
   },
   "scripts": {
     "build": "tsc --noEmit && vite build",
