@@ -137,3 +137,12 @@ class LogViewStrategy extends HTMLTemplateElement {
 }
 
 customElements.define(`${CUSTOM_ELEMENT_VIEW}log-view-strategy`, LogViewStrategy);
+
+window.customStrategies = window.customStrategies || [];
+window.customStrategies.push({
+    strategyType: "view",
+    type: "log-view-strategy",
+    name: "Log View Strategy",
+    description: "View Strategy with one page for displaying accumulated log entries for fully configurable groups of entitites.",
+    documentationURL: "https://itsteddyyo.github.io/strategy-pack/view/log/",
+});

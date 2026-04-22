@@ -3,6 +3,18 @@ import {LovelaceCardConfig} from "custom-card-helpers";
 export const CUSTOM_ELEMENT_DASHBOARD = "ll-strategy-dashboard-";
 export const CUSTOM_ELEMENT_VIEW = "ll-strategy-view-";
 
+declare global {
+    interface Window {
+        customStrategies: Array<{
+            strategyType: "dashboard" | "view";
+            type: string;
+            name: string;
+            description: string;
+            documentationURL: string;
+        }>;
+    }
+}
+
 export enum ValueType {
     /**
      * @description

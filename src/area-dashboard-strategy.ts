@@ -445,3 +445,12 @@ class AreaViewStrategy extends HTMLTemplateElement {
 
 customElements.define(`${CUSTOM_ELEMENT_DASHBOARD}area-dashboard-strategy`, AreaDashboardStrategy);
 customElements.define(`${CUSTOM_ELEMENT_VIEW}area-view-strategy`, AreaViewStrategy);
+
+window.customStrategies = window.customStrategies || [];
+window.customStrategies.push({
+    strategyType: "dashboard",
+    type: "area-dashboard-strategy",
+    name: "Area Dashboard Strategy",
+    description: "Fully configurabe Dashboard with View per Area and auto-populating entities ordered in Grids.",
+    documentationURL: "https://itsteddyyo.github.io/strategy-pack/dashboard/area/",
+});

@@ -36,3 +36,13 @@ class GridViewStrategy extends HTMLTemplateElement {
 }
 
 customElements.define(`${CUSTOM_ELEMENT_VIEW}grid-view-strategy`, GridViewStrategy);
+
+window.customStrategies = window.customStrategies || [];
+window.customStrategies.push({
+    strategyType: "view",
+    type: "grid-view-strategy",
+    name: "Grid View Strategy",
+    description:
+        "Strategy fully customizable with custom rows. You can create auto-populating Dashboards where you can display anything you like with little configuration!",
+    documentationURL: "https://itsteddyyo.github.io/strategy-pack/view/grid/",
+});
