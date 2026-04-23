@@ -3,7 +3,7 @@ import {HomeAssistant, LovelaceCardConfig, LovelaceViewConfig} from "custom-card
 import {EntityRegistryEntry} from "./homeassistant/entity_registry";
 import {createRowFilter} from "./util/filter";
 import {CUSTOM_ELEMENT_VIEW, DeepPartial, ManualConfigObject, RowFilterConfig} from "./util/types";
-import {notNil} from "./util/helper";
+import {getTypiaErrorMessage, notNil} from "./util/helper";
 import typia from "typia";
 
 export interface LogPreset extends RowFilterConfig {
@@ -63,7 +63,7 @@ export const mergeStrategyConfig = (...configs: Array<DeepPartial<LogViewOptions
 
     if (!typia.is<LogViewOptions>(localMerge)) {
         const state = typia.validate<LogViewOptions>(localMerge);
-        throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+        throw Error(getTypiaErrorMessage(state));
     }
 
     return localMerge;

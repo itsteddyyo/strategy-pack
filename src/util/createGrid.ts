@@ -1,7 +1,7 @@
 import {LovelaceCardConfig} from "custom-card-helpers";
 import {BaseGridOptions, BaseRowOptions, BaseRowRefOptions, DeepPartial, GridMergeStrategy} from "./types";
 import {mergeWith} from "lodash";
-import {arrayCustomizer, notNil} from "./helper";
+import {arrayCustomizer, getTypiaErrorMessage, notNil} from "./helper";
 import typia from "typia";
 
 export const mergeConfig = (
@@ -21,7 +21,7 @@ export const mergeConfig = (
     //grids are tested later as global will be need to be merged in first
     if (!typia.is<Omit<BaseGridOptions, "grids">>(localMerge)) {
         const state = typia.validate<BaseGridOptions>(localMerge);
-        throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+        throw Error(getTypiaErrorMessage(state));
     }
 
     const grids =
@@ -47,7 +47,7 @@ export const mergeConfig = (
                 const grid = mergeWith({}, localMerge.global, curr, arrayCustomizer);
                 if (!typia.is<BaseRowOptions>(grid)) {
                     const state = typia.validate<BaseRowOptions>(grid);
-                    throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+                    throw Error(getTypiaErrorMessage(state));
                 }
                 prev[grid.id] = grid;
             }
@@ -60,7 +60,7 @@ export const mergeConfig = (
 
     if (!typia.is<BaseGridOptions<BaseRowOptions>>(localMerge)) {
         const state = typia.validate<BaseGridOptions<BaseRowOptions>>(localMerge);
-        throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+        throw Error(getTypiaErrorMessage(state));
     }
 
     return localMerge;

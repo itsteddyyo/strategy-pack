@@ -13,3 +13,9 @@ export function arrayCustomizer(objValue: unknown, srcValue: unknown) {
         return firstArray.concat(secondArray);
     }
 }
+
+export function getTypiaErrorMessage(state: typia.IValidation) {
+    return state.success
+        ? "Something went wrong. Check strategy config."
+        : "Something went wrong. Error in strategy config: " + JSON.stringify(state.errors);
+}

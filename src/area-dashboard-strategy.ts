@@ -4,7 +4,7 @@ import {EntityRegistryEntry} from "./homeassistant/entity_registry";
 import {AreaRegistryEntry} from "./homeassistant/area_registry";
 
 import {createRowFilter, createRowSort} from "./util/filter";
-import {arrayCustomizer, notNil} from "./util/helper";
+import {arrayCustomizer, getTypiaErrorMessage, notNil} from "./util/helper";
 import {
     CUSTOM_ELEMENT_DASHBOARD,
     CUSTOM_ELEMENT_VIEW,
@@ -220,7 +220,7 @@ export const mergeStrategyConfig = (
 
     if (!typia.is<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge)) {
         const state = typia.validate<Omit<AreaStrategyOptions, keyof BaseGridOptions>>(localMerge);
-        throw Error(state.success ? "Something went wrong. Check config." : JSON.stringify(state.errors));
+        throw Error(getTypiaErrorMessage(state));
     }
 
     return localMerge;
