@@ -69,6 +69,8 @@ grids:
           show_entity_picture: true
           features:
               - type: media-player-volume-slider
+              - type: media-player-source
+              - type: media-player-sound-mode
               - type: media-player-playback
     - id: control_light
       title: Light
