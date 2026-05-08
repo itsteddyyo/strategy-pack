@@ -2,5 +2,6 @@
     "name": "Strategy Pack",
     "render_readme": true,
     "filename": "strategy-pack.es.js",
-    "hide_default_branch": true
+    "hide_default_branch": true,
+    "homeassistant": "2026.5.0"
 }
